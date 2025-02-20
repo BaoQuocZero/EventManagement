@@ -2,4 +2,4 @@
 
 # Tải cái gì đó lên đi ae =))
 
-# Sửa cho Huy có lỗi chơi
+# Sửa  lỗi đê cho Huy có lỗi chơi lỗi lỗi
