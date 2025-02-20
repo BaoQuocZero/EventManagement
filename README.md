@@ -1,3 +1,3 @@
 # ThucTapDA21TTA
 
-# Tải cái gì đó lên đi ae =))
+# Đây là phiên bản v1.0.0
