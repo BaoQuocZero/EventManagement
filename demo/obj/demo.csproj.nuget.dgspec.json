@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Code\\ThucTapDA21TTA\\demo\\demo.csproj": {}
+    "C:\\Code\\EventManagement\\demo\\demo.csproj": {}
   },
   "projects": {
-    "C:\\Code\\ThucTapDA21TTA\\demo\\demo.csproj": {
+    "C:\\Code\\EventManagement\\demo\\demo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\ThucTapDA21TTA\\demo\\demo.csproj",
+        "projectUniqueName": "C:\\Code\\EventManagement\\demo\\demo.csproj",
         "projectName": "demo",
-        "projectPath": "C:\\Code\\ThucTapDA21TTA\\demo\\demo.csproj",
+        "projectPath": "C:\\Code\\EventManagement\\demo\\demo.csproj",
         "packagesPath": "C:\\Users\\admiin\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\ThucTapDA21TTA\\demo\\obj\\",
+        "outputPath": "C:\\Code\\EventManagement\\demo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 24.2\\Components\\Offline Packages",
