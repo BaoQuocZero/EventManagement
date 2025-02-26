@@ -6,7 +6,6 @@ Hệ thống quản lý sự kiện là một ứng dụng web giúp tổ chức
 ## Tính Năng
 - Xác thực và phân quyền người dùng
 - Tạo, chỉnh sửa và xoá sự kiện
-- Đăng ký và quản lý vé sự kiện
 - Quản lý vai trò người dùng (Quản trị viên, Người tổ chức, Người tham gia)
 - Bảng điều khiển báo cáo và phân tích
 - Hệ thống thông báo (email và thông báo trong ứng dụng)
@@ -27,11 +26,11 @@ Hệ thống quản lý sự kiện là một ứng dụng web giúp tổ chức
 ### Các Bước Cài Đặt
 1. Clone repository:
    ```sh
-   [git clone https://github.com/your-repo/event-management.git](https://github.com/BaoQuocZero/ThucTapDA21TTA.git)
+   https://github.com/BaoQuocZero/EventManagement.git
    ```
 2. Di chuyển vào thư mục dự án:
    ```sh
-   cd event-management
+   cd EventManagement
    ```
 3. Khôi phục các gói phụ thuộc:
    ```sh
