@@ -1,0 +1,58 @@
+# Ignore Visual Studio specific files
+.vscode/
+*.code-workspace
+
+# Ignore build results
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.sln.ide
+
+# Ignore .NET Core & ASP.NET Core files
+project.lock.json
+project.assets.json
+artifacts/
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore dependency folders
+packages/
+npm_modules/
+yarn.lock
+
+# Ignore Rider and JetBrains files
+.idea/
+*.iml
+
+# Ignore coverage results
+coverage/
+*.coverlet*
+
+# Ignore database files
+*.mdf
+*.ldf
+
+# Ignore generated files
+*.generated.cs
+
+# Ignore Publish directory
+Publish/
+
+# Ignore secrets and environment files
+# secrets.json
+# .env
+
+# Ignore temporary files
+*.tmp
+*.temp
+~$*
+
+# Ignore Resharper files
+_ReSharper.Caches/
