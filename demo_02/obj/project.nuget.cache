@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Lkg1UXg2JHI=",
+  "success": true,
+  "projectFilePath": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\demo_02.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Trieu\\.nuget\\packages\\devexpress.data\\24.2.5\\devexpress.data.24.2.5.nupkg.sha512",
+    "C:\\Users\\Trieu\\.nuget\\packages\\devextreme.aspnet.core\\24.2.5\\devextreme.aspnet.core.24.2.5.nupkg.sha512",
+    "C:\\Users\\Trieu\\.nuget\\packages\\devextreme.aspnet.data\\5.0.0\\devextreme.aspnet.data.5.0.0.nupkg.sha512",
+    "C:\\Users\\Trieu\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.4\\microsoft.netcore.platforms.3.1.4.nupkg.sha512",
+    "C:\\Users\\Trieu\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Trieu\\.nuget\\packages\\system.drawing.common\\4.7.2\\system.drawing.common.4.7.2.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,146 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "demo_02/1.0.0": {
+        "dependencies": {
+          "DevExtreme.AspNet.Core": "24.2.5",
+          "DevExtreme.AspNet.Data": "5.0.0"
+        },
+        "runtime": {
+          "demo_02.dll": {}
+        }
+      },
+      "DevExpress.Data/24.2.5": {
+        "dependencies": {
+          "System.Drawing.Common": "4.7.2"
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Data.v24.2.dll": {
+            "assemblyVersion": "24.2.5.0",
+            "fileVersion": "24.2.5.0"
+          }
+        }
+      },
+      "DevExtreme.AspNet.Core/24.2.5": {
+        "dependencies": {
+          "DevExpress.Data": "24.2.5",
+          "DevExtreme.AspNet.Data": "5.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/DevExtreme.AspNet.Core.dll": {
+            "assemblyVersion": "24.2.5.0",
+            "fileVersion": "24.2.5.0"
+          }
+        }
+      },
+      "DevExtreme.AspNet.Data/5.0.0": {
+        "runtime": {
+          "lib/net8.0/DevExtreme.AspNet.Data.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.0.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.1.4": {},
+      "Microsoft.Win32.SystemEvents/4.7.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Drawing.Common/4.7.2": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.4",
+          "Microsoft.Win32.SystemEvents": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "4.0.0.2",
+            "fileVersion": "4.6.29719.1"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.2",
+            "fileVersion": "4.700.21.6905"
+          },
+          "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.2",
+            "fileVersion": "4.700.21.6905"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "demo_02/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Data/24.2.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UZeJrZ201Gc5OwP9BaeFa8PDel/fPm++iseryBmx+eKDXxFWGjIVRtUhhA/2WdR86N0fWeK+gAdm5CcJreYorg==",
+      "path": "devexpress.data/24.2.5",
+      "hashPath": "devexpress.data.24.2.5.nupkg.sha512"
+    },
+    "DevExtreme.AspNet.Core/24.2.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LY1+ePpZF7+n2Rlf0TkvoaRdYcw4FJNcef+hfXx9MvdVHOMconxVez6vTlhDZdULJblb31ftXBs1fQFjfT4x4w==",
+      "path": "devextreme.aspnet.core/24.2.5",
+      "hashPath": "devextreme.aspnet.core.24.2.5.nupkg.sha512"
+    },
+    "DevExtreme.AspNet.Data/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ml5rrcf8120WLrP7AR9lq+vXfCFO1A59J1hvOsHiNfzv60bv+poKOHSG2t9EqJ0/qOSA3GFcyeb/kp/50HCGug==",
+      "path": "devextreme.aspnet.data/5.0.0",
+      "hashPath": "devextreme.aspnet.data.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/3.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9/y05/CuxE+j184Nr4KihhB9KcUkvGojmD4JV4Vt/mHhVZR+eOCD5WCM+CXye9K0OFMsaPXbN+IcaIpjgBGZmg==",
+      "path": "microsoft.netcore.platforms/3.1.4",
+      "hashPath": "microsoft.netcore.platforms.3.1.4.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
+      "path": "microsoft.win32.systemevents/4.7.0",
+      "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.7.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I2y4KBK3VCvU/WqE2xv7NjQ67maXHttkFSHYKgU2evrG9Yqh0oFjfORXt5hZTk+BVjdyFo2h0/YQZsca33BGmg==",
+      "path": "system.drawing.common/4.7.2",
+      "hashPath": "system.drawing.common.4.7.2.nupkg.sha512"
+    }
+  }
+}

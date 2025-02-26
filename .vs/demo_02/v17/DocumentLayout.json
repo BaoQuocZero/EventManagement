@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\THUC_TAP\\src\\demo_02\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Index.cshtml",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Index.cshtml",
+              "RelativeToolTip": "demo_02\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAkwCcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-26T02:59:26.593Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "demo_02\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAkwGUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-26T02:58:12.597Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
