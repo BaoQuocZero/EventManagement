@@ -108,6 +108,7 @@
             </div>
 
             <div class="dx-form-group text-center mt-4">
+                <!-- Nút Thêm Sự Kiện -->
                 @(Html.DevExtreme().Button()
                     .Text("Thêm Sự Kiện")
                     .Type(ButtonType.Success)
@@ -116,7 +117,19 @@
                     .StylingMode(ButtonStylingMode.Contained)
                     .Icon("add")
                     )
+
+                <!-- Nút Quay lại -->
+                @(Html.DevExtreme().Button()
+                    .Text("Quay lại")
+                    .Type(ButtonType.Normal)
+                    .StylingMode(ButtonStylingMode.Outlined)
+                    .Icon("arrowleft")
+                    .Width(150)
+                    .OnClick("function() { window.location.href = '/Events/Index'; }") // Điều hướng về trang Index
+                    .ElementAttr("class", "ml-2") // Cách sửa lỗi chính xác
+                    )
             </div>
+
         </div>
     </form>
 </div>
