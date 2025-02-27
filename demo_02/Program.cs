@@ -12,7 +12,9 @@ builder.Services.AddDbContext<EventManagementContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ThucTap"));
 });
 
-builder.Services.AddScoped<EventsService>();
+builder.Services.AddScoped<EventService>();
+
+
 
 var app = builder.Build();
 

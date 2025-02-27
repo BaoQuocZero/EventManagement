@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\THUC_TAP\\src\\demo_02\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\events\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\events\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\events\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\events\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\users\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\users\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\users\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\users\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Details.cshtml",
-              "RelativeDocumentMoniker": "demo_02\\Pages\\Events\\Details.cshtml",
-              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Details.cshtml",
-              "RelativeToolTip": "demo_02\\Pages\\Events\\Details.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Users\\Details.cshtml",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Users\\Details.cshtml",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Users\\Details.cshtml",
+              "RelativeToolTip": "demo_02\\Pages\\Users\\Details.cshtml",
+              "ViewState": "AgIAABwAAAAAAAAAAAAkwC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-27T02:53:03.42Z",
+              "WhenOpened": "2025-02-27T08:41:39.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Details.cshtml.cs",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Users\\Details.cshtml.cs",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Users\\Details.cshtml.cs",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Users\\Details.cshtml.cs",
+              "RelativeToolTip": "demo_02\\Pages\\Users\\Details.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T08:40:16.723Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Index.cshtml",
-              "RelativeDocumentMoniker": "demo_02\\Pages\\Events\\Index.cshtml",
-              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Index.cshtml",
-              "RelativeToolTip": "demo_02\\Pages\\Events\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAgAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Users\\Index.cshtml",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Users\\Index.cshtml",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Users\\Index.cshtml",
+              "RelativeToolTip": "demo_02\\Pages\\Users\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-27T02:42:43.741Z",
+              "WhenOpened": "2025-02-27T08:39:18.009Z",
               "EditorCaption": ""
             }
           ]

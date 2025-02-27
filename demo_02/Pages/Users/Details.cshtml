@@ -1,0 +1,59 @@
+﻿@page "{id}"
+@model demo_02.Pages.Users.DetailsModel
+@{
+    ViewData["Title"] = "Chi tiết Người Dùng";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body text-center">
+                    <!-- Ảnh đại diện -->
+                    <img src="https://ui-avatars.com/api/?name=@Model.CurrentUser.FullName&size=120&rounded=true"
+                         class="rounded-circle mb-3 border shadow" alt="Avatar">
+
+                    <h4 class="card-title text-primary"><i class="fas fa-user"></i> @Model.CurrentUser.FullName</h4>
+
+                    <table class="table table-bordered text-start mt-3">
+                        <tbody>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-id-badge"></i> ID:</th>
+                                <td>@Model.CurrentUser.UserId</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-envelope"></i> Email:</th>
+                                <td>@Model.CurrentUser.Email</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-phone"></i> Số điện thoại:</th>
+                                <td>@Model.CurrentUser.PhoneNumber</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-graduation-cap"></i> Lớp:</th>
+                                <td>@Model.CurrentUser.Classname</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-user-shield"></i> Vai trò:</th>
+                                <td>@Model.CurrentUser.Roles?.Name</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-calendar-plus"></i> Ngày tạo:</th>
+                                <td>@Model.CurrentUser.CreateAt?.ToString("dd/MM/yyyy HH:mm")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer text-center">
+                    <a asp-page="./Index" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Quay lại danh sách
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome (Nếu bạn chưa có) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

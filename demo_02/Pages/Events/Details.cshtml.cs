@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class DetailsModel : PageModel
 {
-    private readonly EventsService _eventsService;
+    private readonly EventService _eventsService;
 
-    public DetailsModel(EventsService eventsService)
+    public DetailsModel(EventService eventsService)
     {
         _eventsService = eventsService;
     }
