@@ -1,54 +1,54 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Trang Chủ";
+    ViewData["Title"] = "Danh sách sự kiện";
+    var eventsJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Events, new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore // Bỏ qua vòng lặp
+            });
 }
 
-<h2>🎉 Quản lý Sự Kiện Trường Đại Học</h2>
+<h2>Danh sách sự kiện</h2>
 
-<!-- DevExtreme DataGrid -->
 <div id="gridContainer"></div>
 
-<!-- Biểu đồ thống kê -->
-<div id="chartContainer"></div>
+<script>
+    var eventsData = @Html.Raw(eventsJson); // Truyền dữ liệu trực tiếp từ Model.Events
 
-@section Scripts {
-    <script>
-        $(function () {
-            // Dữ liệu giả lập danh sách sự kiện
-            var events = [
-                { Id: 1, Name: "Hội thảo AI 2025", Date: "2025-03-15", Location: "Hội trường A", Participants: 200 },
-                { Id: 2, Name: "Ngày hội việc làm", Date: "2025-04-20", Location: "Sảnh chính", Participants: 500 },
-                { Id: 3, Name: "Giải bóng đá sinh viên", Date: "2025-05-10", Location: "Sân vận động", Participants: 300 }
-            ];
-
-            // Hiển thị danh sách sự kiện bằng DataGrid
-            $("#gridContainer").dxDataGrid({
-                dataSource: events,
-                columns: [
-                    { dataField: "Name", caption: "Tên sự kiện" },
-                    { dataField: "Date", caption: "Ngày diễn ra", dataType: "date" },
-                    { dataField: "Location", caption: "Địa điểm" },
-                    { dataField: "Participants", caption: "Số người tham gia" }
-                ],
-                paging: { pageSize: 5 },
-                searchPanel: { visible: true },
-                filterRow: { visible: true },
-                columnAutoWidth: true
-            });
-
-            // Hiển thị biểu đồ thống kê
-            $("#chartContainer").dxChart({
-                dataSource: events,
-                series: {
-                    argumentField: "Name",
-                    valueField: "Participants",
-                    name: "Người tham gia",
-                    type: "bar"
-                },
-                title: "Thống kê số người tham gia sự kiện",
-                legend: { visible: false }
-            });
+    $(function () {
+        $("#gridContainer").dxDataGrid({
+            dataSource: eventsData, // Dữ liệu từ Model.Events
+            keyExpr: "EventsId",
+            columns: [
+                { dataField: "EventName", caption: "Tên sự kiện" },
+                { dataField: "EventTime", caption: "Thời gian", dataType: "date", format: "dd/MM/yyyy HH:mm" },
+                { dataField: "Location", caption: "Địa điểm" },
+                { dataField: "EventTypeName", caption: "Loại sự kiện" },
+                {
+                    caption: "Chi tiết",
+                    cellTemplate: function(container, options) {
+                        $("<a>")
+                            .addClass("dx-link")
+                            .text("Xem")
+                            .attr("href", "/Details?id=" + options.data.EventsId)
+                            .appendTo(container);
+                    }
+                }
+            ],
+            showBorders: true,
+            paging: {
+                pageSize: 10
+            },
+            pager: {
+                showPageSizeSelector: true,
+                allowedPageSizes: [5, 10, 20],
+                showInfo: true
+            },
+            searchPanel: {
+                visible: true,
+                width: 240,
+                placeholder: "Tìm kiếm..."
+            }
         });
-    </script>
-}
+    });
+</script>
