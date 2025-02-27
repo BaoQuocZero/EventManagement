@@ -1,9 +1,18 @@
+using demo_02.Model;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
     .AddRazorPages()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+builder.Services.AddDbContext<ThucTapContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ThucTap"));
+});
+
+
 
 var app = builder.Build();
 
