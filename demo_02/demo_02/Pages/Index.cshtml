@@ -4,117 +4,51 @@
     ViewData["Title"] = "Trang Chủ";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center">Quản lý sự kiện</h2>
+<h2>🎉 Quản lý Sự Kiện Trường Đại Học</h2>
 
-    <!-- Bộ lọc sự kiện -->
-    <div class="row mt-3">
-        <div class="col-md-4">
-            <input id="searchEvent" class="form-control" placeholder="Tìm kiếm sự kiện..." />
-        </div>
-    </div>
+<!-- DevExtreme DataGrid -->
+<div id="gridContainer"></div>
 
-    <!-- Bảng danh sách sự kiện -->
-    <div id="eventGrid" class="mt-4"></div>
+<!-- Biểu đồ thống kê -->
+<div id="chartContainer"></div>
 
-    <!-- Biểu đồ thống kê -->
-    <div id="eventChart" class="mt-4" style="height: 400px;"></div>
+@section Scripts {
+    <script>
+        $(function () {
+            // Dữ liệu giả lập danh sách sự kiện
+            var events = [
+                { Id: 1, Name: "Hội thảo AI 2025", Date: "2025-03-15", Location: "Hội trường A", Participants: 200 },
+                { Id: 2, Name: "Ngày hội việc làm", Date: "2025-04-20", Location: "Sảnh chính", Participants: 500 },
+                { Id: 3, Name: "Giải bóng đá sinh viên", Date: "2025-05-10", Location: "Sân vận động", Participants: 300 }
+            ];
 
-    <!-- Form nhập liệu sự kiện -->
-    <div class="mt-4">
-        <h4>Thêm Sự Kiện</h4>
-        <div id="eventForm"></div>
-    </div>
-</div>
+            // Hiển thị danh sách sự kiện bằng DataGrid
+            $("#gridContainer").dxDataGrid({
+                dataSource: events,
+                columns: [
+                    { dataField: "Name", caption: "Tên sự kiện" },
+                    { dataField: "Date", caption: "Ngày diễn ra", dataType: "date" },
+                    { dataField: "Location", caption: "Địa điểm" },
+                    { dataField: "Participants", caption: "Số người tham gia" }
+                ],
+                paging: { pageSize: 5 },
+                searchPanel: { visible: true },
+                filterRow: { visible: true },
+                columnAutoWidth: true
+            });
 
-<script>
-    $(function () {
-        let eventData = [
-            { ID: 1, EventName: "Hội thảo AI", Date: "2025-03-10", Location: "Hà Nội", Attendees: 120 },
-            { ID: 2, EventName: "Triển lãm công nghệ", Date: "2025-04-15", Location: "TP.HCM", Attendees: 250 }
-        ];
-
-        // Danh sách sự kiện
-        let dataGrid = $("#eventGrid").dxDataGrid({
-            dataSource: eventData,
-            keyExpr: "ID",
-            columns: [
-                { dataField: "EventName", caption: "Tên Sự Kiện" },
-                { dataField: "Date", caption: "Ngày" },
-                { dataField: "Location", caption: "Địa điểm" },
-                { dataField: "Attendees", caption: "Người tham dự" },
-                {
-                    type: "buttons",
-                    buttons: [
-                        "edit", "delete"
-                    ]
-                }
-            ],
-            editing: {
-                mode: "popup",
-                allowUpdating: true,
-                allowDeleting: true,
-                popup: {
-                    title: "Chỉnh sửa sự kiện",
-                    showTitle: true,
-                    width: 400,
-                    height: 250
+            // Hiển thị biểu đồ thống kê
+            $("#chartContainer").dxChart({
+                dataSource: events,
+                series: {
+                    argumentField: "Name",
+                    valueField: "Participants",
+                    name: "Người tham gia",
+                    type: "bar"
                 },
-                form: {
-                    items: ["EventName", "Date", "Location", "Attendees"]
-                }
-            },
-            showBorders: true,
-            paging: { pageSize: 5 }
-        }).dxDataGrid("instance");
-
-        // Bộ lọc sự kiện
-        $("#searchEvent").on("input", function () {
-            let searchText = $(this).val().toLowerCase();
-            dataGrid.filter(["EventName", "contains", searchText]);
+                title: "Thống kê số người tham gia sự kiện",
+                legend: { visible: false }
+            });
         });
-
-        // Biểu đồ thống kê
-        $("#eventChart").dxChart({
-            dataSource: eventData,
-            series: {
-                argumentField: "EventName",
-                valueField: "Attendees",
-                name: "Người tham dự",
-                type: "bar",
-                color: "#3F51B5"
-            }
-        });
-
-        // Form nhập liệu sự kiện
-        $("#eventForm").dxForm({
-            formData: { EventName: "", Date: null, Location: "", Attendees: 0 },
-            items: [
-                { dataField: "EventName", label: { text: "Tên Sự Kiện" } },
-                { dataField: "Date", editorType: "dxDateBox", label: { text: "Ngày tổ chức" } },
-                { dataField: "Location", label: { text: "Địa điểm" } },
-                { dataField: "Attendees", editorType: "dxNumberBox", label: { text: "Số người tham dự" } },
-                {
-                    itemType: "button",
-                    buttonOptions: {
-                        text: "Lưu Sự Kiện",
-                        type: "success",
-                        onClick: function () {
-                            alert("Sự kiện đã được lưu!");
-                        }
-                    }
-                },
-                {
-                    itemType: "button",
-                    buttonOptions: {
-                        text: "Đặt Lại",
-                        type: "default",
-                        onClick: function () {
-                            $("#eventForm").dxForm("instance").resetValues();
-                        }
-                    }
-                }
-            ]
-        });
-    });
-</script>
+    </script>
+}
