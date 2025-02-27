@@ -1,0 +1,84 @@
+﻿@page
+@model EditModel
+@{
+    ViewData["Title"] = "Chỉnh sửa sự kiện";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3><i class="fas fa-edit"></i> Chỉnh sửa sự kiện</h3>
+                </div>
+
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="Event.EventsId" />
+
+                        <div class="mb-3">
+                            <label asp-for="Event.EventName" class="form-label fw-bold">
+                                <i class="fas fa-calendar-alt"></i> Tên sự kiện
+                            </label>
+                            <input asp-for="Event.EventName" class="form-control" placeholder="Nhập tên sự kiện..." />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Event.EventTime" class="form-label fw-bold">
+                                <i class="fas fa-clock"></i> Thời gian
+                            </label>
+                            <input asp-for="Event.EventTime" type="datetime-local" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Event.Location" class="form-label fw-bold">
+                                <i class="fas fa-map-marker-alt"></i> Địa điểm
+                            </label>
+                            <input asp-for="Event.Location" class="form-control" placeholder="Nhập địa điểm..." />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Event.Description" class="form-label fw-bold">
+                                <i class="fas fa-info-circle"></i> Mô tả
+                            </label>
+                            <textarea asp-for="Event.Description" class="form-control" rows="3"
+                                      placeholder="Nhập mô tả về sự kiện..."></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Event.RequiredParticipants" class="form-label fw-bold">
+                                        <i class="fas fa-users"></i> Số người yêu cầu
+                                    </label>
+                                    <input asp-for="Event.RequiredParticipants" type="number" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Event.MaxParticipants" class="form-label fw-bold">
+                                        <i class="fas fa-user-plus"></i> Số người tối đa
+                                    </label>
+                                    <input asp-for="Event.MaxParticipants" type="number" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="fas fa-save"></i> Cập nhật
+                            </button>
+                            <a asp-page="Index" class="btn btn-secondary px-4">
+                                <i class="fas fa-arrow-left"></i> Hủy
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome (Nếu bạn chưa có) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

@@ -1,0 +1,58 @@
+﻿@page
+@model demo_02.Pages.Users.IndexModel
+
+@{
+    ViewData["Title"] = "Danh sách người dùng";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white text-center">
+            <h3><i class="fas fa-users"></i> Danh sách Người Dùng</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th><i class="fas fa-user"></i> Họ và Tên</th>
+                            <th><i class="fas fa-envelope"></i> Email</th>
+                            <th><i class="fas fa-chalkboard-teacher"></i> Lớp</th>
+                            <th><i class="fas fa-user-tag"></i> Vai Trò</th>
+                            <th><i class="fas fa-cogs"></i> Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.Users)
+                        {
+                            <tr>
+                                <td><span class="badge bg-secondary">@user.UserId</span></td>
+                                <td>@user.FullName</td>
+                                <td>@user.Email</td>
+                                <td>@user.Classname</td>
+                                <td><span class="badge bg-info">@user.Roles.Name</span></td>
+                                <td>
+                                    <a asp-page="./Details" asp-route-id="@user.UserId" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                    <a asp-page="./Edit" asp-route-id="@user.UserId" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a asp-page="./Delete" asp-route-id="@user.UserId" class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Bạn có chắc muốn xóa người dùng này?');">
+                                        <i class="fas fa-trash-alt"></i> Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome (Nếu chưa có) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

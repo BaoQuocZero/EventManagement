@@ -1,14 +1,65 @@
 ﻿@page "{id:int}"
 @model DetailsModel
+@{
+    ViewData["Title"] = "Chi tiết sự kiện";
+}
 
-<h2>Chi tiết sự kiện</h2>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3><i class="fas fa-calendar-check"></i> Chi tiết sự kiện</h3>
+                </div>
 
-<table class="table">
-    <tr><th>Tên sự kiện:</th><td>@Model.Event.EventName</td></tr>
-    <tr><th>Thời gian:</th><td>@Model.Event.EventTime?.ToString("dd/MM/yyyy HH:mm")</td></tr>
-    <tr><th>Địa điểm:</th><td>@Model.Event.Location</td></tr>
-    <tr><th>Mô tả:</th><td>@Model.Event.Description</td></tr>
-    <tr><th>Loại sự kiện:</th><td>@Model.Event.Eventtypes?.EventtypesName</td></tr>
-</table>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <tbody class="text-center align-middle">
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-file-signature"></i> Tên sự kiện:</th>
+                                <td>@Model.Event.EventName</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-clock"></i> Thời gian bắt đầu:</th>
+                                <td>@Model.Event.EventTime?.ToString("dd/MM/yyyy HH:mm")</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-clock"></i> Thời gian kết thúc:</th>
+                                <td>@Model.Event.EndTime?.ToString("dd/MM/yyyy HH:mm")</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-map-marker-alt"></i> Địa điểm:</th>
+                                <td>@Model.Event.Location</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-align-left"></i> Mô tả:</th>
+                                <td>@Model.Event.Description</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-list"></i> Loại sự kiện:</th>
+                                <td>@Model.Event.Eventtypes?.EventtypesName</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-users"></i> Số lượng tối thiểu:</th>
+                                <td>@Model.Event.RequiredParticipants</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light"><i class="fas fa-users"></i> Số lượng tối đa:</th>
+                                <td>@Model.Event.MaxParticipants</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-<a asp-page="Index" class="btn btn-secondary">Quay lại</a>
+                <div class="card-footer text-center">
+                    <a asp-page="Index" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome (Nếu bạn chưa có) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

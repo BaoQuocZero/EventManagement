@@ -1,13 +1,14 @@
 ﻿using demo_02.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace demo_02.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly EventsService _eventsService;
+        private readonly EventService _eventsService;
 
-        public IndexModel(EventsService eventsService)
+        public IndexModel(EventService eventsService)
         {
             _eventsService = eventsService;
         }
@@ -18,5 +19,17 @@ namespace demo_02.Pages
         {
             Events = await _eventsService.GetAllEventsAsync();
         }
+
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var success = await _eventsService.DeleteEventAsync(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return RedirectToPage("./Index"); // Reload danh sách sự kiện
+        }
+
     }
 }
