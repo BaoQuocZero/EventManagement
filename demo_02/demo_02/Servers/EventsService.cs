@@ -27,4 +27,26 @@ public class EventsService
             .Include(e => e.Eventtypes) // Lấy luôn thông tin loại sự kiện
             .FirstOrDefaultAsync();
     }
+    // Create
+    public async Task<bool> AddEventAsync(Event newEvent)
+    {
+        try
+        {
+            newEvent.CreateAt = DateTime.Now;
+            _context.Events.Add(newEvent);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Lỗi khi thêm sự kiện: " + ex.Message);
+            return false;
+        }
+    }
+    // Lấy danh sách tất cả loại sự kiện từ DB
+    public async Task<List<Eventtype>> GetEventTypesAsync()
+    {
+        return await _context.Eventtypes.ToListAsync();
+    }
+
 }

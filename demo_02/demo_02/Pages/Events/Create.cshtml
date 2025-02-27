@@ -1,0 +1,122 @@
+﻿@page
+@model CreateModel
+@using DevExtreme.AspNet.Mvc
+
+@{
+    ViewData["Title"] = "Thêm Sự Kiện Mới";
+}
+
+<div class="dx-card p-4 shadow-lg">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+    <form method="post">
+        <div class="dx-form">
+            <div class="row">
+                <!-- Cột 1 -->
+                <div class="col-md-6">
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-event"></i> Tên sự kiện</label>
+                        @(Html.DevExtreme().TextBox()
+                            .ID("eventName")
+                            .Value(Model.Event?.EventName)
+                            .Name("Event.EventName")
+                            .Placeholder("Nhập tên sự kiện")
+                            .ShowClearButton(true)
+                            .ValidationMessageMode(ValidationMessageMode.Always)
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-selectbox"></i> Loại sự kiện</label>
+                        @(Html.DevExtreme().SelectBox()
+                            .ID("eventType")
+                            .Name("Event.EventTypesId")
+                            .DataSource(Model.EventTypes)
+                            .ValueExpr("EventtypesId")
+                            .DisplayExpr("EventtypesName")
+                            .Placeholder("Chọn loại sự kiện")
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-clock"></i> Thời gian bắt đầu</label>
+                        @(Html.DevExtreme().DateBox()
+                            .ID("eventTime")
+                            .Type(DateBoxType.DateTime)
+                            .Name("Event.EventTime")
+                            .Placeholder("Chọn thời gian bắt đầu")
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-clock"></i> Thời gian kết thúc</label>
+                        @(Html.DevExtreme().DateBox()
+                            .ID("endTime")
+                            .Type(DateBoxType.DateTime)
+                            .Name("Event.EndTime")
+                            .Placeholder("Chọn thời gian kết thúc")
+                            )
+                    </div>
+                </div>
+
+                <!-- Cột 2 -->
+                <div class="col-md-6">
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-home"></i> Địa điểm</label>
+                        @(Html.DevExtreme().TextBox()
+                            .ID("eventLocation")
+                            .Value(Model.Event?.Location)
+                            .Name("Event.Location")
+                            .Placeholder("Nhập địa điểm")
+                            .ShowClearButton(true)
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-info"></i> Mô tả</label>
+                        @(Html.DevExtreme().TextArea()
+                            .ID("eventDescription")
+                            .Value(Model.Event?.Description)
+                            .Name("Event.Description")
+                            .Placeholder("Nhập mô tả sự kiện")
+                            .Height(100)
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-user"></i> Số người tham gia yêu cầu</label>
+                        @(Html.DevExtreme().NumberBox()
+                            .ID("requiredParticipants")
+                            .Value(Model.Event?.RequiredParticipants)
+                            .Name("Event.RequiredParticipants")
+                            .Min(1)
+                            .Placeholder("Nhập số lượng")
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-group"></i> Số người tham gia tối đa</label>
+                        @(Html.DevExtreme().NumberBox()
+                            .ID("maxParticipants")
+                            .Value(Model.Event?.MaxParticipants)
+                            .Name("Event.MaxParticipants")
+                            .Min(1)
+                            .Placeholder("Nhập số lượng tối đa")
+                            )
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-form-group text-center mt-4">
+                @(Html.DevExtreme().Button()
+                    .Text("Thêm Sự Kiện")
+                    .Type(ButtonType.Success)
+                    .UseSubmitBehavior(true)
+                    .Width(200)
+                    .StylingMode(ButtonStylingMode.Contained)
+                    .Icon("add")
+                    )
+            </div>
+        </div>
+    </form>
+</div>
