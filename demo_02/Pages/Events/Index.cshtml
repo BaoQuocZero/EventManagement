@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+
+<h2>Danh sách sự kiện</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên sự kiện</th>
+            <th>Thời gian</th>
+            <th>Địa điểm</th>
+            <th>Loại sự kiện</th>
+            <th>Chi tiết</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eventItem in Model.Events)
+        {
+            <tr>
+                <td>@eventItem.EventName</td>
+                <td>@eventItem.EventTime?.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@eventItem.Location</td>
+                <td>@eventItem.Eventtypes?.EventtypesName</td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@eventItem.EventsId" class="btn btn-info">Xem</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -14,7 +14,13 @@
     <SourceRoot Include="C:\Program Files\DevExpress 24.2\Components\Offline Packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.13\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.13\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\8.0.13\build\net8.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\8.0.13\build\net8.0\Microsoft.EntityFrameworkCore.Design.props')" />
+  </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgDevExpress_Data Condition=" '$(PkgDevExpress_Data)' == '' ">C:\Users\Trieu\.nuget\packages\devexpress.data\24.2.5</PkgDevExpress_Data>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Trieu\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.3</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Trieu\.nuget\packages\microsoft.entityframeworkcore.tools\8.0.13</PkgMicrosoft_EntityFrameworkCore_Tools>
+    <PkgDevExpress_Data Condition=" '$(PkgDevExpress_Data)' == '' ">C:\Program Files\DevExpress 24.2\Components\Offline Packages\devexpress.data\24.2.5</PkgDevExpress_Data>
   </PropertyGroup>
 </Project>

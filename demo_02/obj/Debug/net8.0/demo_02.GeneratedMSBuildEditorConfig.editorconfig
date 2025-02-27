@@ -24,6 +24,14 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/THUC_TAP/src/demo_02/demo_02/Pages/Events/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/THUC_TAP/src/demo_02/demo_02/Pages/Events/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/THUC_TAP/src/demo_02/demo_02/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "D:\\THUC_TAP\\src\\demo_02\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\events\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\events\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\events\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\events\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\events\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\events\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|d:\\thuc_tap\\src\\demo_02\\demo_02\\pages\\events\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1F9FC226-527C-4E51-B0B5-350A4D33878F}|demo_02\\demo_02.csproj|solutionrelative:demo_02\\pages\\events\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +34,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Index.cshtml",
               "RelativeDocumentMoniker": "demo_02\\Pages\\Index.cshtml",
-              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Index.cshtml*",
-              "RelativeToolTip": "demo_02\\Pages\\Index.cshtml*",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAkwHcAAAAJAAAAAAAAAA==",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Index.cshtml",
+              "RelativeToolTip": "demo_02\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-26T02:59:26.593Z",
+              "WhenOpened": "2025-02-27T03:07:46.609Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "demo_02\\Pages\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "demo_02\\Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAkwGUAAAAVAAAAAAAAAA==",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Shared\\_Layout.cshtml*",
+              "RelativeToolTip": "demo_02\\Pages\\Shared\\_Layout.cshtml*",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAFwAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-26T02:58:12.597Z",
+              "WhenOpened": "2025-02-27T02:57:08.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Details.cshtml",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Events\\Details.cshtml",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Details.cshtml",
+              "RelativeToolTip": "demo_02\\Pages\\Events\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-27T02:53:03.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Details.cshtml.cs",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Details.cshtml.cs",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Events\\Details.cshtml.cs",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Details.cshtml.cs",
+              "RelativeToolTip": "demo_02\\Pages\\Events\\Details.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T02:52:41.538Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Events\\Index.cshtml.cs",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Index.cshtml.cs",
+              "RelativeToolTip": "demo_02\\Pages\\Events\\Index.cshtml.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBAAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T02:43:40.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Index.cshtml",
+              "RelativeDocumentMoniker": "demo_02\\Pages\\Events\\Index.cshtml",
+              "ToolTip": "D:\\THUC_TAP\\src\\demo_02\\demo_02\\Pages\\Events\\Index.cshtml",
+              "RelativeToolTip": "demo_02\\Pages\\Events\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAuwBAAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-27T02:42:43.741Z",
               "EditorCaption": ""
             }
           ]

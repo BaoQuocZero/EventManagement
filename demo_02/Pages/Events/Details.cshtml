@@ -1,0 +1,14 @@
+﻿@page "{id:int}"
+@model DetailsModel
+
+<h2>Chi tiết sự kiện</h2>
+
+<table class="table">
+    <tr><th>Tên sự kiện:</th><td>@Model.Event.EventName</td></tr>
+    <tr><th>Thời gian:</th><td>@Model.Event.EventTime?.ToString("dd/MM/yyyy HH:mm")</td></tr>
+    <tr><th>Địa điểm:</th><td>@Model.Event.Location</td></tr>
+    <tr><th>Mô tả:</th><td>@Model.Event.Description</td></tr>
+    <tr><th>Loại sự kiện:</th><td>@Model.Event.Eventtypes?.EventtypesName</td></tr>
+</table>
+
+<a asp-page="Index" class="btn btn-secondary">Quay lại</a>
