@@ -1,24 +1,23 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
+using System.Threading.Tasks;
+using demo_02.Models;
 
 public class LoginModel : PageModel
 {
-    private readonly AuthService _authService;
+    private readonly EventManagementContext _context;
 
-    public LoginModel(AuthService authService)
+    public LoginModel(EventManagementContext context)
     {
-        _authService = authService;
+        _context = context;
     }
 
-    [BindProperty]
-    public string Email { get; set; }
-
-    [BindProperty]
-    public string PhoneNumber { get; set; }
-
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync([FromBody] LoginInputModel input)
     {
-        var user = await _authService.AuthenticateUser(Email, PhoneNumber);
+        var user = _context.Users.FirstOrDefault(u =>
+            (u.Email == input.LoginInfo || u.PhoneNumber == input.LoginInfo) && (u.IsDelete == false) 
+        );
 
         if (user == null)
         {
@@ -27,4 +26,10 @@ public class LoginModel : PageModel
 
         return new JsonResult(new { success = true });
     }
+}
+
+public class LoginInputModel
+{
+    public string LoginInfo { get; set; }
+    public string Password { get; set; }
 }

@@ -1,0 +1,2 @@
+Lệnh khi CSDL thay đổi:
+Scaffold-DbContext "Chuỗi kết nối" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -f

@@ -1,4 +1,7 @@
-﻿namespace demo_02.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace demo_02.Models;
 
 public partial class Event
 {
