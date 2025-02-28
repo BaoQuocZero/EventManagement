@@ -22,8 +22,6 @@ public partial class User
     public string PhoneNumber { get; set; }
     public string Password { get; set; }
 
-    public string Password { get; set; }
-
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
