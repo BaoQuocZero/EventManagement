@@ -45,6 +45,12 @@ public class LoginModel : PageModel
         HttpContext.Session.SetString("Email", user.Email);
         HttpContext.Session.SetString("RolesId", user.RolesId.ToString());
 
+        // Kiểm tra xem session đã được lưu chưa
+        var checkUserId = HttpContext.Session.GetString("UserId");
+        var checkFullName = HttpContext.Session.GetString("FullName");
+        Console.WriteLine($"UserId trong session: {checkUserId}");
+        Console.WriteLine($"FullName trong session: {checkFullName}");
+
         // Chuyển hướng sau khi đăng nhập thành công
         return RedirectToPage("/Index");
     }

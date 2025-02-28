@@ -26,7 +26,7 @@ builder.Services.AddScoped<EventService>();
 // Đăng ký AuthService
 builder.Services.AddScoped<AuthService>();
 
-
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
