@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Danh sách sự kiện";
+    ViewData["Title"] = "Trang chủ";
     var eventsJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Events, new Newtonsoft.Json.JsonSerializerSettings
             {
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore // Bỏ qua vòng lặp
@@ -23,7 +23,8 @@
                 { dataField: "EventName", caption: "Tên sự kiện" },
                 { dataField: "EventTime", caption: "Thời gian", dataType: "date", format: "dd/MM/yyyy HH:mm" },
                 { dataField: "Location", caption: "Địa điểm" },
-                { dataField: "Eventtypes.EventtypesName", caption: "Loại sự kiện" },
+                { dataField: "Eventtypes.EventtypesName", // Lấy từ quan hệ Eventtypes
+        caption: "Loại sự kiện" },
                 {
                     caption: "Chi tiết",
                     cellTemplate: function(container, options) {

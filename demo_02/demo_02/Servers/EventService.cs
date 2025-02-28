@@ -158,6 +158,36 @@ public class EventService
         await _context.SaveChangesAsync();
         return true;
     }
+    //Update Role & NameClass
+    public async Task<bool> UpdateUserRoleAndClassAsync(int userId, int roleId, string classId, string className)
+    {
+        try
+        {
+            var existingUser = await _context.Users.FindAsync(userId);
+            if (existingUser == null) return false;
+
+            // Kiểm tra roleId có tồn tại không
+            var roleExists = await _context.Roles.AnyAsync(r => r.RolesId == roleId);
+            if (!roleExists) return false; // Nếu quyền không hợp lệ, không cập nhật
+
+            // Kiểm tra classId & className không rỗng
+            if (string.IsNullOrWhiteSpace(classId) || string.IsNullOrWhiteSpace(className))
+                return false;
+
+            existingUser.RolesId = roleId;
+            existingUser.Classid = classId;
+            existingUser.Classname = className;
+            existingUser.UpdateAt = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Lỗi cập nhật quyền & lớp học: {ex.Message}");
+            return false;
+        }
+    }
 
     //Tham gia sự kiện
     //Get All Eventparticipation(tham gia sự kiện)
