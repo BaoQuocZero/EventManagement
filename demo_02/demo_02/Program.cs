@@ -1,4 +1,4 @@
-using demo_02.Models;
+﻿using demo_02.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +13,8 @@ builder.Services.AddDbContext<EventManagementContext>(options => {
 });
 
 builder.Services.AddScoped<EventService>();
+// Đăng ký AuthService
+builder.Services.AddScoped<AuthService>();
 
 
 
