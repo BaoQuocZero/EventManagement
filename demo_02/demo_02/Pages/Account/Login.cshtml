@@ -10,6 +10,7 @@
     <meta charset="utf-8" />
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/23.1.5/css/dx.light.css" />
+    <!-- Thêm jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn3.devexpress.com/jslib/23.1.5/js/dx.all.js"></script>
     <link rel="stylesheet" href="~/css/login.css" />
@@ -18,15 +19,28 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Đăng nhập</h2>
-            <div id="login-form"></div>
-            <div id="error-message" class="error-message"></div>
-            <div id="login-button"></div>
+
+            <form method="post">
+                <!-- Form sẽ được render vào đây -->
+                <div id="login-form-container"></div>
+
+                <!-- Các trường ẩn để lưu dữ liệu từ form -->
+                <input type="hidden" id="loginInfo" name="LoginInfo" />
+                <input type="hidden" id="password" name="Password" />
+
+                <!-- Hiển thị thông báo lỗi -->
+                <div id="error-message" class="error-message"></div>
+
+                <!-- Nút đăng nhập -->
+                <button id="login-button" type="submit">Đăng nhập</button>
+            </form>
         </div>
     </div>
 
     <script>
         $(function () {
-            var formInstance = $("#login-form").dxForm({
+            // Khởi tạo form DevExtreme
+            const formInstance = $("#login-form-container").dxForm({
                 formData: {
                     loginInfo: "",
                     password: ""
@@ -40,7 +54,9 @@
                             placeholder: "Nhập email hoặc số điện thoại...",
                             mode: "text"
                         },
-                        validationRules: [{ type: "required", message: "Vui lòng nhập email hoặc số điện thoại" }]
+                        validationRules: [
+                            { type: "required", message: "Vui lòng nhập email hoặc số điện thoại" }
+                        ]
                     },
                     {
                         dataField: "password",
@@ -50,44 +66,33 @@
                             mode: "password",
                             placeholder: "Nhập mật khẩu..."
                         },
-                        validationRules: [{ type: "required", message: "Vui lòng nhập mật khẩu" }]
+                        validationRules: [
+                            { type: "required", message: "Vui lòng nhập mật khẩu" }
+                        ]
                     }
                 ]
             }).dxForm("instance");
 
-            $("#login-button").dxButton({
-                text: "Đăng nhập",
-                type: "default",
-                width: "100%",
-                onClick: function () {
-                    var formData = formInstance.option("formData");
+            // Xử lý sự kiện submit form
+            $("form").on("submit", function (e) {
+                e.preventDefault(); // Ngăn chặn submit mặc định
 
-                    if (!formData.loginInfo || !formData.password) {
-                        $("#error-message").text("Vui lòng nhập đầy đủ thông tin.");
-                        return;
-                    }
+                // Lấy dữ liệu từ form
+                const formData = formInstance.option("formData");
 
-                    $("#login-button").dxButton("instance").option("disabled", true);
-
-                    $.ajax({
-                        url: "@Url.Page("/Account/Login")",
-                        type: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify(formData),
-                        success: function (response) {
-                            if (response.success) {
-                                window.location.href = "/";
-                            } else {
-                                $("#error-message").text("Thông tin đăng nhập không chính xác.");
-                                $("#login-button").dxButton("instance").option("disabled", false);
-                            }
-                        },
-                        error: function () {
-                            $("#error-message").text("Lỗi hệ thống, vui lòng thử lại.");
-                            $("#login-button").dxButton("instance").option("disabled", false);
-                        }
-                    });
+                // Kiểm tra validation
+                const validationResult = formInstance.validate();
+                if (!validationResult.isValid) {
+                    $("#error-message").text("Vui lòng điền đầy đủ thông tin.");
+                    return;
                 }
+
+                // Gán dữ liệu vào các trường ẩn
+                $("#loginInfo").val(formData.loginInfo);
+                $("#password").val(formData.password);
+
+                // Submit form
+                this.submit();
             });
         });
     </script>
