@@ -1,56 +1,58 @@
 ﻿@page
-@model IndexModel
+@model Index
 @{
     ViewData["Title"] = "Trang chủ";
-    var eventsJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Events, new Newtonsoft.Json.JsonSerializerSettings
-            {
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore // Bỏ qua vòng lặp
-            });
+    // var eventsJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Events, new Newtonsoft.Json.JsonSerializerSettings
+    //         {
+    //             ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore Bỏ qua vòng lặp
+    //         });
 }
 
-<h2>Danh sách sự kiện</h2>
+<p>UserId trong Session: @Model.SessionUserId</p>
 
-<div id="gridContainer"></div>
+@* <h2>Danh sách sự kiện</h2> *@
 
-<script>
-    var eventsData = @Html.Raw(eventsJson);
+@* <div id="gridContainer"></div> *@
 
-    $(function () {
-        $("#gridContainer").dxDataGrid({
-            dataSource: eventsData,
-            keyExpr: "EventsId",
-            columns: [
-                { dataField: "EventName", caption: "Tên sự kiện" },
-                { dataField: "EventTime", caption: "Thời gian", dataType: "date", format: "dd/MM/yyyy HH:mm" },
-                { dataField: "Location", caption: "Địa điểm" },
-                { dataField: "Eventtypes.EventtypesName", // Lấy từ quan hệ Eventtypes
-        caption: "Loại sự kiện" },
-                {
-                    caption: "Chi tiết",
-                    cellTemplate: function(container, options) {
-                        $("<a>")
-                            .attr("href", "/Events/Details/" + options.data.EventsId)
-                            .addClass("btn btn-info btn-sm")
-                            .html('<i class="fas fa-eye"></i> Xem')
-                            .appendTo(container);
-                    }
-                }
+@* <script> *@
+@*     var eventsData = @Html.Raw(eventsJson); *@
+
+@*     $(function () { *@
+@*         $("#gridContainer").dxDataGrid({ *@
+@*             dataSource: eventsData, *@
+@*             keyExpr: "EventsId", *@
+@*             columns: [ *@
+@*                 { dataField: "EventName", caption: "Tên sự kiện" }, *@
+@*                 { dataField: "EventTime", caption: "Thời gian", dataType: "date", format: "dd/MM/yyyy HH:mm" }, *@
+@*                 { dataField: "Location", caption: "Địa điểm" }, *@
+@*                 { dataField: "Eventtypes.EventtypesName", // Lấy từ quan hệ Eventtypes *@
+@*         caption: "Loại sự kiện" }, *@
+@*                 { *@
+@*                     caption: "Chi tiết", *@
+@*                     cellTemplate: function(container, options) { *@
+@*                         $("<a>") *@
+@*                             .attr("href", "/Events/Details/" + options.data.EventsId) *@
+@*                             .addClass("btn btn-info btn-sm") *@
+@*                             .html('<i class="fas fa-eye"></i> Xem') *@
+@*                             .appendTo(container); *@
+@*                     } *@
+@*                 } *@
                 
-            ],
-            showBorders: true,
-            paging: {
-                pageSize: 10
-            },
-            pager: {
-                showPageSizeSelector: true,
-                allowedPageSizes: [5, 10, 20],
-                showInfo: true
-            },
-            searchPanel: {
-                visible: true,
-                width: 240,
-                placeholder: "Tìm kiếm..."
-            }
-        });
-    });
-</script>
+@*             ], *@
+@*             showBorders: true, *@
+@*             paging: { *@
+@*                 pageSize: 10 *@
+@*             }, *@
+@*             pager: { *@
+@*                 showPageSizeSelector: true, *@
+@*                 allowedPageSizes: [5, 10, 20], *@
+@*                 showInfo: true *@
+@*             }, *@
+@*             searchPanel: { *@
+@*                 visible: true, *@
+@*                 width: 240, *@
+@*                 placeholder: "Tìm kiếm..." *@
+@*             } *@
+@*         }); *@
+@*     }); *@
+@* </script> *@
