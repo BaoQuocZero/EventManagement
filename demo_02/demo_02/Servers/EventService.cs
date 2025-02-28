@@ -19,7 +19,7 @@ public class EventService
             .ToListAsync();
     }
 
-    // GetByID
+    // GetByID Event
     public async Task<Event> GetEventByIdAsync(int eventId)
     {
         return await _context.Events
@@ -28,7 +28,7 @@ public class EventService
             .FirstOrDefaultAsync();
     }
 
-    //Update
+    //Update Event 
     public async Task<bool> UpdateEventAsync(Event updatedEvent)
     {
         var existingEvent = await _context.Events.FindAsync(updatedEvent.EventsId);
@@ -157,6 +157,66 @@ public class EventService
         _context.Users.Remove(existingUser);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    //Tham gia sự kiện
+    //Get All Eventparticipation(tham gia sự kiện)
+    public async Task<List<Eventparticipation>> GetAllEventParticipationsAsync()
+    {
+        return await _context.Eventparticipations
+            .Where(ep => ep.IsDelete == false || ep.IsDelete == null)
+            .Include(ep => ep.Events)  // Lấy thông tin sự kiện
+            .Include(ep => ep.User)    // Lấy thông tin người dùng
+            .ToListAsync();
+    }
+
+    //Detail Eventparticipation
+    public async Task<Eventparticipation> GetEventParticipationByIdAsync(int participationId)
+    {
+        return await _context.Eventparticipations
+            .Where(ep => ep.ParticipationId == participationId)  
+            .Include(ep => ep.Events)  
+            .Include(ep => ep.User)  
+            .FirstOrDefaultAsync();
+    }
+
+    //Delete Eventparticipation
+    public async Task<bool> DeleteEventparticipationAsync(int eventId)
+    {
+        var existingEvent = await _context.Eventparticipations.FindAsync(eventId);
+        if (existingEvent == null)
+        {
+            return false; // Không tìm thấy sự kiện
+        }
+
+        // Thay vì xóa hoàn toàn, đặt cờ IsDelete để có thể khôi phục sau này
+        existingEvent.IsDelete = true;
+        existingEvent.UpdateAt = DateTime.Now; // Ghi lại thời gian cập nhật
+
+        await _context.SaveChangesAsync();
+        return true; // Xóa thành công
+    }
+
+    // Cập nhật thông tin tham gia sự kiện
+    public async Task<bool> UpdateEventParticipationAsync(Eventparticipation updatedParticipation)
+    {
+        var existingParticipation = await _context.Eventparticipations.FindAsync(updatedParticipation.ParticipationId);
+        if (existingParticipation == null)
+        {
+            return false; // Không tìm thấy dữ liệu
+        }
+
+        // Cập nhật thông tin nếu có giá trị mới
+        existingParticipation.ParticipationStatus = !string.IsNullOrWhiteSpace(updatedParticipation.ParticipationStatus)
+            ? updatedParticipation.ParticipationStatus
+            : existingParticipation.ParticipationStatus;
+
+        existingParticipation.EarnedPoints = updatedParticipation.EarnedPoints ?? existingParticipation.EarnedPoints;
+        existingParticipation.ParticipationTime = updatedParticipation.ParticipationTime ?? existingParticipation.ParticipationTime;
+        existingParticipation.UpdateAt = DateTime.Now; // Cập nhật thời gian sửa đổi
+
+        await _context.SaveChangesAsync();
+        return true; // Cập nhật thành công
     }
 
 }

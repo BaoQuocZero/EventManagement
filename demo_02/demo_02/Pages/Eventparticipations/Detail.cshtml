@@ -1,0 +1,56 @@
+﻿@page "{id:int}"
+@model DetailsModel
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="m-0"><i class="fas fa-info-circle"></i> Chi tiết Tham Gia Sự Kiện</h3>
+                    <a asp-page="Index" class="btn btn-light text-primary fw-bold">
+                        <i class="fas fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    @if (Model.EventParticipationDetail != null)
+                    {
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong><i class="fas fa-user"></i> Người tham gia:</strong>
+                                <span class="text-primary fw-bold">@Model.EventParticipationDetail.User?.FullName</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fas fa-calendar-alt"></i> Sự kiện:</strong>
+                                <span class="text-success fw-bold">@Model.EventParticipationDetail.Events?.EventName</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fas fa-check-circle"></i> Trạng thái:</strong>
+                                <span class="badge @(Model.EventParticipationDetail.ParticipationStatus == "Đã duyệt" ? "bg-success" : "bg-warning")">
+                                    @Model.EventParticipationDetail.ParticipationStatus
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fas fa-star"></i> Điểm thưởng:</strong>
+                                <span class="text-danger fw-bold">@(Model.EventParticipationDetail.EarnedPoints ?? 0)</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong><i class="fas fa-clock"></i> Thời gian tham gia:</strong>
+                                <span class="text-muted">@(Model.EventParticipationDetail.ParticipationTime?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa cập nhật")</span>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger text-center">
+                            <i class="fas fa-exclamation-triangle"></i> Không tìm thấy thông tin tham gia sự kiện.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome (Nếu bạn chưa có) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

@@ -23,17 +23,18 @@
                 { dataField: "EventName", caption: "Tên sự kiện" },
                 { dataField: "EventTime", caption: "Thời gian", dataType: "date", format: "dd/MM/yyyy HH:mm" },
                 { dataField: "Location", caption: "Địa điểm" },
-                { dataField: "EventTypeName", caption: "Loại sự kiện" },
+                { dataField: "Eventtypes.EventtypesName", caption: "Loại sự kiện" },
                 {
                     caption: "Chi tiết",
                     cellTemplate: function(container, options) {
                         $("<a>")
-                            .attr("href", "/Users/Details/" + options.data.EventsId)
+                            .attr("href", "/Events/Details/" + options.data.EventsId)
                             .addClass("btn btn-info btn-sm")
                             .html('<i class="fas fa-eye"></i> Xem')
                             .appendTo(container);
                     }
                 }
+                
             ],
             showBorders: true,
             paging: {
