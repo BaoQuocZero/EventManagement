@@ -1,0 +1,62 @@
+﻿@page
+@model demo_02.Pages.Users.EditModel
+@{
+    ViewData["Title"] = "Chỉnh sửa người dùng";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body">
+                    <h3 class="text-center text-primary"><i class="fas fa-user-edit"></i> Chỉnh sửa người dùng</h3>
+                    <form method="post">
+                        <input type="hidden" asp-for="User.UserId" />
+
+                        <!-- Tên đầy đủ -->
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-user"></i> Họ và tên</label>
+                            <input asp-for="User.FullName" class="form-control" readonly />
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                            <input asp-for="User.Email" class="form-control" readonly />
+                        </div>
+
+                        <!-- Chọn vai trò -->
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-user-shield"></i> Vai trò</label>
+                            <select asp-for="User.RolesId" class="form-select" asp-items="Model.RolesList"></select>
+                        </div>
+
+                        <!-- Mã lớp -->
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-id-card"></i> Mã lớp</label>
+                            <input asp-for="User.Classid" class="form-control" required />
+                        </div>
+
+                        <!-- Tên lớp -->
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-school"></i> Tên lớp</label>
+                            <input asp-for="User.Classname" class="form-control" required />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Lưu thay đổi
+                            </button>
+                            <a asp-page="./Index" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-times"></i> Hủy
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

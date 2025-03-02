@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace demo_02.Models {
+namespace demo_02.Models
+{
     public class SampleOrder {
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }

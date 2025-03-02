@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace demo_02.Models;
 
@@ -33,7 +35,7 @@ public partial class EventManagementContext : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-6JRBMVT\\SQLEXPRESS;Initial Catalog=EventManagement;Integrated Security=True;Trust Server Certificate=True");
+//        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-SDFOMUO;Initial Catalog=EventManagement;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -254,6 +256,10 @@ public partial class EventManagementContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("FULL_NAME");
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(1000)
+                .HasColumnName("PASSWORD");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(20)
                 .HasColumnName("PHONE_NUMBER");

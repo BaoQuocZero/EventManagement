@@ -1,0 +1,85 @@
+﻿@page
+@model LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/23.1.5/css/dx.light.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn3.devexpress.com/jslib/23.1.5/js/dx.all.js"></script>
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Đăng nhập</h2>
+
+            @if (!string.IsNullOrEmpty(Model.LoggedInUserId))
+            {
+                <div class="user-info">
+                    <h3>Chào mừng, @Model.LoggedInFullName!</h3>
+                    <p><strong>Email:</strong> @Model.LoggedInEmail</p>
+                    <p><strong>Vai trò:</strong> @Model.LoggedInRolesId</p>
+                </div>
+            }
+            else
+            {
+                <form method="post">
+                    <div id="login-form-container"></div>
+
+                    <input type="hidden" id="loginInfo" name="LoginInfo" />
+                    <input type="hidden" id="password" name="Password" />
+
+                    <div id="error-message" class="error-message">@Model.ErrorMessage</div>
+
+                    <button id="login-button" type="submit">Đăng nhập</button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            const formInstance = $("#login-form-container").dxForm({
+                formData: { loginInfo: "", password: "" },
+                items: [
+                    {
+                        dataField: "loginInfo",
+                        label: { text: "Email hoặc Số điện thoại" },
+                        editorType: "dxTextBox",
+                        editorOptions: { placeholder: "Nhập email hoặc số điện thoại...", mode: "text" },
+                        validationRules: [{ type: "required", message: "Vui lòng nhập email hoặc số điện thoại" }]
+                    },
+                    {
+                        dataField: "password",
+                        label: { text: "Mật khẩu" },
+                        editorType: "dxTextBox",
+                        editorOptions: { mode: "password", placeholder: "Nhập mật khẩu..." },
+                        validationRules: [{ type: "required", message: "Vui lòng nhập mật khẩu" }]
+                    }
+                ]
+            }).dxForm("instance");
+
+            $("form").on("submit", function (e) {
+                e.preventDefault();
+
+                const formData = formInstance.option("formData");
+                const validationResult = formInstance.validate();
+                if (!validationResult.isValid) {
+                    $("#error-message").text("Vui lòng điền đầy đủ thông tin.");
+                    return;
+                }
+
+                $("#loginInfo").val(formData.loginInfo);
+                $("#password").val(formData.password);
+                this.submit();
+            });
+        });
+    </script>
+</body>
+</html>

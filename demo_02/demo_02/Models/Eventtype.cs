@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace demo_02.Models;
+﻿namespace demo_02.Models;
 
 public partial class Eventtype
 {

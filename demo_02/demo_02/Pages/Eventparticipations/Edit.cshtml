@@ -1,0 +1,62 @@
+﻿@page
+@model demo_02.Pages.EventParticipations.EditModel
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-warning text-white text-center">
+                    <h3 class="m-0"><i class="fas fa-edit"></i> Chỉnh sửa tham gia sự kiện</h3>
+                </div>
+
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="EventParticipation.ParticipationId" />
+
+                        <div class="mb-3">
+                            <label asp-for="EventParticipation.ParticipationStatus" class="form-label fw-bold">
+                                <i class="fas fa-check-circle"></i> Trạng thái
+                            </label>
+                            <select asp-for="EventParticipation.ParticipationStatus" class="form-control">
+                                <option value="Đăng ký">Đăng ký</option>
+                                <option value="Đã tham gia">Đã tham gia</option>
+                                <option value="Hủy">Hủy</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="EventParticipation.EarnedPoints" class="form-label fw-bold">
+                                <i class="fas fa-star"></i> Điểm tích lũy
+                            </label>
+                            <input asp-for="EventParticipation.EarnedPoints" class="form-control" type="number" min="0" max="10" required />
+                            <span asp-validation-for="EventParticipation.EarnedPoints" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="EventParticipation.ParticipationTime" class="form-label fw-bold">
+                                <i class="fas fa-clock"></i> Thời gian tham gia
+                            </label>
+                            <input asp-for="EventParticipation.ParticipationTime" class="form-control" type="datetime-local" />
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Lưu
+                            </button>
+                            <a asp-page="./Index" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Hủy
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<!-- Font Awesome (Nếu bạn chưa có) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
