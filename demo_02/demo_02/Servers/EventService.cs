@@ -200,6 +200,40 @@ public class EventService
             .ToListAsync();
     }
 
+    //Phân trang
+    // Lấy danh sách EventParticipations với phân trang
+    // Lấy danh sách EventParticipations có phân trang
+    public async Task<List<Eventparticipation>> GetEventParticipationsPaginatedAsync(int page, int pageSize)
+    {
+        return await _context.Eventparticipations
+            .Include(e => e.Events)
+            .Include(e => e.User)
+            .OrderBy(e => e.ParticipationId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    // Lấy danh sách EventParticipations dưới dạng IQueryable để dùng với DevExtreme DataGrid
+    public IQueryable<Eventparticipation> GetEventParticipations()
+    {
+        return _context.Eventparticipations
+            .Include(e => e.Events)
+            .Include(e => e.User);
+    }
+
+    // Xóa một bản ghi EventParticipation
+    public async Task<bool> DeleteEventparticipationAsync(int id)
+    {
+        var participation = await _context.Eventparticipations.FindAsync(id);
+        if (participation == null) return false;
+
+        _context.Eventparticipations.Remove(participation);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+
     //Detail Eventparticipation
     public async Task<Eventparticipation> GetEventParticipationByIdAsync(int participationId)
     {
@@ -211,21 +245,21 @@ public class EventService
     }
 
     //Delete Eventparticipation
-    public async Task<bool> DeleteEventparticipationAsync(int eventId)
-    {
-        var existingEvent = await _context.Eventparticipations.FindAsync(eventId);
-        if (existingEvent == null)
-        {
-            return false; // Không tìm thấy sự kiện
-        }
+    //public async Task<bool> DeleteEventparticipationAsync(int eventId)
+    //{
+    //    var existingEvent = await _context.Eventparticipations.FindAsync(eventId);
+    //    if (existingEvent == null)
+    //    {
+    //        return false; // Không tìm thấy sự kiện
+    //    }
 
-        // Thay vì xóa hoàn toàn, đặt cờ IsDelete để có thể khôi phục sau này
-        existingEvent.IsDelete = true;
-        existingEvent.UpdateAt = DateTime.Now; // Ghi lại thời gian cập nhật
+    //    // Thay vì xóa hoàn toàn, đặt cờ IsDelete để có thể khôi phục sau này
+    //    existingEvent.IsDelete = true;
+    //    existingEvent.UpdateAt = DateTime.Now; // Ghi lại thời gian cập nhật
 
-        await _context.SaveChangesAsync();
-        return true; // Xóa thành công
-    }
+    //    await _context.SaveChangesAsync();
+    //    return true; // Xóa thành công
+    //}
 
     // Cập nhật thông tin tham gia sự kiện
     public async Task<bool> UpdateEventParticipationAsync(Eventparticipation updatedParticipation)

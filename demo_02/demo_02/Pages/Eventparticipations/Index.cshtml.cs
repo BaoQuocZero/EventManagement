@@ -1,6 +1,9 @@
 ﻿using demo_02.Models;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace demo_02.Pages.EventParticipations
 {
     public class IndexModel : PageModel
@@ -14,9 +17,26 @@ namespace demo_02.Pages.EventParticipations
 
         public List<Eventparticipation> EventParticipations { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int page = 1, int pageSize = 10)
         {
-            EventParticipations = await _eventService.GetAllEventParticipationsAsync();
+            // Tải dữ liệu sự kiện với phân trang
+            EventParticipations = await _eventService.GetEventParticipationsPaginatedAsync(page, pageSize);
+        }
+
+        public IActionResult OnGetData(DataSourceLoadOptions loadOptions)
+        {
+            var data = _eventService.GetEventParticipations()
+                .Select(e => new
+                {
+                    e.ParticipationId,
+                    EventName = e.Events.EventName,
+                    UserName = e.User.FullName,
+                    e.ParticipationStatus,
+                    e.ParticipationTime,
+                    e.EarnedPoints
+                });
+
+            return new JsonResult(DataSourceLoader.Load(data, loadOptions));
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
@@ -29,6 +49,5 @@ namespace demo_02.Pages.EventParticipations
 
             return RedirectToPage("./Index");
         }
-
     }
 }

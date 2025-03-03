@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace demo_02.Models;
 
@@ -31,5 +30,6 @@ public partial class Event
 
     public virtual ICollection<Eventparticipation> Eventparticipations { get; set; } = new List<Eventparticipation>();
 
+    [JsonIgnore]
     public virtual Eventtype Eventtypes { get; set; }
 }

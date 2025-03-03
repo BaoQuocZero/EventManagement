@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
 
 namespace demo_02.Models;
 
@@ -24,7 +24,9 @@ public partial class Eventparticipation
 
     public virtual ICollection<Eventdonation> Eventdonations { get; set; } = new List<Eventdonation>();
 
+    [JsonIgnore]
     public virtual Event Events { get; set; }
 
+    [JsonIgnore]
     public virtual User User { get; set; }
 }

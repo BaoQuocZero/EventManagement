@@ -1,4 +1,6 @@
-﻿namespace demo_02.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace demo_02.Models;
 
 public partial class Eventtype
 {
@@ -12,5 +14,6 @@ public partial class Eventtype
 
     public bool? IsDelete { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Event> Events { get; set; } = new List<Event>();
 }

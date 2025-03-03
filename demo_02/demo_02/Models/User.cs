@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace demo_02.Models;
 
@@ -31,6 +30,6 @@ public partial class User
     public virtual ICollection<Eventparticipation> Eventparticipations { get; set; } = new List<Eventparticipation>();
 
     public virtual Role Roles { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<UserNotification> UserNotifications { get; set; } = new List<UserNotification>();
 }
