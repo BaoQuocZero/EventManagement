@@ -13,20 +13,179 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn3.devexpress.com/jslib/23.1.5/js/dx.all.js"></script>
     <link rel="stylesheet" href="~/css/login.css" />
+    <Style>
+        /* Card chứa thông tin người dùng */
+        .user-card {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            max-width: 400px;
+            margin: 20px auto;
+            color: white;
+            text-align: left;
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 30px;
+        }
+
+        /* Thông tin chi tiết */
+        .user-details h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .user-details p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .user-details i {
+            margin-right: 5px;
+        }
+
+        /* Định dạng chung cho form */
+        #profile-form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* Các ô input */
+        .dx-texteditor {
+            border-radius: 6px !important;
+            border: 1px solid #ccc;
+            transition: 0.3s;
+            padding: 8px;
+        }
+
+            .dx-texteditor:hover,
+            .dx-texteditor:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+        /* Nút cập nhật */
+        #update-profile-btn {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            #update-profile-btn:hover {
+                background: linear-gradient(to right, #00c6ff, #0072ff);
+            }
+
+        /* Hiển thị user-card */
+        .user-card {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            max-width: 500px;
+            margin: 20px auto;
+            color: white;
+            text-align: left;
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 30px;
+        }
+
+
+    </Style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-box">
             <h2>Đăng nhập</h2>
-
             @if (!string.IsNullOrEmpty(Model.LoggedInUserId))
             {
-                <div class="user-info">
-                    <h3>Chào mừng, @Model.LoggedInFullName!</h3>
-                    <p><strong>Email:</strong> @Model.LoggedInEmail</p>
-                    <p><strong>Vai trò:</strong> @Model.LoggedInRolesId</p>
+                <div class="user-profile">
+                    <div class="user-card">
+                        <div class="avatar">
+                            <i class="dx-icon dx-icon-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h3>Chào mừng, <span>@Model.LoggedInFullName</span></h3>
+                            <p><i class="dx-icon dx-icon-email"></i> <strong>Email:</strong> @Model.LoggedInEmail</p>
+                            <p><i class="dx-icon dx-icon-preferences"></i> <strong>Vai trò:</strong> @Model.LoggedInRolesId</p>
+                        </div>
+                    </div>
+
+                    <!-- Form hiển thị thông tin user -->
+                    <div id="profile-form-container" class="profile-form"></div>
+
                 </div>
+
+                <script>
+                    function decodeHtml(html) {
+                        var txt = document.createElement("textarea");
+                        txt.innerHTML = html;
+                        return txt.value;
+                    }
+                    $(function () {
+                        $("#profile-form-container").dxForm({
+                            formData: {
+                                fullName: "@Model.LoggedInFullName",
+                                email: "@Model.LoggedInEmail",
+                                phone: "@Model.LoggedInPhone",
+                                studentId: "@Model.LoggedInStudentId",
+                                classId: "@Model.LoggedInClassId",
+                                className: decodeHtml("@Model.LoggedInClassName"),
+                                createdAt: "@Model.LoggedInCreatedAt"
+                            },
+                            colCount: 2,
+                            items: [
+                                { dataField: "fullName", label: { text: "Họ tên" }, editorOptions: { readOnly: true } },
+                                { dataField: "email", label: { text: "Email" }, editorOptions: { readOnly: true } },
+                                { dataField: "phone", label: { text: "Số điện thoại" }, editorOptions: { readOnly: true } },
+                                { dataField: "studentId", label: { text: "Mã sinh viên" }, editorOptions: { readOnly: true } },
+                                { dataField: "classId", label: { text: "Mã lớp" }, editorOptions: { readOnly: true } },
+                                { dataField: "className", label: { text: "Tên lớp" }, editorOptions: { readOnly: true} },
+                                { dataField: "createdAt", label: { text: "Ngày tạo" }, editorOptions: { readOnly: true } }
+                            ]
+                        });
+                    });
+                </script>
             }
+
             else
             {
                 <form method="post">
