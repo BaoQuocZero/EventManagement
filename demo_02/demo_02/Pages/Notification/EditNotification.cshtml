@@ -1,0 +1,26 @@
+﻿@page "{id:int}"
+@model EditNotificationModel
+@{
+    ViewData["Title"] = "Chỉnh sửa thông báo";
+}
+
+<div class="container mt-4">
+    <h2>Chỉnh sửa thông báo</h2>
+    <hr />
+    <form method="post">
+        <input type="hidden" asp-for="Notification.NotificationsId" />
+
+        <div class="mb-3">
+            <label class="form-label">Tiêu đề</label>
+            <input asp-for="Notification.Title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nội dung</label>
+            <textarea asp-for="Notification.Message" class="form-control" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Cập nhật</button>
+        <a asp-page="Notifications" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

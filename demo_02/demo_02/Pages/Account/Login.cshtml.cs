@@ -22,6 +22,11 @@ public class LoginModel : PageModel
     public string LoggedInFullName { get; set; }
     public string LoggedInEmail { get; set; }
     public string LoggedInRolesId { get; set; }
+    public string LoggedInPhone { get; set; }      // ✅ Thêm số điện thoại
+    public string LoggedInStudentId { get; set; }  // ✅ Thêm mã sinh viên
+    public string LoggedInClassId { get; set; }    // ✅ Thêm mã lớp
+    public string LoggedInClassName { get; set; }  // ✅ Thêm tên lớp
+    public string LoggedInCreatedAt { get; set; }  // ✅ Thêm ngày tạo tài khoản
 
     public IActionResult OnPost()
     {
@@ -45,12 +50,22 @@ public class LoginModel : PageModel
         HttpContext.Session.SetString("FullName", user.FullName);
         HttpContext.Session.SetString("Email", user.Email);
         HttpContext.Session.SetString("RolesId", user.RolesId.ToString());
+        HttpContext.Session.SetString("Phone", user.PhoneNumber); // ✅ Lưu số điện thoại
+        HttpContext.Session.SetString("StudentId", user.StudentId ?? ""); // ✅ Lưu mã sinh viên
+        HttpContext.Session.SetString("ClassId", user.Classid ?? ""); // ✅ Lưu mã lớp
+        HttpContext.Session.SetString("ClassName", user.Classname ?? ""); // ✅ Lưu tên lớp
+        HttpContext.Session.SetString("CreatedAt", user.CreateAt?.ToString("dd/MM/yyyy") ?? ""); // ✅ Lưu ngày tạo tài khoản
 
         // Gán giá trị để hiển thị trên giao diện
         LoggedInUserId = user.UserId.ToString();
         LoggedInFullName = user.FullName;
         LoggedInEmail = user.Email;
         LoggedInRolesId = user.RolesId.ToString();
+        LoggedInPhone = user.PhoneNumber; // ✅ Hiển thị số điện thoại
+        LoggedInStudentId = user.StudentId; // ✅ Hiển thị mã sinh viên
+        LoggedInClassId = user.Classid; // ✅ Hiển thị mã lớp
+        LoggedInClassName = user.Classname; // ✅ Hiển thị tên lớp
+        LoggedInCreatedAt = user.CreateAt?.ToString("dd/MM/yyyy"); // ✅ Hiển thị ngày tạo tài khoản
 
         return Page(); // Quay lại chính trang đăng nhập nhưng hiển thị thông tin user
     }

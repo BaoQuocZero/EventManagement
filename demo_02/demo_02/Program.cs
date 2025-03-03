@@ -1,5 +1,4 @@
 ﻿using demo_02.Models;
-using demo_02.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,6 +53,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 app.UseStaticFiles();
+
+// ✅ Thêm middleware session vào pipeline xử lý HTTP
 app.UseSession();
 app.UseRouting();
 app.UseAuthorization();

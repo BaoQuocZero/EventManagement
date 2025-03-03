@@ -1,0 +1,31 @@
+﻿@page
+@model CreateNotificationModel
+@{
+    ViewData["Title"] = "Thêm thông báo";
+}
+
+<div class="container mt-4">
+    <h2>Thêm mới thông báo</h2>
+    <hr />
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Tiêu đề</label>
+            <input asp-for="Notification.Title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nội dung</label>
+            <textarea asp-for="Notification.Message" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Loại thông báo</label>
+            <select asp-for="Notification.NotificationtypesId" asp-items="Model.NotificationTypes" class="form-control" required>
+                <option value="">Chọn loại</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a asp-page="Notifications" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
