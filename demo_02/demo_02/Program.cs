@@ -1,4 +1,5 @@
 ﻿using demo_02.Models;
+using demo_02.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,9 @@ builder.Services.AddDbContext<EventManagementContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ThucTap"));
 });
 
+// Đăng ký dịch vụ FakeDataService
+builder.Services.AddScoped<FakeDataService>();
+
 builder.Services.AddScoped<EventService>();
 // Đăng ký AuthService
 builder.Services.AddScoped<AuthService>();
@@ -30,21 +34,31 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
+// Tạo scope để chạy Seeder
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<EventManagementContext>();
+
+    // Áp dụng migration nếu chưa có
+    dbContext.Database.Migrate();
+
+    // ✅ Gọi Seeder để thêm dữ liệu mới mỗi lần chạy ứng dụng
+    var seeder = new DatabaseSeeder(dbContext);
+    seeder.Seed();
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
 app.UseStaticFiles();
-
-// ✅ Thêm middleware session vào pipeline xử lý HTTP
 app.UseSession();
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapControllers();
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
-
 app.Run();
+

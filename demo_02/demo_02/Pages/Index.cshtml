@@ -6,3 +6,110 @@
 
 <p>UserId trong Session: @Model.SessionUserId</p>
 
+<!-- Thêm CSS & JS của DevExtreme -->
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/latest/css/dx.light.css" />
+<script src="https://cdn3.devexpress.com/jslib/latest/js/dx.all.js"></script>
+
+<h2>Thống kê nhanh</h2>
+
+<!-- Bảng thống kê nhanh -->
+<div id="dashboardGrid"></div>
+
+<!-- Biểu đồ -->
+<div class="chart-container">
+    <div id="eventChart" class="chart-item"></div>
+    <div id="statusPieChart" class="chart-item"></div>
+    <div id="studentLineChart" class="chart-item"></div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            // Dữ liệu giả lập
+            var statisticsData = [{
+                totalEvents: 125,
+                totalParticipants: 3200,
+                topEvent: "Lễ hội Xuân",
+                status: "Đang mở: 10, Sắp diễn ra: 5, Đã kết thúc: 20"
+            }];
+
+            var eventData = [
+                { category: "Học thuật", count: 15 },
+                { category: "Văn hóa", count: 10 },
+                { category: "Tình nguyện", count: 20 },
+                { category: "Thể thao", count: 8 }
+            ];
+
+            var statusData = [
+                { status: "Đang mở", count: 10 },
+                { status: "Sắp diễn ra", count: 5 },
+                { status: "Đã kết thúc", count: 20 }
+            ];
+
+            var studentData = [
+                { month: "Tháng 1", count: 200 },
+                { month: "Tháng 2", count: 150 },
+                { month: "Tháng 3", count: 300 },
+                { month: "Tháng 4", count: 280 },
+                { month: "Tháng 5", count: 350 }
+            ];
+
+            // Bảng thống kê nhanh
+            $("#dashboardGrid").dxDataGrid({
+                dataSource: statisticsData,
+                columns: [
+                    { dataField: "totalEvents", caption: "Tổng số sự kiện", dataType: "number" },
+                    { dataField: "totalParticipants", caption: "Số sinh viên tham gia", dataType: "number" },
+                    { dataField: "topEvent", caption: "Sự kiện đông nhất", dataType: "string" },
+                    { dataField: "status", caption: "Trạng thái sự kiện", dataType: "string" }
+                ],
+                showBorders: true,
+                paging: { enabled: false }
+            });
+
+            // Biểu đồ cột - Thống kê sự kiện theo loại
+            $("#eventChart").dxChart({
+                dataSource: eventData,
+                commonSeriesSettings: { argumentField: "category", type: "bar" },
+                series: [{ valueField: "count", name: "Số lượng" }],
+                legend: { visible: false },
+                title: "Số lượng sự kiện theo loại"
+            });
+
+            // Biểu đồ tròn - Phân bố trạng thái sự kiện
+            $("#statusPieChart").dxPieChart({
+                dataSource: statusData,
+                series: [{
+                    argumentField: "status",
+                    valueField: "count",
+                    label: { visible: true, format: "fixedPoint", connector: { visible: true } }
+                }],
+                title: "Phân bố trạng thái sự kiện"
+            });
+
+            // Biểu đồ đường - Số lượng sinh viên tham gia theo tháng
+            $("#studentLineChart").dxChart({
+                dataSource: studentData,
+                commonSeriesSettings: { argumentField: "month", type: "line" },
+                series: [{ valueField: "count", name: "Số sinh viên" }],
+                title: "Số sinh viên tham gia theo tháng"
+            });
+        });
+    </script>
+}
+
+<style>
+    .chart-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .chart-item {
+        width: 30%;
+        min-width: 300px;
+        height: 300px;
+    }
+</style>
+
+
