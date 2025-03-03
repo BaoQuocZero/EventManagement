@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
+using demo_02.Models;
 
 namespace demo_02.Pages
 {
