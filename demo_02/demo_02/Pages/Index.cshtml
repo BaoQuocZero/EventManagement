@@ -25,36 +25,24 @@
 @section Scripts {
     <script>
         $(function () {
-            // Dữ liệu giả lập
             var statisticsData = [{
-                totalEvents: 125,
-                totalParticipants: 3200,
-                topEvent: "Lễ hội Xuân",
-                status: "Đang mở: 10, Sắp diễn ra: 5, Đã kết thúc: 20"
+                totalEvents: @Model.TotalEvents,
+                totalParticipants: @Model.TotalParticipants,
+                topEvent: "@Html.Raw(Model.TopEvent)",
+                status: "Đang mở: @Model.StatusData["Đang mở"], Sắp diễn ra: @Model.StatusData["Sắp diễn ra"], Đã kết thúc: @Model.StatusData["Đã kết thúc"]"
             }];
 
-            var eventData = [
-                { category: "Học thuật", count: 15 },
-                { category: "Văn hóa", count: 10 },
-                { category: "Tình nguyện", count: 20 },
-                { category: "Thể thao", count: 8 }
-            ];
+            var eventData = @Json.Serialize(Model.EventTypesData.Select(e => new { category = e.Key, count = e.Value }));
 
             var statusData = [
-                { status: "Đang mở", count: 10 },
-                { status: "Sắp diễn ra", count: 5 },
-                { status: "Đã kết thúc", count: 20 }
+                { status: "Đang mở", count: @Model.StatusData["Đang mở"] },
+                { status: "Sắp diễn ra", count: @Model.StatusData["Sắp diễn ra"] },
+                { status: "Đã kết thúc", count: @Model.StatusData["Đã kết thúc"] }
             ];
 
-            var studentData = [
-                { month: "Tháng 1", count: 200 },
-                { month: "Tháng 2", count: 150 },
-                { month: "Tháng 3", count: 300 },
-                { month: "Tháng 4", count: 280 },
-                { month: "Tháng 5", count: 350 }
-            ];
+            var studentData = @Json.Serialize(Model.StudentData.Select(s => new { month = s.Key, count = s.Value }));
 
-            // Bảng thống kê nhanh
+            // Cấu hình bảng DevExtreme
             $("#dashboardGrid").dxDataGrid({
                 dataSource: statisticsData,
                 columns: [
@@ -67,7 +55,7 @@
                 paging: { enabled: false }
             });
 
-            // Biểu đồ cột - Thống kê sự kiện theo loại
+            // Biểu đồ thống kê sự kiện theo loại
             $("#eventChart").dxChart({
                 dataSource: eventData,
                 commonSeriesSettings: { argumentField: "category", type: "bar" },
@@ -76,7 +64,7 @@
                 title: "Số lượng sự kiện theo loại"
             });
 
-            // Biểu đồ tròn - Phân bố trạng thái sự kiện
+            // Biểu đồ tròn - Trạng thái sự kiện
             $("#statusPieChart").dxPieChart({
                 dataSource: statusData,
                 series: [{
