@@ -1,4 +1,5 @@
 ﻿using demo_02.Models;
+using demo_02.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
