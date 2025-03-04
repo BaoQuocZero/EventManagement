@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace demo_02.Models;
 
@@ -32,4 +33,17 @@ public partial class Event
 
     //[JsonIgnore]
     public virtual Eventtype Eventtypes { get; set; }
+
+    [NotMapped]
+    public int TotalParticipants { get; set; }
+
+    [NotMapped]
+    public int TotalDonations { get; set; }
+
+    [NotMapped]
+    public int AbsentCount { get; set; }
+
+    [NotMapped]
+    public decimal ParticipationRate { get; set; }
+
 }
