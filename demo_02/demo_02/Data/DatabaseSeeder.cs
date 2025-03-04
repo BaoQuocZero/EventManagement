@@ -26,9 +26,9 @@ public class DatabaseSeeder
 
         var usersFaker = new Faker<User>()
             .RuleFor(u => u.RolesId, f => f.PickRandom(roleIds))
-            .RuleFor(u => u.StudentId, f => f.Random.Replace("S########"))
+            .RuleFor(u => u.StudentId, f => f.Random.Replace("#########"))
             .RuleFor(u => u.FullName, f => f.Name.FullName())
-            .RuleFor(u => u.Classid, f => f.Random.AlphaNumeric(6))
+            .RuleFor(u => u.Classid, f => f.Random.AlphaNumeric(7))
             .RuleFor(u => u.Classname, f => f.Random.Word())
             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.FullName))
             .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber("0#########"))
@@ -48,12 +48,12 @@ public class DatabaseSeeder
         var eventsFaker = new Faker<Event>()
             .RuleFor(e => e.EventtypesId, f => f.PickRandom(eventTypeIds))
             .RuleFor(e => e.EventName, f => f.Company.CatchPhrase())
-            .RuleFor(e => e.EventTime, f => f.Date.Future())
+            .RuleFor(e => e.EventTime, f => f.Date.Between(DateTime.Now, DateTime.Now.AddYears(1)))
             .RuleFor(e => e.EndTime, (f, e) => e.EventTime.HasValue ? e.EventTime.Value.AddHours(f.Random.Int(2, 5)) : DateTime.Now)
             .RuleFor(e => e.Location, f => f.Address.City())
             .RuleFor(e => e.Description, f => f.Lorem.Paragraph())
             .RuleFor(e => e.RequiredParticipants, f => f.Random.Int(10, 100))
-            .RuleFor(e => e.MaxParticipants, (f, e) => e.RequiredParticipants + f.Random.Int(10, 50))
+            .RuleFor(e => e.MaxParticipants, (f, e) => e.RequiredParticipants + f.Random.Int(0, 50))
             .RuleFor(e => e.CreateAt, f => f.Date.Past(2))
             .RuleFor(e => e.UpdateAt, f => f.Date.Recent())
             .RuleFor(e => e.IsDelete, f => f.Random.Bool(0.1f));
@@ -71,13 +71,13 @@ public class DatabaseSeeder
             .RuleFor(p => p.EventsId, f => f.PickRandom(eventIds))
             .RuleFor(p => p.UserId, f => f.PickRandom(userIds))
             .RuleFor(p => p.ParticipationStatus, f => f.PickRandom(new[] { "Đã đăng ký", "Đã tham dự", "Vắng" }))
-            .RuleFor(p => p.EarnedPoints, f => f.Random.Int(5, 50))
+            .RuleFor(p => p.EarnedPoints, f => f.Random.Int(1, 8))
             .RuleFor(p => p.ParticipationTime, f => f.Date.Past(1))
             .RuleFor(p => p.CreateAt, f => f.Date.Past(1))
             .RuleFor(p => p.UpdateAt, f => f.Date.Recent())
             .RuleFor(p => p.IsDelete, f => f.Random.Bool(0.05f));
 
-        var participations = participationFaker.Generate(150); // Thêm 150 lượt tham gia mỗi lần chạy
+        var participations = participationFaker.Generate(500); // Thêm 500 lượt tham gia mỗi lần chạy
         _context.Eventparticipations.AddRange(participations);
     }
 
@@ -87,7 +87,7 @@ public class DatabaseSeeder
 
         var donationFaker = new Faker<Eventdonation>()
             .RuleFor(d => d.ParticipationId, f => f.PickRandom(participationIds))
-            .RuleFor(d => d.Amount, f => f.Random.Int(10, 500))
+            .RuleFor(d => d.Amount, f => f.Random.Int(10000, 500000))
             .RuleFor(d => d.DonationDate, f => f.Date.Past(1))
             .RuleFor(d => d.CreateAt, f => f.Date.Past(1))
             .RuleFor(d => d.UpdateAt, f => f.Date.Recent())

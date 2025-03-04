@@ -13,42 +13,7 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-bordered table-hover">
-                        <tbody class="text-center align-middle">
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-file-signature"></i> Tên sự kiện:</th>
-                                <td>@Model.Event.EventName</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-clock"></i> Thời gian bắt đầu:</th>
-                                <td>@Model.Event.EventTime?.ToString("dd/MM/yyyy HH:mm")</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-clock"></i> Thời gian kết thúc:</th>
-                                <td>@Model.Event.EndTime?.ToString("dd/MM/yyyy HH:mm")</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-map-marker-alt"></i> Địa điểm:</th>
-                                <td>@Model.Event.Location</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-align-left"></i> Mô tả:</th>
-                                <td>@Model.Event.Description</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-list"></i> Loại sự kiện:</th>
-                                <td>@Model.Event.Eventtypes?.EventtypesName</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-users"></i> Số lượng tối thiểu:</th>
-                                <td>@Model.Event.RequiredParticipants</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light"><i class="fas fa-users"></i> Số lượng tối đa:</th>
-                                <td>@Model.Event.MaxParticipants</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="eventDetails"></div>
                 </div>
 
                 <div class="card-footer text-center">
@@ -61,5 +26,30 @@
     </div>
 </div>
 
-<!-- Font Awesome (Nếu bạn chưa có) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script>
+    $(function () {
+        console.log(">>>>>>>>>>>", @Html.Raw(Json.Serialize(Model.Event)))
+        $("#eventDetails").dxForm({
+            formData: @Html.Raw(Json.Serialize(Model.Event)),
+            readOnly: true,
+            colCount: 2,
+            items: [
+                { dataField: "EventName", label: { text: "Tên sự kiện" }, editorType: "dxTextBox" },
+                { dataField: "EventTime", label: { text: "Thời gian bắt đầu" }, editorType: "dxDateBox", editorOptions: { type: "datetime" } },
+                { dataField: "EndTime", label: { text: "Thời gian kết thúc" }, editorType: "dxDateBox", editorOptions: { type: "datetime" } },
+                { dataField: "Location", label: { text: "Địa điểm" }, editorType: "dxTextBox" },
+                { dataField: "Description", label: { text: "Mô tả" }, editorType: "dxTextArea" },
+                { dataField: "Eventtypes.EventtypesName", label: { text: "Loại sự kiện" }, editorType: "dxTextBox" },
+                { dataField: "RequiredParticipants", label: { text: "Số lượng tối thiểu" }, editorType: "dxNumberBox" },
+                { dataField: "MaxParticipants", label: { text: "Số lượng tối đa" }, editorType: "dxNumberBox" },
+
+                // Thêm các thông tin mới
+                { dataField: "TotalParticipants", label: { text: "Tổng số người tham gia" }, editorType: "dxNumberBox" },
+                { dataField: "AbsentCount", label: { text: "Số lượng vắng mặt" }, editorType: "dxNumberBox" },
+                { dataField: "TotalDonations", label: { text: "Tổng số tiền donate" }, editorType: "dxNumberBox", editorOptions: { format: "#,##0 VNĐ" } },
+                { dataField: "ParticipationRate", label: { text: "Tỷ lệ tham gia (%)" }, editorType: "dxNumberBox", editorOptions: { format: "#.## %" } }
+            ]
+        });
+    });
+</script>
+

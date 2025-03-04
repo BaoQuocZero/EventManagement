@@ -13,6 +13,14 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//builder.Services.AddControllersWithViews()
+//    .AddJsonOptions(options =>
+//    {
+//        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+//        options.JsonSerializerOptions.WriteIndented = true;
+//    });
+
+
 // Add services to the container.
 builder.Services
     .AddRazorPages()

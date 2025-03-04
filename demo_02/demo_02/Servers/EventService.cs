@@ -15,17 +15,49 @@ public class EventService
     {
         return await _context.Events
             .Where(e => e.IsDelete == false || e.IsDelete == null)
-            .Include(e => e.Eventtypes) // Lấy luôn thông tin loại sự kiện
+            .Include(e => e.Eventtypes)
             .ToListAsync();
     }
 
-    // GetByID Event
+    // GetByID Event, details đang dùng
     public async Task<Event> GetEventByIdAsync(int eventId)
     {
-        return await _context.Events
+        var eventData = await _context.Events
             .Where(e => e.EventsId == eventId && (e.IsDelete == false || e.IsDelete == null))
-            .Include(e => e.Eventtypes) // Lấy luôn thông tin loại sự kiện
+            .Include(e => e.Eventtypes)
+            .Include(e => e.Eventparticipations)
+            .ThenInclude(p => p.Eventdonations)
             .FirstOrDefaultAsync();
+
+        if (eventData != null)
+        {
+            // Chỉ tính những người có trạng thái "Đã tham dự"
+            eventData.TotalParticipants = eventData.Eventparticipations
+                .Count(p => (p.IsDelete == false || p.IsDelete == null));
+
+            // Tổng tiền donate của những người tham dự
+            eventData.TotalDonations = eventData.Eventparticipations
+                .Where(p => (p.IsDelete == false || p.IsDelete == null))
+                .SelectMany(p => p.Eventdonations)
+                .Where(d => d.IsDelete == false || d.IsDelete == null)
+                .Sum(d => d.Amount ?? 0);
+
+            // Số người vắng mặt
+            eventData.AbsentCount = eventData.Eventparticipations
+                .Count(p => (p.IsDelete == false || p.IsDelete == null) && p.ParticipationStatus == "Vắng");
+
+            // Tính tỷ lệ tham gia
+            if (eventData.MaxParticipants.HasValue && eventData.MaxParticipants > 0)
+            {
+                eventData.ParticipationRate = ((decimal)eventData.TotalParticipants - eventData.AbsentCount) / (decimal)eventData.TotalParticipants;
+            }
+            else
+            {
+                eventData.ParticipationRate = 0;
+            }
+        }
+
+        return eventData;
     }
 
     //Update Event 
