@@ -47,7 +47,7 @@ public class EventService
                 .Count(p => (p.IsDelete == false || p.IsDelete == null) && p.ParticipationStatus == "Vắng");
 
             // Tính tỷ lệ tham gia
-            if (eventData.MaxParticipants.HasValue && eventData.MaxParticipants > 0)
+            if (eventData.MaxParticipants.HasValue && eventData.TotalParticipants > 0)
             {
                 eventData.ParticipationRate = ((decimal)eventData.TotalParticipants - eventData.AbsentCount) / (decimal)eventData.TotalParticipants;
             }
