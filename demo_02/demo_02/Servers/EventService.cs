@@ -15,7 +15,7 @@ public class EventService
     {
         return await _context.Events
             .Where(e => e.IsDelete == false || e.IsDelete == null)
-            .Include(e => e.Eventtypes) // Lấy luôn thông tin loại sự kiện
+            .Include(e => e.Eventtypes)
             .ToListAsync();
     }
 

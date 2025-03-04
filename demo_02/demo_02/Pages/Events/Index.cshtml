@@ -51,34 +51,34 @@
                 {
                     type: "buttons",
                         buttons: [
-        {
-            hint: "Xem",
-            icon: "fas fa-eye",
-            onClick: function (e) {
-                window.location.href = `/EventParticipations/Detail?id=${e.row.data.ParticipationId}`;
-            }
-        },
-        {
-            hint: "Sửa",
-            icon: "edit",
-            onClick: function (e) {
-                window.location.href = `/EventParticipations/Edit?id=${e.row.data.ParticipationId}`;
-            }
-        },
-        {
-            hint: "Xóa",
-            icon: "trash",
-            cssClass: "dx-button-danger",
-            onClick: function (e) {
-                if (confirm("Bạn có chắc chắn muốn xóa sự kiện này?")) {
-                    fetch(`/EventParticipations/Index?handler=Delete&id=${e.row.data.ParticipationId}`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" }
-                    }).then(() => location.reload());
-                }
-            }
-        }
-    ]
+                        {
+                            hint: "Xem",
+                            icon: "fas fa-eye",
+                            onClick: function (e) {
+                                window.location.href = `/Events/Details?id=${e.row.data.EventsId}`;
+                            }
+                        },
+                        {
+                            hint: "Sửa",
+                            icon: "edit",
+                            onClick: function (e) {
+                                window.location.href = `/Events/Edit?id=${e.row.data.EventsId}`;
+                            }
+                        },
+                        {
+                            hint: "Xóa",
+                            icon: "trash",
+                            cssClass: "dx-button-danger",
+                            onClick: function (e) {
+                                if (confirm("Bạn có chắc chắn muốn xóa sự kiện này?")) {
+                                    fetch(`/Events/Index?handler=Delete&id=${e.row.data.EventsId}`, {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" }
+                                    }).then(() => location.reload());
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         });

@@ -30,6 +30,6 @@ public partial class Event
 
     public virtual ICollection<Eventparticipation> Eventparticipations { get; set; } = new List<Eventparticipation>();
 
-    [JsonIgnore]
+    //[JsonIgnore]
     public virtual Eventtype Eventtypes { get; set; }
 }
