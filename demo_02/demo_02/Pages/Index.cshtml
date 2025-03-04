@@ -22,6 +22,14 @@
     <div id="studentLineChart" class="chart-item"></div>
 </div>
 
+<h2>Thí nghiệm khoa học =)</h2>
+
+<!-- Biểu đồ cột -->
+<div id="barChart"></div>
+
+<!-- Biểu đồ tròn -->
+<div id="pieChart"></div>
+
 @section Scripts {
     <script>
         $(function () {
@@ -75,6 +83,7 @@
                 title: "Phân bố trạng thái sự kiện"
             });
 
+            console.log("studentData: ", studentData);
             // Biểu đồ đường - Số lượng sinh viên tham gia theo tháng
             $("#studentLineChart").dxChart({
                 dataSource: studentData,
@@ -82,6 +91,15 @@
                 series: [{ valueField: "count", name: "Số sinh viên" }],
                 title: "Số sinh viên tham gia theo tháng"
             });
+
+
+
+
+
+
+
+
+
         });
     </script>
 }

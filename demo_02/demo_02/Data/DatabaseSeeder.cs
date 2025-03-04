@@ -48,7 +48,7 @@ public class DatabaseSeeder
         var eventsFaker = new Faker<Event>()
             .RuleFor(e => e.EventtypesId, f => f.PickRandom(eventTypeIds))
             .RuleFor(e => e.EventName, f => f.Company.CatchPhrase())
-            .RuleFor(e => e.EventTime, f => f.Date.Future())
+            .RuleFor(e => e.EventTime, f => f.Date.Between(DateTime.Now, DateTime.Now.AddYears(1)))
             .RuleFor(e => e.EndTime, (f, e) => e.EventTime.HasValue ? e.EventTime.Value.AddHours(f.Random.Int(2, 5)) : DateTime.Now)
             .RuleFor(e => e.Location, f => f.Address.City())
             .RuleFor(e => e.Description, f => f.Lorem.Paragraph())
@@ -77,7 +77,7 @@ public class DatabaseSeeder
             .RuleFor(p => p.UpdateAt, f => f.Date.Recent())
             .RuleFor(p => p.IsDelete, f => f.Random.Bool(0.05f));
 
-        var participations = participationFaker.Generate(150); // Thêm 150 lượt tham gia mỗi lần chạy
+        var participations = participationFaker.Generate(500); // Thêm 500 lượt tham gia mỗi lần chạy
         _context.Eventparticipations.AddRange(participations);
     }
 

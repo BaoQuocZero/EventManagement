@@ -18,7 +18,6 @@ namespace demo_02.Pages
         public Dictionary<string, int> EventTypesData { get; set; }
         public Dictionary<string, int> StatusData { get; set; }
         public Dictionary<string, int> StudentData { get; set; }
-
         public Index(EventManagementContext context)
         {
             _context = context;
@@ -28,10 +27,10 @@ namespace demo_02.Pages
         {
             SessionUserId = HttpContext.Session.GetString("UserId") ?? "Không có UserId";
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
-            {
-                return RedirectToPage("/Account/Login");
-            }
+            //if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            //{
+            //    return RedirectToPage("/Account/Login");
+            //}
 
             // Thống kê tổng số sự kiện
             TotalEvents = await _context.Events.CountAsync();
