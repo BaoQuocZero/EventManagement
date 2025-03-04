@@ -22,13 +22,8 @@
     <div id="studentLineChart" class="chart-item"></div>
 </div>
 
-<h2>Thí nghiệm khoa học =)</h2>
-
-<!-- Biểu đồ cột -->
-<div id="barChart"></div>
-
-<!-- Biểu đồ tròn -->
-<div id="pieChart"></div>
+<div id="participationChart"></div>
+<div id="donationChart"></div>
 
 @section Scripts {
     <script>
@@ -41,7 +36,6 @@
             }];
 
             var eventData = @Json.Serialize(Model.EventTypesData.Select(e => new { category = e.Key, count = e.Value }));
-
             var statusData = [
                 { status: "Đang mở", count: @Model.StatusData["Đang mở"] },
                 { status: "Sắp diễn ra", count: @Model.StatusData["Sắp diễn ra"] },
@@ -83,7 +77,6 @@
                 title: "Phân bố trạng thái sự kiện"
             });
 
-            console.log("studentData: ", studentData);
             // Biểu đồ đường - Số lượng sinh viên tham gia theo tháng
             $("#studentLineChart").dxChart({
                 dataSource: studentData,
@@ -92,13 +85,114 @@
                 title: "Số sinh viên tham gia theo tháng"
             });
 
+            var donationData = @Html.Raw(Model.TopDonatedEventsJson); // Dùng JSON thay vì List<> từ Model
+            $("#donationChart").dxChart({
+                dataSource: donationData,
+                commonSeriesSettings: {
+                    argumentField: "EventName",
+                    type: "bar"
+                },
+                series: [{
+                    valueField: "TotalDonation",
+                    name: "Số tiền quyên góp",
+                    color: "#ff9800"
+                }],
+                title: {
+                    text: "Top 5 Sự kiện có Donation cao nhất",
+                    font: { size: 18 }
+                },
+                legend: { visible: false },
+                argumentAxis: {
+                    label: {
+                        rotationAngle: -45
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    format: {
+                        type: "fixedPoint",
+                        precision: 0
+                    }
+                }
+            });
 
+            var monthlyData = @Html.Raw(Model.MonthlyStatsJson); // Lấy JSON từ Model
 
+            console.log("Monthly Data:", monthlyData); // Kiểm tra dữ liệu trên console
 
+            // Biểu đồ số lượt tham gia
+            $("#participationChart").dxChart({
+                dataSource: monthlyData,
+                commonSeriesSettings: {
+                    argumentField: "Month",
+                    type: "line"
+                },
+                series: [
+                    {
+                        valueField: "ParticipationCount",
+                        name: "Số lượt tham gia",
+                        color: "#1e88e5"
+                    }
+                ],
+                title: {
+                    text: "Số lượt tham gia sự kiện theo tháng",
+                    font: { size: 18 }
+                },
+                legend: {
+                    visible: false
+                },
+                argumentAxis: {
+                    label: {
+                        customizeText: function() {
+                            return "Tháng " + this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    format: {
+                        type: "fixedPoint",
+                        precision: 0
+                    }
+                }
+            });
 
-
-
-
+            // Biểu đồ tổng tiền quyên góp
+            $("#donationChart").dxChart({
+                dataSource: monthlyData,
+                commonSeriesSettings: {
+                    argumentField: "Month",
+                    type: "line"
+                },
+                series: [
+                    {
+                        valueField: "TotalDonationAmount",
+                        name: "Tổng tiền quyên góp",
+                        color: "#ff9800"
+                    }
+                ],
+                title: {
+                    text: "Tổng số tiền quyên góp theo tháng",
+                    font: { size: 18 }
+                },
+                legend: {
+                    visible: false
+                },
+                argumentAxis: {
+                    label: {
+                        customizeText: function() {
+                            return "Tháng " + this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    format: {
+                        type: "fixedPoint",
+                        precision: 0
+                    }
+                }
+            });
 
         });
     </script>
