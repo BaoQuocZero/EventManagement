@@ -21,7 +21,6 @@ namespace demo_02.Pages
         public string MonthlyStatsJson { get; set; } // JSON cho biểu đồ
         public Dictionary<string, int> EventTypesData { get; set; }
         public Dictionary<string, int> StatusData { get; set; }
-        public Dictionary<string, int> StudentData { get; set; }
         public Index(EventManagementContext context)
         {
             _context = context;
@@ -66,12 +65,6 @@ namespace demo_02.Pages
                 { "Sắp diễn ra", await _context.Events.Where(e => e.EventTime > DateTime.Now.AddDays(7)).CountAsync() },
                 { "Đã kết thúc", await _context.Events.Where(e => e.EndTime < DateTime.Now).CountAsync() }
             };
-
-            // Thống kê số lượng sinh viên tham gia theo tháng
-            StudentData = await _context.Eventparticipations
-                .GroupBy(ep => ep.ParticipationTime.Value.Month)
-                .Select(g => new { Month = $"Tháng {g.Key}", Count = g.Count() })
-                .ToDictionaryAsync(g => g.Month, g => g.Count);
 
             var topDonatedEvents = await _context.Events
                 .Where(e => e.EndTime > DateTime.Now && e.IsDelete == false)

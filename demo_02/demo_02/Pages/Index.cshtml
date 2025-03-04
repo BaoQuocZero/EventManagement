@@ -19,11 +19,9 @@
 <div class="chart-container">
     <div id="eventChart" class="chart-item"></div>
     <div id="statusPieChart" class="chart-item"></div>
-    <div id="studentLineChart" class="chart-item"></div>
+    <div id="participationChart" class="chart-item"></div>
+    <div id="donationChart" class="chart-item"></div>
 </div>
-
-<div id="participationChart"></div>
-<div id="donationChart"></div>
 
 @section Scripts {
     <script>
@@ -41,8 +39,6 @@
                 { status: "Sắp diễn ra", count: @Model.StatusData["Sắp diễn ra"] },
                 { status: "Đã kết thúc", count: @Model.StatusData["Đã kết thúc"] }
             ];
-
-            var studentData = @Json.Serialize(Model.StudentData.Select(s => new { month = s.Key, count = s.Value }));
 
             // Cấu hình bảng DevExtreme
             $("#dashboardGrid").dxDataGrid({
@@ -75,14 +71,6 @@
                     label: { visible: true, format: "fixedPoint", connector: { visible: true } }
                 }],
                 title: "Phân bố trạng thái sự kiện"
-            });
-
-            // Biểu đồ đường - Số lượng sinh viên tham gia theo tháng
-            $("#studentLineChart").dxChart({
-                dataSource: studentData,
-                commonSeriesSettings: { argumentField: "month", type: "line" },
-                series: [{ valueField: "count", name: "Số sinh viên" }],
-                title: "Số sinh viên tham gia theo tháng"
             });
 
             var donationData = @Html.Raw(Model.TopDonatedEventsJson); // Dùng JSON thay vì List<> từ Model
@@ -206,7 +194,7 @@
         margin-top: 20px;
     }
     .chart-item {
-        width: 30%;
+        width: 45%;
         min-width: 300px;
         height: 300px;
     }
