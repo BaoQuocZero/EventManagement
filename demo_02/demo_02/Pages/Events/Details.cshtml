@@ -8,12 +8,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-header bg-primary text-white text-center">
+                <div class="card-header bg-dark text-white text-center">
                     <h3><i class="fas fa-calendar-check"></i> Chi tiết sự kiện</h3>
                 </div>
 
                 <div class="card-body">
                     <div id="eventDetails"></div>
+                    <div id="participationPieChart"></div>
                 </div>
 
                 <div class="card-footer text-center">
@@ -49,6 +50,40 @@
                 { dataField: "TotalDonations", label: { text: "Tổng số tiền donate" }, editorType: "dxNumberBox", editorOptions: { format: "#,##0 VNĐ" } },
                 { dataField: "ParticipationRate", label: { text: "Tỷ lệ tham gia (%)" }, editorType: "dxNumberBox", editorOptions: { format: "#.## %" } }
             ]
+        });
+        var eventData = @Html.Raw(Json.Serialize(Model.Event));
+        console.log("eventData: ", eventData)
+        var chartData = [
+            { category: "Tham gia", value: eventData.TotalParticipants },
+            { category: "Vắng mặt", value: eventData.AbsentCount }
+        ];
+
+        $("#participationPieChart").dxPieChart({
+            type: "doughnut",
+            palette: "Soft Pastel",
+            dataSource: chartData,
+            series: [{
+                argumentField: "category",
+                valueField: "value",
+                label: {
+                    visible: true,
+                    format: "fixedPoint",
+                    precision: 0,
+                    connector: { visible: true }
+                }
+            }],
+            legend: {
+                horizontalAlignment: "center",
+                verticalAlignment: "bottom"
+            },
+            tooltip: {
+                enabled: true,
+                format: {
+                    type: "fixedPoint",
+                    precision: 0
+                }
+            },
+            title: "Tỷ lệ tham gia sự kiện: " + (eventData.ParticipationRate * 100).toFixed(2) + "%"
         });
     });
 </script>

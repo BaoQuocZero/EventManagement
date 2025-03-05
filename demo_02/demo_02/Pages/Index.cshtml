@@ -105,9 +105,6 @@
             });
 
             var monthlyData = @Html.Raw(Model.MonthlyStatsJson); // Lấy JSON từ Model
-
-            console.log("Monthly Data:", monthlyData); // Kiểm tra dữ liệu trên console
-
             // Biểu đồ số lượt tham gia
             $("#participationChart").dxChart({
                 dataSource: monthlyData,
