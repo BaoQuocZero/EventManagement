@@ -27,7 +27,6 @@
 
 <script>
     $(function () {
-        console.log(">>>>>>>>>>>>>>>>>>>>>",@Html.Raw(Json.Serialize(Model.Events)) );
         $("#eventGrid").dxDataGrid({
             dataSource: @Html.Raw(Json.Serialize(Model.Events)),
             keyExpr: "EventsId",
@@ -41,6 +40,8 @@
                 allowedPageSizes: [5, 10, 20],
                 showInfo: true
             },
+            filterRow: { visible: true }, // 🔍 Tìm kiếm theo từng cột
+            searchPanel: { visible: true, width: 240, placeholder: "Tìm kiếm sự kiện..." }, // 🔍 Tìm kiếm toàn cục
             columns: [
                 { dataField: "EventName", caption: "Tên sự kiện" },
                 {

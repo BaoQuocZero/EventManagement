@@ -16,8 +16,10 @@
                     <div id="eventDetails"></div>
                     <div id="participationPieChart"></div>
                 </div>
-
                 <div class="card-footer text-center">
+                    <a asp-page="Participants" asp-route-eventId="@Model.Event.EventsId" class="btn btn-primary btn-lg">
+                        <i class="fas fa-users"></i> Xem người tham gia
+                    </a>
                     <a asp-page="Index" class="btn btn-secondary btn-lg">
                         <i class="fas fa-arrow-left"></i> Quay lại
                     </a>

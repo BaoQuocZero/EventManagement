@@ -1,0 +1,52 @@
+﻿@page "{eventId:int}"
+@model ParticipantsModel
+@{
+    ViewData["Title"] = "Danh sách người tham gia";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-dark text-white text-center">
+                    <h3><i class="fas fa-users"></i> Danh sách người tham gia sự kiện: @Model.EventName</h3>
+                </div>
+
+                <div class="card-body">
+                    <div id="participantsGrid"></div>
+                    <hr>
+                    <h5 class="text-center">Tổng số người tham gia: @Model.TotalParticipants</h5>
+                    <h5 class="text-center">Tổng số tiền quyên góp: @Model.TotalDonations.ToString("#,##0 VNĐ")</h5>
+                </div>
+
+                <div class="card-footer text-center">
+                    <a href="@Url.Page("/Events/Details", new { id = Model.EventId })" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var participantsData = @Html.Raw(Json.Serialize(Model.Participants));
+
+        $("#participantsGrid").dxDataGrid({
+            dataSource: participantsData,
+            showBorders: true,
+            paging: { pageSize: 10 },
+            filterRow: { visible: true },
+            searchPanel: { visible: true },
+            columns: [
+                { dataField: "UserId", caption: "ID Người dùng", visible: false },
+                { dataField: "UserName", caption: "Tên người dùng" },
+                { dataField: "Status", caption: "Trạng thái tham gia" },
+                { dataField: "EarnedPoints", caption: "Điểm nhận được", dataType: "number" },
+                { dataField: "ParticipationTime", caption: "Thời gian tham gia", dataType: "date", format: "yyyy-MM-dd HH:mm" },
+                { dataField: "DonationAmount", caption: "Số tiền donate", format: { type: "fixedPoint", precision: 0 } }
+            ]
+        });
+    });
+</script>
