@@ -314,5 +314,18 @@ public class EventService
         await _context.SaveChangesAsync();
         return true; // Cập nhật thành công
     }
+    // 🆕 Đếm tổng số sự kiện (chỉ tính những sự kiện chưa bị xóa)
+    public async Task<int> CountTotalEventsAsync()
+    {
+        return await _context.Events.CountAsync(e => e.IsDelete == false || e.IsDelete == null);
+    }
+    public async Task<List<Event>> GetEventsByUserIdAsync(int userId)
+    {
+        return await _context.Eventparticipations
+            .Where(p => p.UserId == userId) // Chỉ lấy các sự kiện mà người dùng đã tham gia
+            .Include(p => p.Events) // Bao gồm thông tin sự kiện
+            .Select(p => p.Events) // Chỉ lấy danh sách sự kiện
+            .ToListAsync();
+    }
 
 }

@@ -16,9 +16,9 @@ public partial class EventManagementContext : DbContext
     public virtual DbSet<Event> Events { get; set; }
 
     public virtual DbSet<Eventdonation> Eventdonations { get; set; }
-
+    public IEnumerable<object> EVENTDONATIONS { get; internal set; }
     public virtual DbSet<Eventparticipation> Eventparticipations { get; set; }
-
+    public object EVENTPARTICIPATIONS { get; internal set; }
     public virtual DbSet<Eventtype> Eventtypes { get; set; }
 
     public virtual DbSet<Notification> Notifications { get; set; }

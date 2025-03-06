@@ -1,6 +1,9 @@
 ﻿using demo_02.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace demo_02.Pages.Users
 {
@@ -13,22 +16,37 @@ namespace demo_02.Pages.Users
             _eventService = eventService;
         }
 
-        // Thuộc tính để hiển thị thông tin người dùng
         public User CurrentUser { get; set; }
 
-        // Phương thức OnGetAsync để lấy dữ liệu
+        // Thống kê
+        public int TotalEvents { get; set; } // Tổng số sự kiện
+        public int ParticipatedEvents { get; set; } // Sự kiện đã tham gia
+        public int TotalDonations { get; set; } // Tổng số tiền donate
+        public int TotalPoints { get; set; } // Tổng điểm kiếm được
+        public double ParticipationRate { get; set; } // Tỷ lệ tham gia (%)
+
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            // Gọi UserService để lấy thông tin người dùng
+            // Lấy thông tin người dùng
             CurrentUser = await _eventService.GetUserByIdAsync(id);
 
-            // Nếu không tìm thấy, trả về NotFound (hoặc bạn có thể điều hướng sang trang khác)
             if (CurrentUser == null)
             {
                 return NotFound();
             }
 
+            // Lấy danh sách sự kiện mà người dùng đã tham gia
+            var participations = await _eventService.GetEventsByUserIdAsync(id);
+
+            // Tính toán thống kê
+            TotalEvents = await _eventService.CountTotalEventsAsync();
+            ParticipatedEvents = participations.Count;
+            TotalPoints = participations.Sum(p => p.Eventparticipations.FirstOrDefault(ep => ep.UserId == id)?.EarnedPoints ?? 0);
+            TotalDonations = participations.Sum(p => p.Eventparticipations.FirstOrDefault(ep => ep.UserId == id)?.Eventdonations.Sum(d => d.Amount ?? 0) ?? 0);
+            ParticipationRate = TotalEvents > 0 ? (double)ParticipatedEvents / TotalEvents * 100 : 0;
+
             return Page();
         }
+
     }
 }
