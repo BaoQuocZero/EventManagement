@@ -43,6 +43,13 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <!-- Thống kê -->
+                    <div class="mt-4">
+                        <h5 class="text-center text-success"><i class="fas fa-chart-bar"></i> Thống kê cá nhân</h5>
+                        <div id="userStats"></div>
+                        <div id="eventParticipationChart"></div>
+                    </div>
                 </div>
 
                 <div class="card-footer text-center">
@@ -54,6 +61,65 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        var userStats = {
+            totalEvents: @Model.TotalEvents,
+            participatedEvents: @Model.ParticipatedEvents,
+            totalDonations: @Model.TotalDonations,
+            totalPoints: @Model.TotalPoints,
+            participationRate: @Model.ParticipationRate
+        };
+
+        $("#userStats").dxForm({
+            formData: userStats,
+            readOnly: true,
+            colCount: 2,
+            items: [
+                { dataField: "totalEvents", label: { text: "Tổng số sự kiện" }, editorType: "dxNumberBox" },
+                { dataField: "participatedEvents", label: { text: "Đã đăng ký" }, editorType: "dxNumberBox" },
+                { dataField: "totalPoints", label: { text: "Tổng điểm kiếm được" }, editorType: "dxNumberBox" },
+                { dataField: "totalDonations", label: { text: "Tổng tiền donate" }, editorType: "dxNumberBox", editorOptions: { format: "#,##0 VNĐ" } },
+                { dataField: "participationRate", label: { text: "Tỷ lệ tham gia (%)" }, editorType: "dxNumberBox", editorOptions: { format: "#.## %" } }
+            ]
+        });
+
+        var chartData = [
+            { category: "Đã đăng ký", value: userStats.participatedEvents },
+            { category: "Chưa đăng ký", value: userStats.totalEvents - userStats.participatedEvents }
+        ];
+
+        $("#eventParticipationChart").dxPieChart({
+            type: "doughnut",
+            palette: "Soft Pastel",
+            dataSource: chartData,
+            series: [{
+                argumentField: "category",
+                valueField: "value",
+                label: {
+                    visible: true,
+                    format: "fixedPoint",
+                    precision: 0,
+                    connector: { visible: true }
+                }
+            }],
+            legend: {
+                horizontalAlignment: "center",
+                verticalAlignment: "bottom"
+            },
+            tooltip: {
+                enabled: true,
+                format: {
+                    type: "fixedPoint",
+                    precision: 0
+                }
+            },
+            title: "Tỷ lệ tham gia sự kiện: " + userStats.participationRate.toFixed(2) + "%"
+        });
+    });
+</script>
+
 
 <!-- Font Awesome (Nếu bạn chưa có) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
