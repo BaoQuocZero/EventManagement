@@ -1,4 +1,5 @@
 ﻿using demo_02.Models;
+using demo_02.Servers;
 using demo_02.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,9 @@ builder.Services
 builder.Services.AddDbContext<EventManagementContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ThucTap"));
 });
+
+// ✅ Đăng ký NotificationService mới
+builder.Services.AddScoped<NotificationService>();
 
 // Đăng ký dịch vụ FakeDataService
 builder.Services.AddScoped<FakeDataService>();
