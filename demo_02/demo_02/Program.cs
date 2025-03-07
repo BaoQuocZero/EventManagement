@@ -41,6 +41,7 @@ builder.Services.AddScoped<FakeDataService>();
 builder.Services.AddScoped<EventService>();
 // Đăng ký AuthService
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ParticipantsService>();
 
 builder.Services.AddHttpContextAccessor();
 

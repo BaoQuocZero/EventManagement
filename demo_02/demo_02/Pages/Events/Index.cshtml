@@ -56,6 +56,13 @@
                     type: "buttons",
                         buttons: [
                         {
+                            hint: "Thêm người tham gia",
+                            icon: "fas fa-plus-circle",
+                            onClick: function (e) {
+                                window.location.href = `/Events/CreateParticipants/${e.row.data.EventsId}`;
+                            }
+                        },
+                        {
                             hint: "Xem",
                             icon: "fas fa-eye",
                             onClick: function (e) {
