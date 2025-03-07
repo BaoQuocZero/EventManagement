@@ -1,0 +1,64 @@
+﻿@page "{id:int}"
+@model demo_02.Pages.Notification.DetailsModel
+@{
+    ViewData["Title"] = "Chi tiết thông báo";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4 bg-dark text-white">
+                <div class="card-header custom-header text-white">
+                    <h3 class="m-0"><i class="fas fa-bell"></i> Chi tiết thông báo</h3>
+                </div>
+
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Mã thông báo:</dt>
+                        <dd class="col-sm-8">@Model.Notification.NotificationsId</dd>
+
+                        <dt class="col-sm-4">Tiêu đề:</dt>
+                        <dd class="col-sm-8">@Model.Notification.Title</dd>
+
+                        <dt class="col-sm-4">Nội dung:</dt>
+                        <dd class="col-sm-8">@Model.Notification.Message</dd>
+
+                        <dt class="col-sm-4">Loại thông báo:</dt>
+                        <dd class="col-sm-8">@Model.Notification.Notificationtypes.Name</dd>
+
+                        <dt class="col-sm-4">Trạng thái:</dt>
+                        <dd class="col-sm-8">@Model.Notification.Status</dd>
+
+                        <dt class="col-sm-4">Ngày tạo:</dt>
+                        <dd class="col-sm-8">@Model.Notification.CreateAt?.ToString("dd/MM/yyyy HH:mm")</dd>
+                    </dl>
+                </div>
+
+                <div class="card-footer">
+                    <a href="/Notification/Index" class="btn btn-light"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .custom-header {
+        background-color: #000;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .card-body {
+        background-color: white;
+        color: black;
+    }
+
+    .card-footer {
+        text-align: center;
+        background-color: white;
+    }
+    
+</style>
