@@ -1,0 +1,147 @@
+﻿@page "{id:int}"
+@model CreateParticipantsModel
+@{
+    ViewData["Title"] = "Thêm người tham gia";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="m-0"><i class="fas fa-user-plus me-2"></i> Thêm người tham gia</h3>
+                </div>
+
+                <div class="card-body">
+                    <form id="participantForm" method="post" asp-page-handler="Create">
+                        <input type="hidden" name="EventId" value="@Model.EventId" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Người tham gia</label>
+                            <div id="userSelectBox"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Số tiền quyên góp</label>
+                            <div id="donationInput"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Ngày quyên góp</label>
+                            <div id="donationDateInput"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Trạng thái tham gia</label>
+                            <div id="statusSelectBox"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Điểm kiếm được</label>
+                            <div id="pointsInput"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Ngày tham gia</label>
+                            <div id="participationDateInput"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark" id="submitBtn">
+                            <i class="fas fa-save me-2"></i> Lưu
+                        </button>
+                        <a asp-page="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Quay lại
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        // Dropdown chọn người tham gia
+        $("#userSelectBox").dxSelectBox({
+            dataSource: @Html.Raw(Json.Serialize(Model.Users)),
+            valueExpr: "UserId",
+            displayExpr: "FullName",
+            placeholder: "Chọn người tham gia",
+            searchEnabled: true,
+            name: "UserId" // Thêm name để binding với model
+        });
+
+        // Ô nhập số tiền quyên góp
+        $("#donationInput").dxNumberBox({
+            min: 0,
+            format: "#,##0 VNĐ",
+            placeholder: "Nhập số tiền (nếu có)",
+            name: "DonationAmount" // Thêm name để binding với model
+        });
+
+        // Ô nhập ngày quyên góp
+        $("#donationDateInput").dxDateBox({
+            displayFormat: "dd/MM/yyyy",
+            placeholder: "Chọn ngày quyên góp",
+            value: null,
+            name: "DonationDate" // Thêm name để binding với model
+        });
+
+        // Dropdown chọn trạng thái
+        $("#statusSelectBox").dxSelectBox({
+            items: ["Tham gia", "Đã xác nhận", "Chưa tham gia", "Hủy"],
+            placeholder: "Chọn trạng thái",
+            value: "Tham gia",
+            name: "Status" // Thêm name để binding với model
+        });
+
+        // Ô nhập điểm
+        $("#pointsInput").dxNumberBox({
+            min: 0,
+            max: 1000,
+            placeholder: "Nhập số điểm (0-1000)",
+            value: 10,
+            name: "EarnedPoints" // Thêm name để binding với model
+        });
+
+        // Ô nhập ngày tham gia
+        $("#participationDateInput").dxDateBox({
+            displayFormat: "dd/MM/yyyy",
+            placeholder: "Chọn ngày tham gia",
+            value: new Date(),
+            name: "ParticipationDate" // Thêm name để binding với model
+        });
+
+        // Ô nhập ghi chú
+        $("#notesInput").dxTextArea({
+            placeholder: "Nhập ghi chú (nếu có)",
+            height: 90,
+            name: "Notes" // Thêm name để binding với model
+        });
+
+        // Validation trước khi submit (tùy chọn)
+        $("#participantForm").submit(function (e) {
+            var userId = $("#userSelectBox").dxSelectBox("instance").option("value");
+            var status = $("#statusSelectBox").dxSelectBox("instance").option("value");
+            var participationDate = $("#participationDateInput").dxDateBox("instance").option("value");
+
+            if (!userId) {
+                alert("Vui lòng chọn người tham gia!");
+                e.preventDefault();
+                return false;
+            }
+
+            if (!status) {
+                alert("Vui lòng chọn trạng thái!");
+                e.preventDefault();
+                return false;
+            }
+
+            if (!participationDate) {
+                alert("Vui lòng chọn ngày tham gia!");
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>
