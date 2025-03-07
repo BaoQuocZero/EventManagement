@@ -319,6 +319,7 @@ public class EventService
     {
         return await _context.Events.CountAsync(e => e.IsDelete == false || e.IsDelete == null);
     }
+    //Lấy chi tiết User
     public async Task<List<Event>> GetEventsByUserIdAsync(int userId)
     {
         return await _context.Eventparticipations
@@ -326,6 +327,22 @@ public class EventService
             .Include(p => p.Events) // Bao gồm thông tin sự kiện
             .Select(p => p.Events) // Chỉ lấy danh sách sự kiện
             .ToListAsync();
+    }
+    // Thống kê điểm và tiền donate User
+    public async Task<int> GetTotalPointsByUserIdAsync(int userId)
+    {
+        return await _context.Eventparticipations
+            .Where(p => p.UserId == userId) // Lọc theo UserId
+            .SumAsync(p => p.EarnedPoints ?? 0); // Tính tổng điểm, bỏ qua null
+    }
+    public async Task<int> GetTotalDonationsByUserIdAsync(int userId)
+    {
+        return await _context.Eventdonations
+            .Where(d => _context.Eventparticipations
+                .Where(p => p.UserId == userId) // Lọc theo UserId
+                .Select(p => p.ParticipationId)
+                .Contains(d.ParticipationId)) // Lọc theo ParticipationId
+            .SumAsync(d => d.Amount ?? 0); // Tính tổng số tiền, bỏ qua null
     }
 
 }
