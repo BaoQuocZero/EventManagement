@@ -12,6 +12,7 @@ namespace demo_02.Pages
     public class Index : PageModel
     {
         private readonly EventManagementContext _context;
+        public long LoadTime { get; set; } // Biến lưu thời gian tải
         public string SessionUserId { get; set; }
         // Lưu JSON thay vì danh sách object để khỏi phải khai báo class
         public int TotalEvents { get; set; }
@@ -34,6 +35,7 @@ namespace demo_02.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
+            var stopwatch = Stopwatch.StartNew(); // Bắt đầu đo thời gian
             SessionUserId = HttpContext.Session.GetString("UserId") ?? "Không có UserId";
 
             //if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
@@ -143,7 +145,8 @@ namespace demo_02.Pages
                 .ToList();
 
             MonthlyStatsJson = System.Text.Json.JsonSerializer.Serialize(mergedData);
-
+            stopwatch.Stop(); // Dừng đo
+            LoadTime = stopwatch.ElapsedMilliseconds; // Lưu thời gian tải
             return Page();
         }
     }
