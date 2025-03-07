@@ -41,8 +41,8 @@ namespace demo_02.Pages.Users
             // Tính toán thống kê
             TotalEvents = await _eventService.CountTotalEventsAsync();
             ParticipatedEvents = participations.Count;
-            TotalPoints = participations.Sum(p => p.Eventparticipations.FirstOrDefault(ep => ep.UserId == id)?.EarnedPoints ?? 0);
-            TotalDonations = participations.Sum(p => p.Eventparticipations.FirstOrDefault(ep => ep.UserId == id)?.Eventdonations.Sum(d => d.Amount ?? 0) ?? 0);
+            TotalPoints = await _eventService.GetTotalPointsByUserIdAsync(id);
+            TotalDonations = await _eventService.GetTotalDonationsByUserIdAsync(id);
             ParticipationRate = TotalEvents > 0 ? (double)ParticipatedEvents / TotalEvents * 100 : 0;
 
             return Page();
