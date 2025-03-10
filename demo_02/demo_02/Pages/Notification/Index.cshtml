@@ -27,8 +27,8 @@
 
 <!-- DevExtreme DataGrid Script -->
 <script>
-    $(function () {
-        $("#gridContainer").dxDataGrid({
+       $(function () {
+        var grid = $("#gridContainer").dxDataGrid({
             dataSource: DevExpress.data.AspNet.createStore({
                 key: "NotificationsId",
                 loadUrl: "./Index?handler=Data",
@@ -37,7 +37,7 @@
             remoteOperations: true,
             showBorders: true,
             columnAutoWidth: true,
-            width: "100%",  // Đảm bảo bảng rộng tối đa
+            width: "100%",
             paging: {
                 pageSize: 10
             },
@@ -46,8 +46,8 @@
                 allowedPageSizes: [5, 10, 20],
                 showInfo: true
             },
-            filterRow: { visible: true }, // 🔍 Tìm kiếm theo từng cột
-            searchPanel: { visible: true, width: 240, placeholder: "Tìm kiếm thông báo..." }, // 🔍 Tìm kiếm toàn cục
+            filterRow: { visible: true },
+            searchPanel: { visible: true, width: 240, placeholder: "Tìm kiếm thông báo..." },
             columns: [
                 { dataField: "NotificationsId", caption: "Mã thông báo", width: 120 },
                 { dataField: "Title", caption: "Tiêu đề", width: 250 },
@@ -75,26 +75,30 @@
                             class: "btn btn-sm action-icon ms-2",
                             html: '<i class="fas fa-trash"></i>',
                             click: function () {
-                                if (confirm("Bạn có chắc chắn muốn xóa?")) {
-                                    $.post("./Index?handler=Delete&id=" + id, function () {
-                                        location.reload();
-                                    });
-                                }
+                                deleteNotification(id);
                             }
                         }).appendTo(container);
                     }
                 }
             ]
-        });
+        }).dxDataGrid("instance");
+
+        function deleteNotification(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa?")) {
+                $.post("./Index?handler=Delete", { id: id }, function (response) {
+                    if (response.success) {
+                        grid.getDataSource().remove(id);
+                        grid.refresh();
+                    } else {
+                        alert("Xóa thất bại!");
+                    }
+                }).fail(function () {
+                    alert("Có lỗi xảy ra khi xóa thông báo.");
+                });
+            }
+        }
     });
 
-    function deleteNotification(id) {
-        if (confirm("Bạn có chắc chắn muốn xóa?")) {
-            $.post("./Index?handler=Delete&id=" + id, function () {
-                location.reload();
-            });
-        }
-    }
 </script>
 
 <!-- CSS Tùy Chỉnh -->
