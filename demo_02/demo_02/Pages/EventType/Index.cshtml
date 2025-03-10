@@ -1,0 +1,86 @@
+﻿@page
+@model demo_02.Pages.EventTypes.IndexModel
+@{
+    ViewData["Title"] = "Danh sách loại sự kiện";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h3 class="m-0 d-flex align-items-center">
+                        <i class="fas fa-list me-2"></i> Danh sách loại sự kiện
+                    </h3>
+                    <a asp-page="Create" class="btn btn-dark d-flex align-items-center justify-content-center p-2">
+                        <i class="fas fa-plus-circle fs-4"></i>
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <div id="eventTypeGrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#eventTypeGrid").dxDataGrid({
+            dataSource: @Html.Raw(Json.Serialize(Model.EventTypes)),
+            keyExpr: "EventtypesId",
+            columnAutoWidth: true,
+            showBorders: true,
+            paging: {
+                pageSize: 10
+            },
+            pager: {
+                showPageSizeSelector: true,
+                allowedPageSizes: [5, 10, 20],
+                showInfo: true
+            },
+            filterRow: { visible: true }, // 🔍 Tìm kiếm theo từng cột
+            searchPanel: { visible: true, width: 240, placeholder: "Tìm kiếm loại sự kiện..." }, // 🔍 Tìm kiếm toàn cục
+            columns: [
+                { dataField: "EventtypesName", caption: "Tên loại sự kiện" },
+                {
+                    type: "buttons",
+                    buttons: [
+                        {
+                            hint: "Sửa",
+                            icon: "edit",
+                            onClick: function (e) {
+                                window.location.href = `/EventType/Edit/${e.row.data.EventtypesId}`;
+                            }
+                        },
+                        {
+                            hint: "Xóa",
+                            icon: "trash",
+                            cssClass: "dx-button-danger",
+                            onClick: function (e) {
+                                deleteEventType(e.row.data.EventtypesId);
+                            }
+                        }
+                    ]
+                }
+            ]
+        });
+    });
+
+    function deleteEventType(id) {
+        if (confirm("Bạn có chắc chắn muốn xóa loại sự kiện này?")) {
+            fetch(`/EventType/Index?handler=Delete&id=` + id, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      location.reload(); // Tải lại trang sau khi xóa thành công
+                  } else {
+                      alert("Xóa không thành công!");
+                  }
+              });
+        }
+    }
+</script>

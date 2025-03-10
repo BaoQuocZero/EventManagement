@@ -345,4 +345,62 @@ public class EventService
             .SumAsync(d => d.Amount ?? 0); // Tính tổng số tiền, bỏ qua null
     }
 
+
+    // Xử lý Loại Sự kiện (EventTypes)
+    // Thêm mới loại sự kiện với isDelete = false và ngày tạo là hiện tại
+    public async Task<bool> AddEventTypeAsync(Eventtype eventType)
+    {
+        eventType.IsDelete = false; // Không bị xoá mềm
+        eventType.CreateAt = DateTime.Now;
+        eventType.UpdateAt = null;
+
+        _context.Eventtypes.Add(eventType);
+        return await _context.SaveChangesAsync() > 0;
+    }
+
+    // Lấy loại sự kiện theo ID (chỉ lấy những cái chưa bị xóa)
+    public async Task<Eventtype> GetEventTypeByIdAsync(int id)
+    {
+        return await _context.Eventtypes
+            .Where(et => et.IsDelete == false)
+            .FirstOrDefaultAsync(et => et.EventtypesId == id);
+    }
+
+    // Cập nhật loại sự kiện
+    public async Task<bool> UpdateEventTypeAsync(Eventtype eventType)
+    {
+        var existingEventType = await _context.Eventtypes.FindAsync(eventType.EventtypesId);
+        if (existingEventType == null || existingEventType.IsDelete == true)
+            return false;
+
+        existingEventType.EventtypesName = eventType.EventtypesName;
+        existingEventType.UpdateAt = DateTime.Now;
+
+        _context.Eventtypes.Update(existingEventType);
+        return await _context.SaveChangesAsync() > 0;
+    }
+
+    // Xóa mềm loại sự kiện (IsDelete = true, cập nhật UpdateAt)
+    public async Task<bool> DeleteEventTypeAsync(int id)
+    {
+        var eventType = await _context.Eventtypes.FindAsync(id);
+        if (eventType == null)
+        {
+            return false; // Không tìm thấy
+        }
+
+        eventType.IsDelete = true;
+        eventType.UpdateAt = DateTime.Now;// Đánh dấu là đã xóa (ẩn đi)
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+
+    // Lấy tất cả các loại sự kiện chưa bị xóa
+    public async Task<List<Eventtype>> GetAllEventTypesAsync()
+    {
+        return await _context.Eventtypes
+            .Where(et => et.IsDelete == false)
+            .ToListAsync();
+    }
 }
