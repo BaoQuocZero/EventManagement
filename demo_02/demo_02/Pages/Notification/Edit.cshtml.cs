@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace demo_02.Pages.Notification
 {
-    public class CreateModel : PageModel
+    public class EditModel : PageModel
     {
         private readonly NotificationService _notificationService;
         private readonly EventManagementContext _context;
 
-        public CreateModel(NotificationService notificationService, EventManagementContext context)
+        public EditModel(NotificationService notificationService, EventManagementContext context)
         {
             _notificationService = notificationService;
             _context = context;
@@ -26,8 +26,16 @@ namespace demo_02.Pages.Notification
         [BindProperty]
         public List<Notificationtype> NotificationTypes { get; set; } = new List<Notificationtype>();
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int id)
         {
+            // Lấy dữ liệu sự kiện theo ID
+            Notification = await _context.Notifications.FindAsync(id);
+            if (Notification == null)
+            {
+                return NotFound();
+            }
+
+            // Lấy danh sách loại thông báo
             NotificationTypes = await _context.Notificationtypes.ToListAsync();
             return Page();
         }
@@ -40,17 +48,15 @@ namespace demo_02.Pages.Notification
                 return Page();
             }
 
-            Notification.CreateAt = DateTime.UtcNow;
-            bool isSuccess = await _notificationService.CreateNotificationAsync(Notification);
-
-            if (!isSuccess)
+            bool isUpdated = await _notificationService.UpdateNotificationAsync(Notification);
+            if (!isUpdated)
             {
-                ModelState.AddModelError(string.Empty, "Có lỗi xảy ra khi tạo thông báo!");
-                NotificationTypes = await _context.Notificationtypes.ToListAsync();
+                ModelState.AddModelError(string.Empty, "Có lỗi xảy ra khi cập nhật thông báo!");
                 return Page();
             }
 
             return Redirect("/Notification/Index");
+
         }
     }
 }

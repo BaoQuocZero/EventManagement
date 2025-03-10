@@ -1,4 +1,4 @@
-using demo_02.Models;
+﻿using demo_02.Models;
 using demo_02.Servers;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -44,12 +44,8 @@ namespace demo_02.Pages.Notification
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var success = await _notificationService.DeleteNotificationAsync(id);
-            if (!success)
-            {
-                return NotFound();
-            }
-
-            return RedirectToPage("./Index");
+            return new JsonResult(new { success });
         }
+
     }
 }

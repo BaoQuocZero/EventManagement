@@ -15,7 +15,6 @@ namespace demo_02.Servers
             _context = context;
         }
 
-        // Lấy danh sách thông báo
         public async Task<List<Notification>> GetAllNotificationsAsync()
         {
             return await _context.Notifications
@@ -23,13 +22,11 @@ namespace demo_02.Servers
                 .ToListAsync();
         }
 
-        // Lấy danh sách thông báo dưới dạng IQueryable (cho lọc/tìm kiếm)
         public IQueryable<Notification> GetNotifications()
         {
             return _context.Notifications.Include(n => n.Notificationtypes);
         }
 
-        // Xóa thông báo
         public async Task<bool> DeleteNotificationAsync(int id)
         {
             var notification = await _context.Notifications.FindAsync(id);
@@ -40,17 +37,20 @@ namespace demo_02.Servers
             return true;
         }
 
-        // Thêm mới thông báo
         public async Task<bool> CreateNotificationAsync(Notification notification)
         {
             if (notification == null) return false;
+
+            // Kiểm tra loại thông báo có tồn tại không
+            var typeExists = await _context.Notificationtypes
+                .AnyAsync(nt => nt.NotificationtypesId == notification.NotificationtypesId);
+            if (!typeExists) return false;
 
             _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
             return true;
         }
 
-        // Chỉnh sửa thông báo
         public async Task<bool> UpdateNotificationAsync(Notification notification)
         {
             var existingNotification = await _context.Notifications.FindAsync(notification.NotificationsId);
@@ -65,8 +65,5 @@ namespace demo_02.Servers
             await _context.SaveChangesAsync();
             return true;
         }
-
-
-
     }
 }

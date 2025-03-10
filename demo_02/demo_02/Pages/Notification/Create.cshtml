@@ -29,11 +29,10 @@
                         <div class="mb-3">
                             <label asp-for="Notification.NotificationtypesId" class="form-label">Loại thông báo</label>
                             <select asp-for="Notification.NotificationtypesId"
-                                    asp-items="@(new SelectList(Model.NotificationTypes, "NotificationtypesId", "NotificationtypesName"))"
+                                    asp-items="@(new SelectList(Model.NotificationTypes, "NotificationtypesId", "Name"))"
                                     class="form-select">
                                 <option value="">-- Chọn loại thông báo --</option>
                             </select>
-
                             <span asp-validation-for="Notification.NotificationtypesId" class="text-danger"></span>
                         </div>
 

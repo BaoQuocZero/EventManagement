@@ -1,0 +1,37 @@
+﻿@page
+@model demo_02.Pages.Notification.EditModel
+@{
+    ViewData["Title"] = "Chỉnh sửa thông báo";
+}
+
+<h2>Chỉnh sửa thông báo</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Notification.NotificationsId" />
+
+    <div class="form-group">
+        <label asp-for="Notification.Title">Tiêu đề</label>
+        <input asp-for="Notification.Title" class="form-control" />
+        <span asp-validation-for="Notification.Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Notification.Message">Nội dung</label>
+        <textarea asp-for="Notification.Message" class="form-control"></textarea>
+        <span asp-validation-for="Notification.Message" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Notification.NotificationtypesId">Loại thông báo</label>
+        <select asp-for="Notification.NotificationtypesId" class="form-control">
+            @foreach (var type in Model.NotificationTypes)
+            {
+                <option value="@type.NotificationtypesId">@type.Name</option>
+            }
+        </select>
+        <span asp-validation-for="Notification.NotificationtypesId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-page="Notification/Index" class="btn btn-secondary">Hủy</a>
+</form>
