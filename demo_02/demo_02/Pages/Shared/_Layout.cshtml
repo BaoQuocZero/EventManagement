@@ -123,7 +123,7 @@
                 @* Thông báo *@
                 @inject demo_02.Servers.NotificationService NotificationService
                 @{
-                    var notifications = await NotificationService.GetAllNotificationsAsync();
+                    var notifications = (await NotificationService.GetAllNotificationsAsync()).Take(5).ToList();
                     var notificationCount = notifications.Count;
                 }
 
@@ -140,7 +140,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
                         @if (notificationCount > 0)
                         {
-                            @foreach (var notification in notifications)
+                            @foreach (var notification in notifications.Take(5))
                             {
                                 <li>
                                     <a class="dropdown-item" href="/Notification/Details/@notification.NotificationsId">
@@ -187,17 +187,29 @@
             var dropdownMenu = document.querySelector(".dropdown-menu");
 
             dropdownTrigger.addEventListener("click", function (event) {
-                event.preventDefault();
+                event.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+
+                // Toggle class 'show' để bật/tắt dropdown
                 dropdownMenu.classList.toggle("show");
             });
 
+            // Đóng dropdown khi click ra ngoài
             document.addEventListener("click", function (event) {
                 if (!dropdownTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
                     dropdownMenu.classList.remove("show");
                 }
             });
+
+            // Ngăn dropdown đóng khi click vào nội dung dropdown
+            dropdownMenu.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
         });
     </script>
+
+
+
+
     <style>
         /* Định dạng dropdown */
         .dropdown-menu {

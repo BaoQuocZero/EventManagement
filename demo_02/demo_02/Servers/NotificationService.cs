@@ -65,5 +65,13 @@ namespace demo_02.Servers
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<List<Notificationtype>> GetAllNotificationTypesAsync()
+        {
+            return await _context.Notificationtypes
+                .Where(nt => nt.IsDelete == false || nt.IsDelete == null)
+                .OrderBy(nt => nt.Name)
+                .ToListAsync();
+        }
     }
 }

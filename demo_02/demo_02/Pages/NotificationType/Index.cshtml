@@ -1,0 +1,87 @@
+﻿@page
+@model demo_02.Pages.NotificationType.IndexModel
+@{
+    ViewData["Title"] = "Danh sách loại thông báo";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h3 class="m-0 d-flex align-items-center">
+                        <i class="fas fa-tags me-2"></i> Danh sách loại thông báo
+                    </h3>
+                    <a asp-page="Create" class="btn btn-dark d-flex align-items-center justify-content-center p-2">
+                        <i class="fas fa-plus-circle fs-4"></i>
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <div id="notificationTypeGrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#notificationTypeGrid").dxDataGrid({
+            dataSource: @Html.Raw(Json.Serialize(Model.NotificationTypes)),
+            keyExpr: "NotificationtypesId",
+            columnAutoWidth: true,
+            showBorders: true,
+            paging: {
+                pageSize: 10
+            },
+            pager: {
+                showPageSizeSelector: true,
+                allowedPageSizes: [5, 10, 20],
+                showInfo: true
+            },
+            filterRow: { visible: true }, // 🔍 Tìm kiếm theo từng cột
+            searchPanel: { visible: true, width: 240, placeholder: "Tìm kiếm loại thông báo..." }, // 🔍 Tìm kiếm toàn cục
+            columns: [
+                { dataField: "Name", caption: "Tên loại thông báo" },
+                { dataField: "Description", caption: "Mô tả" },
+                {
+                    type: "buttons",
+                    buttons: [
+                        {
+                            hint: "Sửa",
+                            icon: "edit",
+                            onClick: function (e) {
+                                window.location.href = `/NotificationType/Edit/${e.row.data.NotificationtypesId}`;
+                            }
+                        },
+                        {
+                            hint: "Xóa",
+                            icon: "trash",
+                            cssClass: "dx-button-danger",
+                            onClick: function (e) {
+                                deleteNotificationType(e.row.data.NotificationtypesId);
+                            }
+                        }
+                    ]
+                }
+            ]
+        });
+    });
+
+    function deleteNotificationType(id) {
+        if (confirm("Bạn có chắc chắn muốn xóa loại thông báo này?")) {
+            fetch(`/NotificationType/Index?handler=Delete&id=` + id, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      location.reload(); // Tải lại trang sau khi xóa thành công
+                  } else {
+                      alert("Xóa không thành công!");
+                  }
+              });
+        }
+    }
+</script>

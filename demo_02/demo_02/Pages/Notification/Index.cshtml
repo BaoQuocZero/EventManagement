@@ -12,9 +12,14 @@
                     <h3 class="m-0">
                         <i class="fas fa-bell custom-icon"></i> Danh sách thông báo
                     </h3>
-                    <a asp-page="Create" class="btn btn-dark d-flex align-items-center justify-content-center p-2">
-                        <i class="fas fa-plus-circle fs-4"></i>
-                    </a>
+                    <div class="d-flex">
+                        <a asp-page="Create" class="btn btn-dark d-flex align-items-center justify-content-center p-2 me-2">
+                            <i class="fas fa-plus-circle fs-4"></i>
+                        </a>
+                        <a asp-page="/NotificationType/Index" class="btn btn-dark text-white d-flex align-items-center justify-content-center p-2">
+                            <i class="fas fa-list-alt fs-4 me-2"></i> Loại thông báo
+                        </a>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -39,7 +44,7 @@
             columnAutoWidth: true,
             width: "100%",
             paging: {
-                pageSize: 10
+                pageSize: 5
             },
             pager: {
                 showPageSizeSelector: true,
