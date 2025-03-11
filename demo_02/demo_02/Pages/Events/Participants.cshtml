@@ -20,6 +20,10 @@
                 </div>
 
                 <div class="card-footer text-center">
+                    <button id="customExportBtn" class="btn btn-success">
+                        <i class="fas fa-file-excel"></i> Xuất Excel
+                    </button>
+
                     <a href="@Url.Page("/Events/Details", new { id = Model.EventId })" class="btn btn-secondary btn-lg">
                         <i class="fas fa-arrow-left"></i> Quay lại
                     </a>
@@ -28,7 +32,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $(function () {
         var participantsData = @Html.Raw(Json.Serialize(Model.Participants));
@@ -48,5 +51,46 @@
                 { dataField: "DonationAmount", caption: "Số tiền donate", format: { type: "fixedPoint", precision: 0 } }
             ]
         });
+        // console.log(DevExpress.exporter); undefined
+         $("#customExportBtn").click(async function () {
+        var data = @Html.Raw(Json.Serialize(Model.Participants));
+
+        // Tạo workbook và worksheet
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet("Danh sách người tham gia");
+
+        // Định nghĩa tiêu đề cột
+        worksheet.columns = [
+            { header: "Tên người dùng", key: "UserName", width: 20 },
+            { header: "Trạng thái", key: "Status", width: 15 },
+            { header: "Điểm nhận", key: "EarnedPoints", width: 10 },
+            { header: "Thời gian tham gia", key: "ParticipationTime", width: 20 },
+            { header: "Số tiền donate", key: "DonationAmount", width: 15 }
+        ];
+
+        // Thêm dữ liệu vào bảng
+        data.forEach(row => {
+            worksheet.addRow({
+                UserName: row.UserName,
+                Status: row.Status,
+                EarnedPoints: row.EarnedPoints,
+                ParticipationTime: row.ParticipationTime,
+                DonationAmount: row.DonationAmount
+            });
+        });
+
+        // Định dạng tiêu đề
+        worksheet.getRow(1).font = { bold: true, size: 12 };
+        worksheet.getRow(1).alignment = { horizontal: "center" };
+
+        // Xuất file
+        var buffer = await workbook.xlsx.writeBuffer();
+        saveAs(new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), "Danh_sach.xlsx");
+    });
     });
 </script>
+
+
+
+
+
