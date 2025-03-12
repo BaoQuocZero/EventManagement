@@ -39,7 +39,6 @@ namespace demo_02.Pages.EventType
                 return Page();
             }
 
-            // ?? L?y d? li?u g?c tr??c khi c?p nh?t
             var existingEventType = await _context.Eventtypes
                 .AsNoTracking()
                 .FirstOrDefaultAsync(e => e.EventtypesId == EventType.EventtypesId);

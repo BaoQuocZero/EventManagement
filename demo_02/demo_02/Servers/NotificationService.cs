@@ -73,5 +73,50 @@ namespace demo_02.Servers
                 .OrderBy(nt => nt.Name)
                 .ToListAsync();
         }
+        public async Task<bool> AddNotificationTypeAsync(Notificationtype notificationType)
+        {
+            if (notificationType == null || string.IsNullOrWhiteSpace(notificationType.Name))
+            {
+                return false;
+            }
+
+            // Kiểm tra xem loại thông báo đã tồn tại chưa
+            bool exists = await _context.Notificationtypes
+                .AnyAsync(nt => nt.Name == notificationType.Name);
+
+            if (exists)
+            {
+                return false; // Tránh trùng lặp loại thông báo
+            }
+
+            notificationType.IsDelete = false; // Mặc định không xóa
+            _context.Notificationtypes.Add(notificationType);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateNotificationTypeAsync(Notificationtype notificationType)
+        {
+            var existingNotificationType = await _context.Notificationtypes
+                .FindAsync(notificationType.NotificationtypesId);
+
+            if (existingNotificationType == null) return false;
+
+            existingNotificationType.Name = notificationType.Name;
+            existingNotificationType.Description = notificationType.Description;
+            existingNotificationType.UpdateAt = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<Notificationtype> GetNotificationTypeByIdAsync(int id)
+        {
+            return await _context.Notificationtypes
+                .Where(nt => nt.NotificationtypesId == id && (nt.IsDelete == false || nt.IsDelete == null))
+                .FirstOrDefaultAsync();
+        }
+
+
     }
 }
