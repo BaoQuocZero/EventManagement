@@ -4,6 +4,10 @@
     ViewData["Title"] = "Danh sách loại sự kiện";
 }
 
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -12,13 +16,51 @@
                     <h3 class="m-0 d-flex align-items-center">
                         <i class="fas fa-list me-2"></i> Danh sách loại sự kiện
                     </h3>
-                    <a asp-page="Create" class="btn btn-dark d-flex align-items-center justify-content-center p-2">
-                        <i class="fas fa-plus-circle fs-4"></i>
+                    <a asp-page="Create" class="btn btn-dark">
+                        <i class="fas fa-plus-circle"></i> Thêm mới
                     </a>
                 </div>
 
                 <div class="card-body">
-                    <div id="eventTypeGrid"></div>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Tên loại sự kiện</th>
+                                <th class="text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.EventTypes.Any())
+                            {
+                                int stt = 1;
+                                @foreach (var eventType in Model.EventTypes)
+                                {
+                                    <tr>
+                                        <td>@(stt++)</td>
+                                        <td>@eventType.EventtypesName</td>
+                                        <td class="text-center">
+                                            <a asp-page="Edit" asp-route-id="@eventType.EventtypesId" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i> Sửa
+                                            </a>
+
+                                            <form method="post" asp-page-handler="Delete" asp-route-id="@eventType.EventtypesId" class="d-inline delete-form">
+                                                <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="@eventType.EventtypesId">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">Không có dữ liệu</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -26,61 +68,39 @@
 </div>
 
 <script>
-    $(function () {
-        $("#eventTypeGrid").dxDataGrid({
-            dataSource: @Html.Raw(Json.Serialize(Model.EventTypes)),
-            keyExpr: "EventtypesId",
-            columnAutoWidth: true,
-            showBorders: true,
-            paging: {
-                pageSize: 10
-            },
-            pager: {
-                showPageSizeSelector: true,
-                allowedPageSizes: [5, 10, 20],
-                showInfo: true
-            },
-            filterRow: { visible: true }, // 🔍 Tìm kiếm theo từng cột
-            searchPanel: { visible: true, width: 240, placeholder: "Tìm kiếm loại sự kiện..." }, // 🔍 Tìm kiếm toàn cục
-            columns: [
-                { dataField: "EventtypesName", caption: "Tên loại sự kiện" },
-                {
-                    type: "buttons",
-                    buttons: [
-                        {
-                            hint: "Sửa",
-                            icon: "edit",
-                            onClick: function (e) {
-                                window.location.href = `/EventType/Edit/${e.row.data.EventtypesId}`;
-                            }
-                        },
-                        {
-                            hint: "Xóa",
-                            icon: "trash",
-                            cssClass: "dx-button-danger",
-                            onClick: function (e) {
-                                deleteEventType(e.row.data.EventtypesId);
-                            }
-                        }
-                    ]
-                }
-            ]
-        });
-    });
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".delete-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let form = this.closest("form");
 
-    function deleteEventType(id) {
-        if (confirm("Bạn có chắc chắn muốn xóa loại sự kiện này?")) {
-            fetch(`/EventType/Index?handler=Delete&id=` + id, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" }
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      location.reload(); // Tải lại trang sau khi xóa thành công
-                  } else {
-                      alert("Xóa không thành công!");
-                  }
-              });
+                Swal.fire({
+                    title: "Bạn có chắc chắn muốn xóa?",
+                    text: "Hành động này không thể hoàn tác!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa ngay!",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Gửi form để xử lý xóa bằng POST
+                    }
+                });
+            });
+        });
+
+        // Hiển thị thông báo nếu có TempData["Message"]
+        let message = @Html.Raw(Json.Serialize(Model.Message));
+        if (message && message !== "null" && message.trim() !== "") {
+            Swal.fire({
+                icon: "success",
+                title: "Thông báo",
+                text: message,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            });
         }
-    }
+    });
 </script>
+
