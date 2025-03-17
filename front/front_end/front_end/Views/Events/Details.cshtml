@@ -1,0 +1,80 @@
+﻿@model front_end.Models.Event
+
+@{
+    ViewData["Title"] = "Event Details";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <h1 class="text-primary fw-bold">📅 Event Details</h1>
+
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="m-0">@Html.DisplayFor(model => model.EventName)</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>📆 Event Time</th>
+                        <td>@Html.DisplayFor(model => model.EventTime)</td>
+                    </tr>
+                    <tr>
+                        <th>⌛ End Time</th>
+                        <td>@Html.DisplayFor(model => model.EndTime)</td>
+                    </tr>
+                    <tr>
+                        <th>📍 Location</th>
+                        <td>@Html.DisplayFor(model => model.Location)</td>
+                    </tr>
+                    <tr>
+                        <th>📝 Description</th>
+                        <td>@Html.DisplayFor(model => model.Description)</td>
+                    </tr>
+                    <tr>
+                        <th>👥 Required Participants</th>
+                        <td>@Html.DisplayFor(model => model.RequiredParticipants)</td>
+                    </tr>
+                    <tr>
+                        <th>🚀 Max Participants</th>
+                        <td>@Html.DisplayFor(model => model.MaxParticipants)</td>
+                    </tr>
+                    <tr>
+                        <th>📅 Created At</th>
+                        <td>@Html.DisplayFor(model => model.CreateAt)</td>
+                    </tr>
+                    <tr>
+                        <th>📝 Updated At</th>
+                        <td>@Html.DisplayFor(model => model.UpdateAt)</td>
+                    </tr>
+                    <tr>
+                        <th>❌ Is Deleted?</th>
+                        <td>
+                            model.IsDelete = model.IsDelete ?? false;
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>🎭 Event Type</th>
+                        <td>@Html.DisplayFor(model => model.Eventtype.EventtypesId)</td>
+                    </tr>
+
+                    @if (Model == null)
+                    {
+                        <h2>Event not found</h2>
+                    }
+                    else
+                    {
+                        <h2>@Model.EventName</h2>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">
+            🔙 Back to List
+        </a>
+    </div>
+</div>
