@@ -13,6 +13,11 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="EventsId" class="control-label"></label>
+                <input asp-for="EventsId" class="form-control" />
+                <span asp-validation-for="EventsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="EventtypesId" class="control-label"></label>
                 <select asp-for="EventtypesId" class ="form-control" asp-items="ViewBag.EventtypesId"></select>
             </div>
@@ -50,6 +55,21 @@
                 <label asp-for="MaxParticipants" class="control-label"></label>
                 <input asp-for="MaxParticipants" class="form-control" />
                 <span asp-validation-for="MaxParticipants" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DressCode" class="control-label"></label>
+                <input asp-for="DressCode" class="form-control" />
+                <span asp-validation-for="DressCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventGroupLink" class="control-label"></label>
+                <input asp-for="EventGroupLink" class="form-control" />
+                <span asp-validation-for="EventGroupLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AttendanceListLink" class="control-label"></label>
+                <input asp-for="AttendanceListLink" class="form-control" />
+                <span asp-validation-for="AttendanceListLink" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CreateAt" class="control-label"></label>

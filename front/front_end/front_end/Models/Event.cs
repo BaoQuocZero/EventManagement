@@ -20,6 +20,12 @@ public partial class Event
 
     public int? MaxParticipants { get; set; }
 
+    public string? DressCode { get; set; }
+
+    public string? EventGroupLink { get; set; }
+
+    public string? AttendanceListLink { get; set; }
+
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
@@ -28,5 +34,5 @@ public partial class Event
 
     public virtual ICollection<Eventparticipation> Eventparticipations { get; set; } = new List<Eventparticipation>();
 
-    public virtual Eventtype Eventtype { get; set; } = null!;
+    public virtual Eventtype Eventtypes { get; set; } = null!;
 }

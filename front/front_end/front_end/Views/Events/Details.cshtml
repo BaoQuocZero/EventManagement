@@ -39,7 +39,7 @@
                         <th>🚀 Max Participants</th>
                         <td>@Html.DisplayFor(model => model.MaxParticipants)</td>
                     </tr>
-                    <tr>
+                    @* <tr>
                         <th>📅 Created At</th>
                         <td>@Html.DisplayFor(model => model.CreateAt)</td>
                     </tr>
@@ -52,10 +52,10 @@
                         <td>
                             model.IsDelete = model.IsDelete ?? false;
                         </td>
-                    </tr>
+                    </tr> *@
                     <tr>
                         <th>🎭 Event Type</th>
-                        <td>@Html.DisplayFor(model => model.Eventtype.EventtypesId)</td>
+                        <td>@Html.DisplayFor(model => model.Eventtypes.EventtypesName)</td>
                     </tr>
 
                     @if (Model == null)
