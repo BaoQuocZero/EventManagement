@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace demo_02.Models;
 
@@ -23,6 +24,12 @@ public partial class Event
 
     public int? MaxParticipants { get; set; }
 
+    public string DressCode { get; set; }
+
+    public string EventGroupLink { get; set; }
+
+    public string AttendanceListLink { get; set; }
+
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
@@ -31,9 +38,7 @@ public partial class Event
 
     public virtual ICollection<Eventparticipation> Eventparticipations { get; set; } = new List<Eventparticipation>();
 
-    //[JsonIgnore]
     public virtual Eventtype Eventtypes { get; set; }
-
     [NotMapped]
     public int TotalParticipants { get; set; }
 
@@ -45,5 +50,4 @@ public partial class Event
 
     [NotMapped]
     public decimal ParticipationRate { get; set; }
-
 }

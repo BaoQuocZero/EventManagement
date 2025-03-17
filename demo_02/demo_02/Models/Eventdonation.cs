@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace demo_02.Models;
 
@@ -19,5 +21,6 @@ public partial class Eventdonation
     public bool? IsDelete { get; set; }
 
     [JsonIgnore]
+
     public virtual Eventparticipation Participation { get; set; }
 }

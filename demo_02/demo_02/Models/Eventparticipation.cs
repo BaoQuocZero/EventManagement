@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace demo_02.Models;
 
@@ -16,6 +18,8 @@ public partial class Eventparticipation
 
     public DateTime? ParticipationTime { get; set; }
 
+    public string ProofOfParticipation { get; set; }
+
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
@@ -23,10 +27,8 @@ public partial class Eventparticipation
     public bool? IsDelete { get; set; }
 
     public virtual ICollection<Eventdonation> Eventdonations { get; set; } = new List<Eventdonation>();
-
     [JsonIgnore]
     public virtual Event Events { get; set; }
-
     [JsonIgnore]
     public virtual User User { get; set; }
 }
