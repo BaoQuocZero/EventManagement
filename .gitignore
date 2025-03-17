@@ -39,10 +39,6 @@ Database/*.mdf
 Database/*.ldf
 *.db
 
-# DevExtreme
-wwwroot/css/devextreme/
-wwwroot/js/devextreme/
-
 # GitHub Actions
 .github/workflows/
 
