@@ -15,7 +15,6 @@ public partial class Eventtype
     public DateTime? UpdateAt { get; set; }
 
     public bool? IsDelete { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<Event> Events { get; set; } = new List<Event>();
 }

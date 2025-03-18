@@ -33,9 +33,9 @@ public partial class EventManagementContext : DbContext
 
     public virtual DbSet<UserNotification> UserNotifications { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-SDFOMUO;Initial Catalog=EventManagement;Integrated Security=True;Trust Server Certificate=True");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-SDFOMUO;Initial Catalog=EventManagement;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -45,33 +45,27 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTS");
 
-            entity.HasIndex(e => e.EventtypesId, "EVENTS_EVENTTYPES_FK");
-
-            entity.Property(e => e.EventsId)
-                .ValueGeneratedNever()
-                .HasColumnName("EVENTS_ID");
+            entity.Property(e => e.EventsId).HasColumnName("EVENTS_ID");
             entity.Property(e => e.AttendanceListLink)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("ATTENDANCE_LIST_LINK");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
             entity.Property(e => e.Description)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("DESCRIPTION");
             entity.Property(e => e.DressCode)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("DRESS_CODE");
             entity.Property(e => e.EndTime)
                 .HasColumnType("datetime")
                 .HasColumnName("END_TIME");
             entity.Property(e => e.EventGroupLink)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("EVENT_GROUP_LINK");
             entity.Property(e => e.EventName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("EVENT_NAME");
             entity.Property(e => e.EventTime)
                 .HasColumnType("datetime")
@@ -80,7 +74,6 @@ public partial class EventManagementContext : DbContext
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.Location)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("LOCATION");
             entity.Property(e => e.MaxParticipants).HasColumnName("MAX_PARTICIPANTS");
             entity.Property(e => e.RequiredParticipants).HasColumnName("REQUIRED_PARTICIPANTS");
@@ -100,11 +93,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTDONATIONS");
 
-            entity.HasIndex(e => e.ParticipationId, "EVENTDONATIONS_EVENTPARTICIPATIONS_FK");
-
-            entity.Property(e => e.EventdonationsId)
-                .ValueGeneratedNever()
-                .HasColumnName("EVENTDONATIONS_ID");
+            entity.Property(e => e.EventdonationsId).HasColumnName("EVENTDONATIONS_ID");
             entity.Property(e => e.Amount).HasColumnName("AMOUNT");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
@@ -130,13 +119,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTPARTICIPATIONS");
 
-            entity.HasIndex(e => e.EventsId, "EVENTPARTICIPATIONS_EVENTS_FK");
-
-            entity.HasIndex(e => e.UserId, "EVENTPARTICIPATIONS_STUDENTS_FK");
-
-            entity.Property(e => e.ParticipationId)
-                .ValueGeneratedNever()
-                .HasColumnName("PARTICIPATION_ID");
+            entity.Property(e => e.ParticipationId).HasColumnName("PARTICIPATION_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
@@ -145,13 +128,12 @@ public partial class EventManagementContext : DbContext
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.ParticipationStatus)
                 .HasMaxLength(60)
-                .IsUnicode(false)
                 .HasColumnName("PARTICIPATION_STATUS");
             entity.Property(e => e.ParticipationTime)
                 .HasColumnType("datetime")
                 .HasColumnName("PARTICIPATION_TIME");
             entity.Property(e => e.ProofOfParticipation)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("PROOF_OF_PARTICIPATION");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("datetime")
@@ -175,15 +157,12 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTTYPES");
 
-            entity.Property(e => e.EventtypesId)
-                .ValueGeneratedNever()
-                .HasColumnName("EVENTTYPES_ID");
+            entity.Property(e => e.EventtypesId).HasColumnName("EVENTTYPES_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
             entity.Property(e => e.EventtypesName)
                 .HasMaxLength(1000)
-                .IsUnicode(false)
                 .HasColumnName("EVENTTYPES_NAME");
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.UpdateAt)
@@ -197,26 +176,20 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("NOTIFICATIONS");
 
-            entity.HasIndex(e => e.NotificationtypesId, "NOTIFICATIONS_NOTIFICATIONTYPES_FK");
-
-            entity.Property(e => e.NotificationsId)
-                .ValueGeneratedNever()
-                .HasColumnName("NOTIFICATIONS_ID");
+            entity.Property(e => e.NotificationsId).HasColumnName("NOTIFICATIONS_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.Message)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("MESSAGE");
             entity.Property(e => e.NotificationtypesId).HasColumnName("NOTIFICATIONTYPES_ID");
             entity.Property(e => e.Status)
                 .HasMaxLength(60)
-                .IsUnicode(false)
                 .HasColumnName("STATUS");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("TITLE");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("datetime")
@@ -234,19 +207,16 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("NOTIFICATIONTYPES");
 
-            entity.Property(e => e.NotificationtypesId)
-                .ValueGeneratedNever()
-                .HasColumnName("NOTIFICATIONTYPES_ID");
+            entity.Property(e => e.NotificationtypesId).HasColumnName("NOTIFICATIONTYPES_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
             entity.Property(e => e.Description)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("DESCRIPTION");
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("NAME");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("datetime")
@@ -259,19 +229,16 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("ROLES");
 
-            entity.Property(e => e.RolesId)
-                .ValueGeneratedNever()
-                .HasColumnName("ROLES_ID");
+            entity.Property(e => e.RolesId).HasColumnName("ROLES_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
             entity.Property(e => e.Description)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("DESCRIPTION");
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("NAME");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("datetime")
@@ -284,43 +251,32 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("USERS");
 
-            entity.HasIndex(e => e.RolesId, "USERS_ROLES_FK");
-
-            entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
-                .HasColumnName("USER_ID");
+            entity.Property(e => e.UserId).HasColumnName("USER_ID");
             entity.Property(e => e.Classid)
                 .HasMaxLength(12)
-                .IsUnicode(false)
                 .HasColumnName("CLASSID");
             entity.Property(e => e.Classname)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("CLASSNAME");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("EMAIL");
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("FULL_NAME");
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("PASSWORD");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("PHONE_NUMBER");
             entity.Property(e => e.RolesId).HasColumnName("ROLES_ID");
             entity.Property(e => e.StudentId)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("STUDENT_ID");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("datetime")
@@ -338,11 +294,9 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("USER_NOTIFICATIONS");
 
-            entity.HasIndex(e => e.UserId, "USER_NOTIFICATIONS2_FK");
-
-            entity.HasIndex(e => e.NotificationsId, "USER_NOTIFICATIONS_FK");
-
-            entity.Property(e => e.NotificationsId).HasColumnName("NOTIFICATIONS_ID");
+            entity.Property(e => e.NotificationsId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("NOTIFICATIONS_ID");
             entity.Property(e => e.UserId).HasColumnName("USER_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
@@ -350,7 +304,6 @@ public partial class EventManagementContext : DbContext
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.Status)
                 .HasMaxLength(60)
-                .IsUnicode(false)
                 .HasColumnName("STATUS");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("datetime")

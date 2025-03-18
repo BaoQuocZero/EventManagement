@@ -54,6 +54,9 @@ public class DatabaseSeeder
             .RuleFor(e => e.Description, f => f.Lorem.Paragraph())
             .RuleFor(e => e.RequiredParticipants, f => f.Random.Int(10, 100))
             .RuleFor(e => e.MaxParticipants, (f, e) => e.RequiredParticipants + f.Random.Int(0, 50))
+            .RuleFor(e => e.DressCode, f => f.PickRandom(new[] { "Formal", "Casual", "Business Casual", "Theme-based" }))
+            .RuleFor(e => e.EventGroupLink, f => $"https://example.com/group/{f.Random.Guid()}")
+            .RuleFor(e => e.AttendanceListLink, f => $"https://example.com/attendance/{f.Random.Guid()}")
             .RuleFor(e => e.CreateAt, f => f.Date.Past(2))
             .RuleFor(e => e.UpdateAt, f => f.Date.Recent())
             .RuleFor(e => e.IsDelete, f => f.Random.Bool(0.1f));
@@ -73,6 +76,7 @@ public class DatabaseSeeder
             .RuleFor(p => p.ParticipationStatus, f => f.PickRandom(new[] { "Đã đăng ký", "Đã tham dự", "Vắng" }))
             .RuleFor(p => p.EarnedPoints, f => f.Random.Int(1, 8))
             .RuleFor(p => p.ParticipationTime, f => f.Date.Past(1))
+            .RuleFor(p => p.ProofOfParticipation, f => $"https://example.com/proof/{f.Random.Guid()}")
             .RuleFor(p => p.CreateAt, f => f.Date.Past(1))
             .RuleFor(p => p.UpdateAt, f => f.Date.Recent())
             .RuleFor(p => p.IsDelete, f => f.Random.Bool(0.05f));

@@ -19,8 +19,6 @@ public partial class Eventdonation
     public DateTime? UpdateAt { get; set; }
 
     public bool? IsDelete { get; set; }
-
     [JsonIgnore]
-
     public virtual Eventparticipation Participation { get; set; }
 }

@@ -39,6 +39,7 @@ public partial class Event
     public virtual ICollection<Eventparticipation> Eventparticipations { get; set; } = new List<Eventparticipation>();
 
     public virtual Eventtype Eventtypes { get; set; }
+
     [NotMapped]
     public int TotalParticipants { get; set; }
 
