@@ -18,7 +18,7 @@ namespace front_end.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            var eventManagementContext = _context.Events.Include(e => e.Eventtype);
+            var eventManagementContext = _context.Events.Include(e => e.Eventtypes);
             return View(await eventManagementContext.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace front_end.Controllers
             }
 
             var @event = await _context.Events
-                .Include(e => e.Eventtype)
+                .Include(e => e.Eventtypes)
                 .FirstOrDefaultAsync(m => m.EventsId == id);
 
             if (@event == null)
@@ -133,7 +133,7 @@ namespace front_end.Controllers
             }
 
             var @event = await _context.Events
-                .Include(e => e.Eventtype)
+                .Include(e => e.Eventtypes)
                 .FirstOrDefaultAsync(m => m.EventsId == id);
             if (@event == null)
             {
