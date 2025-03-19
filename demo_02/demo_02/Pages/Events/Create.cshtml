@@ -73,13 +73,36 @@
                     </div>
 
                     <div class="dx-form-group">
-                        <label><i class="dx-icon-info"></i> Mô tả</label>
-                        @(Html.DevExtreme().TextArea()
+                        <label><i class="dx-icon-info"></i> Mô tả aaaaaaa</label>
+                        @(Html.DevExtreme().HtmlEditor()
                             .ID("eventDescription")
                             .Value(Model.Event?.Description)
                             .Name("Event.Description")
                             .Placeholder("Nhập mô tả sự kiện")
-                            .Height(100)
+                            .Height(200) // Tăng chiều cao để phù hợp với trình soạn thảo
+                            .Toolbar(toolbar => toolbar
+                            .Items(items =>
+                            {
+                                items.Add().Name(HtmlEditorToolbarItem.Bold);
+                                items.Add().Name(HtmlEditorToolbarItem.Italic);
+                                items.Add().Name(HtmlEditorToolbarItem.Underline);
+                                items.Add().Name(HtmlEditorToolbarItem.Separator);
+                                @* items.Add().Name(HtmlEditorToolbarItem.FontSize); *@
+                                items.Add().Name(HtmlEditorToolbarItem.Font);
+                                items.Add().Name(HtmlEditorToolbarItem.Separator);
+                                items.Add().Name(HtmlEditorToolbarItem.AlignLeft);
+                                items.Add().Name(HtmlEditorToolbarItem.AlignCenter);
+                                items.Add().Name(HtmlEditorToolbarItem.AlignRight);
+                                items.Add().Name(HtmlEditorToolbarItem.AlignJustify);
+                                items.Add().Name(HtmlEditorToolbarItem.Separator);
+                                items.Add().Name(HtmlEditorToolbarItem.Link);
+                                items.Add().Name(HtmlEditorToolbarItem.Image);
+                                items.Add().Name(HtmlEditorToolbarItem.Separator);
+                                @* items.Add().Name(HtmlEditorToolbarItem.Clean); *@
+                                items.Add().Name(HtmlEditorToolbarItem.Undo);
+                                items.Add().Name(HtmlEditorToolbarItem.Redo);
+                            })
+                            )
                             )
                     </div>
 
