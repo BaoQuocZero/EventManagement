@@ -48,18 +48,18 @@ builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 // Tạo scope để chạy Seeder
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var dbContext = services.GetRequiredService<EventManagementContext>();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var dbContext = services.GetRequiredService<EventManagementContext>();
 
-    // Áp dụng migration nếu chưa có
-    dbContext.Database.Migrate();
+//    // Áp dụng migration nếu chưa có
+//    dbContext.Database.Migrate();
 
-    // ✅ Gọi Seeder để thêm dữ liệu mới mỗi lần chạy ứng dụng
-    var seeder = new DatabaseSeeder(dbContext);
-    seeder.Seed();
-}
+//    // ✅ Gọi Seeder để thêm dữ liệu mới mỗi lần chạy ứng dụng
+//    var seeder = new DatabaseSeeder(dbContext);
+//    seeder.Seed();
+//}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

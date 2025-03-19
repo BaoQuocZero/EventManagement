@@ -31,7 +31,8 @@
 
 <script>
     $(function () {
-        console.log(">>>>>>>>>>>", @Html.Raw(Json.Serialize(Model.Events))
+        let events = @Html.Raw(Json.Serialize(Model.Events));
+        console.log("Dũ liệu events: ", events);
         $("#eventGrid").dxDataGrid({
             dataSource: @Html.Raw(Json.Serialize(Model.Events)),
             keyExpr: "EventsId",
