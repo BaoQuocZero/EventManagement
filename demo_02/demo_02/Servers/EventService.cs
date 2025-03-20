@@ -69,17 +69,22 @@ public class EventService
             return false; // Không tìm thấy sự kiện
         }
 
-        // Cập nhật thông tin nếu có giá trị mới, nếu không giữ nguyên giá trị cũ
-        existingEvent.EventName = !string.IsNullOrWhiteSpace(updatedEvent.EventName) ? updatedEvent.EventName : existingEvent.EventName;
-        existingEvent.EventTime = updatedEvent.EventTime ?? existingEvent.EventTime;
-        existingEvent.EndTime = updatedEvent.EndTime ?? existingEvent.EndTime;
-        existingEvent.Location = !string.IsNullOrWhiteSpace(updatedEvent.Location) ? updatedEvent.Location : existingEvent.Location;
-        existingEvent.Description = !string.IsNullOrWhiteSpace(updatedEvent.Description) ? updatedEvent.Description : existingEvent.Description;
-        existingEvent.RequiredParticipants = updatedEvent.RequiredParticipants ?? existingEvent.RequiredParticipants;
-        existingEvent.MaxParticipants = updatedEvent.MaxParticipants ?? existingEvent.MaxParticipants;
-        existingEvent.UpdateAt = DateTime.Now; // Cập nhật thời gian sửa đổi
+        // Cập nhật thông tin sự kiện
+        existingEvent.EventName = updatedEvent.EventName;
+        existingEvent.EventtypesId = updatedEvent.EventtypesId;
+        existingEvent.EventTime = updatedEvent.EventTime;
+        existingEvent.EndTime = updatedEvent.EndTime;
+        existingEvent.Location = updatedEvent.Location;
+        existingEvent.Description = updatedEvent.Description;
+        existingEvent.RequiredParticipants = updatedEvent.RequiredParticipants;
+        existingEvent.MaxParticipants = updatedEvent.MaxParticipants;
+        existingEvent.DressCode = updatedEvent.DressCode;
+        existingEvent.EventGroupLink = updatedEvent.EventGroupLink;
+        existingEvent.AttendanceListLink = updatedEvent.AttendanceListLink;
 
+        _context.Events.Update(existingEvent);
         await _context.SaveChangesAsync();
+
         return true; // Cập nhật thành công
     }
 

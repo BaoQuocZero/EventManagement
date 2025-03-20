@@ -22,7 +22,6 @@
                             .Name("Event.EventName")
                             .Placeholder("Nhập tên sự kiện")
                             .ShowClearButton(true)
-                            .ValidationMessageMode(ValidationMessageMode.Always)
                             )
                     </div>
 
@@ -30,7 +29,7 @@
                         <label><i class="dx-icon-selectbox"></i> Loại sự kiện</label>
                         @(Html.DevExtreme().SelectBox()
                             .ID("eventType")
-                            .Name("Event.EventTypesId")
+                            .Name("Event.EventtypesId")
                             .DataSource(Model.EventTypes)
                             .ValueExpr("EventtypesId")
                             .DisplayExpr("EventtypesName")
@@ -57,10 +56,7 @@
                             .Placeholder("Chọn thời gian kết thúc")
                             )
                     </div>
-                </div>
 
-                <!-- Cột 2 -->
-                <div class="col-md-6">
                     <div class="dx-form-group">
                         <label><i class="dx-icon-home"></i> Địa điểm</label>
                         @(Html.DevExtreme().TextBox()
@@ -72,42 +68,20 @@
                             )
                     </div>
 
-
-
                     <div class="dx-form-group">
                         <label><i class="dx-icon-info"></i> Mô tả</label>
-                        @(Html.DevExtreme().HtmlEditor()
+                        @(Html.DevExtreme().TextArea()
                             .ID("eventDescription")
                             .Value(Model.Event?.Description)
                             .Name("Event.Description")
                             .Placeholder("Nhập mô tả sự kiện")
-                            .Height(200) // Tăng chiều cao để phù hợp với trình soạn thảo
-                            .Toolbar(toolbar => toolbar
-                            .Items(items =>
-                            {
-                                items.Add().Name(HtmlEditorToolbarItem.Bold);
-                                items.Add().Name(HtmlEditorToolbarItem.Italic);
-                                items.Add().Name(HtmlEditorToolbarItem.Underline);
-                                items.Add().Name(HtmlEditorToolbarItem.Separator);
-                                @* items.Add().Name(HtmlEditorToolbarItem.FontSize); *@
-                                items.Add().Name(HtmlEditorToolbarItem.Font);
-                                items.Add().Name(HtmlEditorToolbarItem.Separator);
-                                items.Add().Name(HtmlEditorToolbarItem.AlignLeft);
-                                items.Add().Name(HtmlEditorToolbarItem.AlignCenter);
-                                items.Add().Name(HtmlEditorToolbarItem.AlignRight);
-                                items.Add().Name(HtmlEditorToolbarItem.AlignJustify);
-                                items.Add().Name(HtmlEditorToolbarItem.Separator);
-                                items.Add().Name(HtmlEditorToolbarItem.Link);
-                                items.Add().Name(HtmlEditorToolbarItem.Image);
-                                items.Add().Name(HtmlEditorToolbarItem.Separator);
-                                @* items.Add().Name(HtmlEditorToolbarItem.Clean); *@
-                                items.Add().Name(HtmlEditorToolbarItem.Undo);
-                                items.Add().Name(HtmlEditorToolbarItem.Redo);
-                            })
-                            )
+                            .Height(100)
                             )
                     </div>
+                </div>
 
+                <!-- Cột 2 -->
+                <div class="col-md-6">
                     <div class="dx-form-group">
                         <label><i class="dx-icon-user"></i> Số người tham gia yêu cầu</label>
                         @(Html.DevExtreme().NumberBox()
@@ -127,6 +101,39 @@
                             .Name("Event.MaxParticipants")
                             .Min(1)
                             .Placeholder("Nhập số lượng tối đa")
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-tshirt"></i> Dress Code</label>
+                        @(Html.DevExtreme().TextBox()
+                            .ID("dressCode")
+                            .Value(Model.Event?.DressCode)
+                            .Name("Event.DressCode")
+                            .Placeholder("Nhập dress code (nếu có)")
+                            .ShowClearButton(true)
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-link"></i> Link nhóm sự kiện</label>
+                        @(Html.DevExtreme().TextBox()
+                            .ID("eventGroupLink")
+                            .Value(Model.Event?.EventGroupLink)
+                            .Name("Event.EventGroupLink")
+                            .Placeholder("Nhập link nhóm sự kiện")
+                            .ShowClearButton(true)
+                            )
+                    </div>
+
+                    <div class="dx-form-group">
+                        <label><i class="dx-icon-link"></i> Link danh sách tham gia</label>
+                        @(Html.DevExtreme().TextBox()
+                            .ID("attendanceListLink")
+                            .Value(Model.Event?.AttendanceListLink)
+                            .Name("Event.AttendanceListLink")
+                            .Placeholder("Nhập link danh sách tham gia")
+                            .ShowClearButton(true)
                             )
                     </div>
                 </div>
@@ -150,11 +157,10 @@
                     .StylingMode(ButtonStylingMode.Outlined)
                     .Icon("arrowleft")
                     .Width(150)
-                    .OnClick("function() { window.location.href = '/Events/Index'; }") // Điều hướng về trang Index
-                    .ElementAttr("class", "ml-2") // Cách sửa lỗi chính xác
+                    .OnClick("function() { window.location.href = '/Events/Index'; }")
+                    .ElementAttr("class", "ml-2")
                     )
             </div>
-
         </div>
     </form>
 </div>
