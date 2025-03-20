@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace front_end.Models;
+﻿namespace front_end.Models;
 
 public partial class Eventtype
 {

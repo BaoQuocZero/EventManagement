@@ -1,4 +1,4 @@
-﻿@model IEnumerable<front_end.Models.Event>
+﻿@model IEnumerable<front_end.Models.User>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,25 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.EventName)
+                @Html.DisplayNameFor(model => model.StudentId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EventTime)
+                @Html.DisplayNameFor(model => model.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndTime)
+                @Html.DisplayNameFor(model => model.Classid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                @Html.DisplayNameFor(model => model.Classname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RequiredParticipants)
+                @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxParticipants)
+                @Html.DisplayNameFor(model => model.Password)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreateAt)
@@ -43,7 +43,7 @@
                 @Html.DisplayNameFor(model => model.IsDelete)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Eventtype)
+                @Html.DisplayNameFor(model => model.Roles)
             </th>
             <th></th>
         </tr>
@@ -52,25 +52,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.EventName)
+                @Html.DisplayFor(modelItem => item.StudentId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EventTime)
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
+                @Html.DisplayFor(modelItem => item.Classid)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Location)
+                @Html.DisplayFor(modelItem => item.Classname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RequiredParticipants)
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaxParticipants)
+                @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateAt)
@@ -82,12 +82,12 @@
                 @Html.DisplayFor(modelItem => item.IsDelete)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Eventtype.EventtypesId)
+                @Html.DisplayFor(modelItem => item.Roles.RolesId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.EventsId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EventsId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EventsId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
             </td>
         </tr>
 }

@@ -5,73 +5,66 @@ using Microsoft.EntityFrameworkCore;
 
 namespace front_end.Controllers
 {
-    [Route("Events")]
-    public class EventsController : Controller
+    public class UsersController : Controller
     {
         private readonly EventManagementContext _context;
 
-        public EventsController(EventManagementContext context)
+        public UsersController(EventManagementContext context)
         {
             _context = context;
         }
 
-        // GET: Events
+        // GET: Users
         public async Task<IActionResult> Index()
         {
-            var eventManagementContext = _context.Events.Include(e => e.Eventtype);
+            var eventManagementContext = _context.Users.Include(u => u.Roles);
             return View(await eventManagementContext.ToListAsync());
         }
 
-        // GET: Events/Details/5
-        [Route("Details/{id?}")]
+        // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                Console.WriteLine("ID is null");
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .Include(e => e.Eventtype)
-                .FirstOrDefaultAsync(m => m.EventsId == id);
-
-            if (@event == null)
+            var user = await _context.Users
+                .Include(u => u.Roles)
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
             {
-                Console.WriteLine($"Event with ID {id} not found in the database");
                 return NotFound();
             }
 
-            Console.WriteLine($"Event found: {@event.EventName}");
-            return View(@event);
+            return View(user);
         }
 
-
-        // GET: Events/Create
+        // GET: Users/Create
         public IActionResult Create()
         {
-            ViewData["EventtypesId"] = new SelectList(_context.Eventtypes, "EventtypesId", "EventtypesId");
+            ViewData["RolesId"] = new SelectList(_context.Roles, "RolesId", "RolesId");
             return View();
         }
 
-        // POST: Events/Create
+        // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventsId,EventtypesId,EventName,EventTime,EndTime,Location,Description,RequiredParticipants,MaxParticipants,CreateAt,UpdateAt,IsDelete")] Event @event)
+        public async Task<IActionResult> Create([Bind("UserId,RolesId,StudentId,FullName,Classid,Classname,Email,PhoneNumber,Password,CreateAt,UpdateAt,IsDelete")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EventtypesId"] = new SelectList(_context.Eventtypes, "EventtypesId", "EventtypesId", @event.EventtypesId);
-            return View(@event);
+            ViewData["RolesId"] = new SelectList(_context.Roles, "RolesId", "RolesId", user.RolesId);
+            return View(user);
         }
 
-        // GET: Events/Edit/5
+        // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,23 +72,23 @@ namespace front_end.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events.FindAsync(id);
-            if (@event == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            ViewData["EventtypesId"] = new SelectList(_context.Eventtypes, "EventtypesId", "EventtypesId", @event.EventtypesId);
-            return View(@event);
+            ViewData["RolesId"] = new SelectList(_context.Roles, "RolesId", "RolesId", user.RolesId);
+            return View(user);
         }
 
-        // POST: Events/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventsId,EventtypesId,EventName,EventTime,EndTime,Location,Description,RequiredParticipants,MaxParticipants,CreateAt,UpdateAt,IsDelete")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,RolesId,StudentId,FullName,Classid,Classname,Email,PhoneNumber,Password,CreateAt,UpdateAt,IsDelete")] User user)
         {
-            if (id != @event.EventsId)
+            if (id != user.UserId)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace front_end.Controllers
             {
                 try
                 {
-                    _context.Update(@event);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.EventsId))
+                    if (!UserExists(user.UserId))
                     {
                         return NotFound();
                     }
@@ -120,11 +113,11 @@ namespace front_end.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EventtypesId"] = new SelectList(_context.Eventtypes, "EventtypesId", "EventtypesId", @event.EventtypesId);
-            return View(@event);
+            ViewData["RolesId"] = new SelectList(_context.Roles, "RolesId", "RolesId", user.RolesId);
+            return View(user);
         }
 
-        // GET: Events/Delete/5
+        // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,35 +125,35 @@ namespace front_end.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .Include(e => e.Eventtype)
-                .FirstOrDefaultAsync(m => m.EventsId == id);
-            if (@event == null)
+            var user = await _context.Users
+                .Include(u => u.Roles)
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(@event);
+            return View(user);
         }
 
-        // POST: Events/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
-            if (@event != null)
+            var user = await _context.Users.FindAsync(id);
+            if (user != null)
             {
-                _context.Events.Remove(@event);
+                _context.Users.Remove(user);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EventExists(int id)
+        private bool UserExists(int id)
         {
-            return _context.Events.Any(e => e.EventsId == id);
+            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }

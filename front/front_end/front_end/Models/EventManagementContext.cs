@@ -43,27 +43,16 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTS");
 
-            entity.Property(e => e.EventsId)
-                .ValueGeneratedNever()
-                .HasColumnName("EVENTS_ID");
-            entity.Property(e => e.AttendanceListLink)
-                .HasColumnType("ntext")
-                .HasColumnName("ATTENDANCE_LIST_LINK");
+            entity.Property(e => e.EventsId).HasColumnName("EVENTS_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
             entity.Property(e => e.Description)
                 .HasColumnType("ntext")
                 .HasColumnName("DESCRIPTION");
-            entity.Property(e => e.DressCode)
-                .HasMaxLength(255)
-                .HasColumnName("DRESS_CODE");
             entity.Property(e => e.EndTime)
                 .HasColumnType("datetime")
                 .HasColumnName("END_TIME");
-            entity.Property(e => e.EventGroupLink)
-                .HasColumnType("ntext")
-                .HasColumnName("EVENT_GROUP_LINK");
             entity.Property(e => e.EventName)
                 .HasMaxLength(255)
                 .HasColumnName("EVENT_NAME");
@@ -81,7 +70,7 @@ public partial class EventManagementContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("UPDATE_AT");
 
-            entity.HasOne(d => d.Eventtypes).WithMany(p => p.Events)
+            entity.HasOne(d => d.Eventtype).WithMany(p => p.Events)
                 .HasForeignKey(d => d.EventtypesId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_EVENTS_EVENTS_EV_EVENTTYP");
@@ -93,9 +82,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTDONATIONS");
 
-            entity.Property(e => e.EventdonationsId)
-                .ValueGeneratedNever()
-                .HasColumnName("EVENTDONATIONS_ID");
+            entity.Property(e => e.EventdonationsId).HasColumnName("EVENTDONATIONS_ID");
             entity.Property(e => e.Amount).HasColumnName("AMOUNT");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
@@ -121,9 +108,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTPARTICIPATIONS");
 
-            entity.Property(e => e.ParticipationId)
-                .ValueGeneratedNever()
-                .HasColumnName("PARTICIPATION_ID");
+            entity.Property(e => e.ParticipationId).HasColumnName("PARTICIPATION_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
@@ -136,9 +121,6 @@ public partial class EventManagementContext : DbContext
             entity.Property(e => e.ParticipationTime)
                 .HasColumnType("datetime")
                 .HasColumnName("PARTICIPATION_TIME");
-            entity.Property(e => e.ProofOfParticipation)
-                .HasColumnType("ntext")
-                .HasColumnName("PROOF_OF_PARTICIPATION");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("UPDATE_AT");
@@ -161,9 +143,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("EVENTTYPES");
 
-            entity.Property(e => e.EventtypesId)
-                .ValueGeneratedNever()
-                .HasColumnName("EVENTTYPES_ID");
+            entity.Property(e => e.EventtypesId).HasColumnName("EVENTTYPES_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
@@ -182,9 +162,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("NOTIFICATIONS");
 
-            entity.Property(e => e.NotificationsId)
-                .ValueGeneratedNever()
-                .HasColumnName("NOTIFICATIONS_ID");
+            entity.Property(e => e.NotificationsId).HasColumnName("NOTIFICATIONS_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
@@ -215,9 +193,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("NOTIFICATIONTYPES");
 
-            entity.Property(e => e.NotificationtypesId)
-                .ValueGeneratedNever()
-                .HasColumnName("NOTIFICATIONTYPES_ID");
+            entity.Property(e => e.NotificationtypesId).HasColumnName("NOTIFICATIONTYPES_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
@@ -239,9 +215,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("ROLES");
 
-            entity.Property(e => e.RolesId)
-                .ValueGeneratedNever()
-                .HasColumnName("ROLES_ID");
+            entity.Property(e => e.RolesId).HasColumnName("ROLES_ID");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("CREATE_AT");
@@ -263,9 +237,7 @@ public partial class EventManagementContext : DbContext
 
             entity.ToTable("USERS");
 
-            entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
-                .HasColumnName("USER_ID");
+            entity.Property(e => e.UserId).HasColumnName("USER_ID");
             entity.Property(e => e.Classid)
                 .HasMaxLength(12)
                 .HasColumnName("CLASSID");
@@ -283,7 +255,7 @@ public partial class EventManagementContext : DbContext
                 .HasColumnName("FULL_NAME");
             entity.Property(e => e.IsDelete).HasColumnName("IS_DELETE");
             entity.Property(e => e.Password)
-                .HasMaxLength(255)
+                .HasMaxLength(1000)
                 .HasColumnName("PASSWORD");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(20)
