@@ -1,6 +1,7 @@
 ﻿using demo_02.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace demo_02.Pages.Events
 {
@@ -22,8 +23,11 @@ namespace demo_02.Pages.Events
 
             if (Event == null)
             {
-                return NotFound(); // Trả về 404 nếu không tìm thấy
+                return NotFound();
             }
+
+            // Lấy danh sách loại sự kiện và truyền vào ViewData
+            ViewData["EventTypes"] = await _eventsService.GetEventTypesAsync();
 
             return Page();
         }

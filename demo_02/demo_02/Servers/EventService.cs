@@ -10,6 +10,13 @@ public class EventService
         _context = context;
     }
 
+    public async Task<List<Eventtype>> GetEventTypesAsync()
+    {
+        return await _context.Eventtypes
+            .Where(e => e.IsDelete == false)
+            .ToListAsync();
+    }
+
     // GetAll
     public async Task<List<Event>> GetAllEventsAsync()
     {
@@ -69,7 +76,6 @@ public class EventService
             return false; // Không tìm thấy sự kiện
         }
 
-        // Cập nhật thông tin sự kiện
         existingEvent.EventName = updatedEvent.EventName;
         existingEvent.EventtypesId = updatedEvent.EventtypesId;
         existingEvent.EventTime = updatedEvent.EventTime;
@@ -81,11 +87,12 @@ public class EventService
         existingEvent.DressCode = updatedEvent.DressCode;
         existingEvent.EventGroupLink = updatedEvent.EventGroupLink;
         existingEvent.AttendanceListLink = updatedEvent.AttendanceListLink;
+        existingEvent.UpdateAt = DateTime.UtcNow;
 
         _context.Events.Update(existingEvent);
         await _context.SaveChangesAsync();
 
-        return true; // Cập nhật thành công
+        return true;
     }
 
     //Delete
