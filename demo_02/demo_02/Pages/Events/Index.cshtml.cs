@@ -20,10 +20,21 @@ namespace demo_02.Pages
             Events = await _eventsService.GetAllEventsAsync();
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        [BindProperty]
+        public int? DeleteId { get; set; } // Lưu ID sự kiện cần xóa
+
+        public async Task<IActionResult> OnPostAsync()
         {
-            var success = await _eventsService.DeleteEventAsync(id);
-            return success ? new JsonResult(new { success = true }) : NotFound();
+            if (DeleteId.HasValue)
+            {
+                var success = await _eventsService.DeleteEventAsync(DeleteId.Value);
+                if (!success)
+                {
+                    ModelState.AddModelError("", "Không thể xóa sự kiện.");
+                }
+            }
+
+            return RedirectToPage();
         }
     }
 }

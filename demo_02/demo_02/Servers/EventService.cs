@@ -104,8 +104,8 @@ public class EventService
             return false; // Không tìm thấy sự kiện
         }
 
-        // Thay vì xóa hoàn toàn, đặt cờ IsDelete để có thể khôi phục sau này
-        existingEvent.IsDelete = false;
+        // Đánh dấu đã xóa thay vì xóa vĩnh viễn
+        existingEvent.IsDelete = true;
         existingEvent.UpdateAt = DateTime.Now; // Ghi lại thời gian cập nhật
 
         await _context.SaveChangesAsync();
