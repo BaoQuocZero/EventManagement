@@ -1,4 +1,5 @@
-﻿using demo_02.Models;
+﻿using demo_02.Data;
+using demo_02.Models;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
@@ -19,25 +20,32 @@ namespace demo_02.Pages.EventParticipations
 
         public async Task OnGetAsync(int page = 1, int pageSize = 10)
         {
-            // Tải dữ liệu sự kiện với phân trang
             EventParticipations = await _eventService.GetEventParticipationsPaginatedAsync(page, pageSize);
+
+            // Kiểm tra xem dữ liệu có thực sự có không
+            foreach (var item in EventParticipations)
+            {
+                Console.WriteLine($"ID: {item.ParticipationId}, Event: {item.Events?.EventName}, User: {item.User?.FullName}");
+            }
         }
+
 
         public IActionResult OnGetData(DataSourceLoadOptions loadOptions)
         {
             var data = _eventService.GetEventParticipations()
-                .Select(e => new
+                .Select(e => new EventParticipationDTO
                 {
-                    e.ParticipationId,
+                    ParticipationId = e.ParticipationId,
                     EventName = e.Events.EventName,
                     UserName = e.User.FullName,
-                    e.ParticipationStatus,
-                    e.ParticipationTime,
-                    e.EarnedPoints
+                    ParticipationStatus = e.ParticipationStatus,
+                    ParticipationTime = e.ParticipationTime,
+                    EarnedPoints = e.EarnedPoints
                 });
 
             return new JsonResult(DataSourceLoader.Load(data, loadOptions));
         }
+
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
