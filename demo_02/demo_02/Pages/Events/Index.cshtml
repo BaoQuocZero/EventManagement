@@ -87,6 +87,7 @@
                             icon: "trash",
                             cssClass: "dx-button-danger",
                             onClick: function (e) {
+                                console.log("Xóa e.row.data.EventsId: ", e.row.data.EventsId)
                                 if (confirm("Bạn có chắc chắn muốn xóa sự kiện này?")) {
                                     fetch(`/Events/Index?handler=Delete&id=${e.row.data.EventsId}`, {
                                         method: "POST",
