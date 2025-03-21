@@ -12,15 +12,13 @@
                     <h3 class="m-0 d-flex align-items-center">
                         <i class="fas fa-calendar-alt me-2"></i> Danh sách sự kiện
                     </h3>
-                    <a href="/EventType/Index" class="btn btn-secondary d-flex align-items-center justify-content-center p-2">
-                        <i class="fas fa-list-alt fs-4 me-1"></i> Loại sự kiện
+                    <a asp-page="/EventType/Index" class="btn btn-dark text-white d-flex align-items-center justify-content-center p-2">
+                        <i class="fas fa-list-alt fs-4 me-2"></i> Loại sự kiện
                     </a>
                     <a asp-page="Create" class="btn btn-dark d-flex align-items-center justify-content-center p-2">
                         <i class="fas fa-plus-circle fs-4"></i>
                     </a>
-
                 </div>
-
                 <div class="card-body">
                     <div id="eventGrid"></div>
                 </div>
