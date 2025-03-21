@@ -17,6 +17,8 @@ public partial class Eventparticipation
 
     public DateTime? ParticipationTime { get; set; }
 
+    public string? ProofOfParticipation { get; set; }
+
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }

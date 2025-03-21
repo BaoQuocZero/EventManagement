@@ -22,24 +22,24 @@
 
 <!-- DevExtreme DataGrid Script -->
 <script>
-    $(function () {
+        $(function () {
         $("#gridContainer").dxDataGrid({
-            dataSource: @Html.Raw(Json.Serialize(Model.EventParticipations)),
+            dataSource: "/EventParticipations/Index?handler=Data", // Gọi API thay vì serialize model
             keyExpr: "ParticipationId",
             showBorders: true,
             columnAutoWidth: true,
             paging: {
-                pageSize: 5  // Số dòng trên mỗi trang
+                pageSize: 5
             },
             pager: {
                 showPageSizeSelector: true,
-                allowedPageSizes: [5, 10, 20], // Tùy chọn số dòng hiển thị
+                allowedPageSizes: [5, 10, 20],
                 showInfo: true
             },
             columns: [
                 { dataField: "ParticipationId", caption: "Mã tham gia" },
-                { dataField: "Events.EventName", caption: "Tên sự kiện" },
-                { dataField: "User.FullName", caption: "Người dùng" },
+                { dataField: "EventName", caption: "Tên sự kiện" },
+                { dataField: "UserName", caption: "Người dùng" },
                 { dataField: "ParticipationStatus", caption: "Trạng thái" },
                 { dataField: "ParticipationTime", caption: "Thời gian tham gia", dataType: "date" },
                 { dataField: "EarnedPoints", caption: "Điểm" },

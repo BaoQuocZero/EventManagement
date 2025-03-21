@@ -54,6 +54,24 @@
             @Html.DisplayFor(model => model.MaxParticipants)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DressCode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DressCode)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EventGroupLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EventGroupLink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AttendanceListLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AttendanceListLink)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreateAt)
         </dt>
         <dd class = "col-sm-10">
@@ -72,10 +90,10 @@
             @Html.DisplayFor(model => model.IsDelete)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Eventtype)
+            @Html.DisplayNameFor(model => model.Eventtypes)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Eventtype.EventtypesId)
+            @Html.DisplayFor(model => model.Eventtypes.EventtypesId)
         </dd>
     </dl>
     
