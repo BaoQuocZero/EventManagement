@@ -1,0 +1,109 @@
+﻿@page
+@model IndexNotificationModel
+@{
+    ViewData["Title"] = "Danh sách sự kiện";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h3 class="m-0 d-flex align-items-center">
+                        <i class="fas fa-calendar-alt me-2"></i> Danh sách thông báo
+                    </h3>
+                    <a asp-page="/EventType/Index" class="btn btn-dark text-white d-flex align-items-center justify-content-center p-2">
+                        <i class="fas fa-list-alt fs-4 me-2"></i> Loại thông báo
+                    </a>
+                    <a asp-page="Create" class="btn btn-dark d-flex align-items-center justify-content-center p-2">
+                        <i class="fas fa-plus-circle fs-4"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div id="notificationsGrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" id="deleteForm">
+    <input type="hidden" name="DeleteId" id="deleteId">
+</form>
+
+<script>
+    $(function () {
+        let Notifications = @Html.Raw(Json.Serialize(Model.Notifications));
+        console.log("Data Notifications: ", Notifications);
+        $("#notificationsGrid").dxDataGrid({
+            dataSource: @Html.Raw(Json.Serialize(Model.Notifications)),
+            keyExpr: "NotificationsId",
+            columnAutoWidth: true,
+            showBorders: true,
+            paging: {
+                pageSize: 10 // Hiển thị 5 sự kiện trên mỗi trang
+            },
+            pager: {
+                showPageSizeSelector: true,
+                allowedPageSizes: [5, 10, 20],
+                showInfo: true
+            },
+            filterRow: { visible: true }, // 🔍 Tìm kiếm theo từng cột
+            searchPanel: { visible: true, width: 240, placeholder: "Tìm kiếm sự kiện..." }, // 🔍 Tìm kiếm toàn cục
+            columns: [
+                { dataField: "Title", caption: "Tiêu đề" },
+                { dataField: "Message", caption: "Nội dung" },
+                {
+                    dataField: "CreateAt",
+                    caption: "Thời gian",
+                    dataType: "date",
+                    format: "dd/MM/yyyy HH:mm"
+                },
+                {
+                    type: "buttons",
+                        buttons: [
+                        {
+                            hint: "Thêm người tham gia",
+                            icon: "fas fa-plus-circle",
+                            onClick: function (e) {
+                                window.location.href = `/Events/CreateParticipants/${e.row.data.EventsId}`;
+                            }
+                        },
+                        {
+                            hint: "Quản lý",
+                            icon: "fa-solid fa-circle-info",
+                            onClick: function (e) {
+                                window.location.href = `/Events/Details?id=${e.row.data.EventsId}`;
+                            }
+                        },
+                                                {
+                            hint: "Xem trước",
+                            icon: "fas fa-eye",
+                            onClick: function (e) {
+                                window.location.href = `/Events/Preview?id=${e.row.data.EventsId}`;
+                            }
+                        },
+                        {
+                            hint: "Sửa",
+                            icon: "edit",
+                            onClick: function (e) {
+                                window.location.href = `/Events/Edit?id=${e.row.data.EventsId}`;
+                            }
+                        },
+                        {
+                            hint: "Xóa",
+                            icon: "trash",
+                            cssClass: "dx-button-danger",
+                            onClick: function (e) {
+                                if (confirm("Bạn có chắc chắn muốn xóa sự kiện này?")) {
+                                    document.getElementById("deleteId").value = e.row.data.EventsId;
+                                    document.getElementById("deleteForm").submit();
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        });
+    });
+</script>
