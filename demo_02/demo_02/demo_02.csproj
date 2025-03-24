@@ -20,6 +20,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\images\" />
+    </ItemGroup>
+
     <ProjectExtensions><VisualStudio><UserProperties TemplateFeatures="NETCORE" /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -4,15 +4,36 @@
 }
 
 <div class="container mt-4">
+    <!-- Countdown Timer -->
+    <div class="hero text-center">
+        <h1 class="card-title text-center text-light">@Model.Event.EventName</h1>
+        <p class="text-light text-center">Sự kiện đặc biệt diễn ra vào <strong>@Model.Event.EventTime</strong> tại <strong>@Model.Event.Location</strong>. Đừng bỏ lỡ cơ hội tham gia!</p>
+        <h2 class="text-light">Thời gian đến sự kiện</h2>
+        <div class="timebox d-flex justify-content-center gap-4">
+            <div class="time">
+                <h2 id="days">00</h2>
+                <p>Ngày</p>
+            </div>
+            <div class="time">
+                <h2 id="hours">00</h2>
+                <p>Giờ</p>
+            </div>
+            <div class="time">
+                <h2 id="minutes">00</h2>
+                <p>Phút</p>
+            </div>
+            <div class="time">
+                <h2 id="seconds">00</h2>
+                <p>Giây</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+
     <div class="row justify-content-center">
         <div class="col-md-10">
             <article class="card shadow-lg border-0 rounded-4">
-                <img src="https://placehold.co/900x400" class="card-img-top" alt="@Model.Event.EventName">
                 <div class="card-body">
-                    <h1 class="card-title text-center text-primary">@Model.Event.EventName</h1>
-                    <p class="text-muted text-center">Sự kiện đặc biệt diễn ra vào <strong>@Model.Event.EventTime</strong> tại <strong>@Model.Event.Location</strong>. Đừng bỏ lỡ cơ hội tham gia!</p>
-                    <div id="countdown" class="text-center fs-3 fw-bold text-danger"></div>
-                    <hr>
                     <p class="card-text">@Model.Event.Description</p>
                     <h4 class="mt-4">Thông tin chi tiết:</h4>
                     <ul class="list-group list-group-flush">
@@ -45,20 +66,72 @@
 
     // Countdown Timer
     function updateCountdown() {
-        var eventTime = new Date(eventData.EventTime).getTime();
-        var now = new Date().getTime();
-        var timeLeft = eventTime - now;
+            var eventTime = new Date(eventData.EventTime).getTime();
+            var now = new Date().getTime();
+            var timeLeft = eventTime - now;
 
-        if (timeLeft > 0) {
-            var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            document.getElementById("countdown").innerHTML = `Sự kiện sẽ diễn ra sau: ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây. Hãy sẵn sàng!`;
-        } else {
-            document.getElementById("countdown").innerHTML = "Sự kiện đã bắt đầu! Chúc bạn có một trải nghiệm tuyệt vời!";
+            if (timeLeft > 0) {
+                var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+            } else {
+                document.querySelector(".hero").innerHTML = "<h2 class='text-success'>Sự kiện đã bắt đầu! Chúc bạn có một trải nghiệm tuyệt vời!</h2>";
+            }
         }
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 </script>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .hero {
+        width: 100%; /* Chiều rộng toàn bộ màn hình */
+        height: 100vh; /* Chiều cao toàn bộ màn hình */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/background.jpg'); /* Đường dẫn ảnh */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .timebox {
+        display: flex;
+        gap: 50px; /* Giảm khoảng cách nếu quá xa */
+        flex-wrap: wrap; /* Đảm bảo không bị tràn trên màn hình nhỏ */
+    }
+
+    .time {
+        background: rgba(255, 255, 255, 0.2); /* Tạo hiệu ứng nền mờ */
+        padding: 15px;
+        border-radius: 10px;
+        min-width: 120px;
+    }
+
+    h1 {
+        font-size: 4rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .time h2 {
+        font-size: 5rem;
+        font-weight: 100;
+    }
+</style>
