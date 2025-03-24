@@ -47,11 +47,9 @@ Hệ thống quản lý sự kiện là một ứng dụng web giúp tổ chức
 
 ## Sử Dụng
 - Quản trị viên có thể quản lý người dùng, sự kiện và cài đặt hệ thống.
-- Người tổ chức có thể tạo và quản lý sự kiện.
-- Người dùng có thể duyệt và đăng ký tham gia sự kiện.
 
 ## Đóng Góp
 Mọi đóng góp đều được hoan nghênh! Vui lòng fork repository và gửi pull request.
 
 ## Giấy Phép
-Dự án này chưa được cấp phép theo giấy phép MIT.
+Dự án này chưa được cấp phép.
