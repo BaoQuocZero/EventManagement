@@ -1,0 +1,64 @@
+﻿@page
+@model demo_02.Pages.Events.PreviewModel
+@{
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <article class="card shadow-lg border-0 rounded-4">
+                <img src="https://placehold.co/900x400" class="card-img-top" alt="@Model.Event.EventName">
+                <div class="card-body">
+                    <h1 class="card-title text-center text-primary">@Model.Event.EventName</h1>
+                    <p class="text-muted text-center">Sự kiện đặc biệt diễn ra vào <strong>@Model.Event.EventTime</strong> tại <strong>@Model.Event.Location</strong>. Đừng bỏ lỡ cơ hội tham gia!</p>
+                    <div id="countdown" class="text-center fs-3 fw-bold text-danger"></div>
+                    <hr>
+                    <p class="card-text">@Model.Event.Description</p>
+                    <h4 class="mt-4">Thông tin chi tiết:</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Loại sự kiện:</strong> @Model.Event.Eventtypes.EventtypesName - Một sự kiện đầy hấp dẫn dành cho bạn!</li>
+                        <li class="list-group-item"><strong>Thời gian kết thúc:</strong> @Model.Event.EndTime - Hãy sắp xếp thời gian để không bỏ lỡ phút giây nào!</li>
+                        <li class="list-group-item"><strong>Số lượng tối thiểu:</strong> @Model.Event.RequiredParticipants người - Chúng ta cần đủ số lượng để sự kiện diễn ra tốt nhất!</li>
+                        <li class="list-group-item"><strong>Số lượng tối đa:</strong> @Model.Event.MaxParticipants người - Hãy đăng ký sớm để giữ chỗ!</li>
+                        <li class="list-group-item"><strong>Dress Code:</strong> @Model.Event.DressCode - Đừng quên mặc trang phục phù hợp để có trải nghiệm tốt nhất.</li>
+                        <li class="list-group-item"><strong>Link nhóm sự kiện:</strong> <a href="@Model.Event.EventGroupLink" target="_blank">Tham gia ngay</a> để cập nhật thông tin mới nhất!</li>
+                        <li class="list-group-item"><strong>Danh sách điểm danh:</strong> <a href="@Model.Event.AttendanceListLink" target="_blank">Xem danh sách</a> để kiểm tra tình trạng đăng ký của bạn.</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-page="Participants" asp-route-eventId="@Model.Event.EventsId" class="btn btn-primary btn-lg">
+                        <i class="fas fa-users"></i> Xem người tham gia
+                    </a>
+                    <a asp-page="Preview" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var eventData = @Html.Raw(Json.Serialize(Model.Event));
+    console.log("Event Data: ", eventData);
+
+    // Countdown Timer
+    function updateCountdown() {
+        var eventTime = new Date(eventData.EventTime).getTime();
+        var now = new Date().getTime();
+        var timeLeft = eventTime - now;
+
+        if (timeLeft > 0) {
+            var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = `Sự kiện sẽ diễn ra sau: ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây. Hãy sẵn sàng!`;
+        } else {
+            document.getElementById("countdown").innerHTML = "Sự kiện đã bắt đầu! Chúc bạn có một trải nghiệm tuyệt vời!";
+        }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
