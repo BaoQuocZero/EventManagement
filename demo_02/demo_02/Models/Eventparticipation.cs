@@ -25,8 +25,8 @@ public partial class Eventparticipation
     public bool? IsDelete { get; set; }
 
     public virtual ICollection<Eventdonation> Eventdonations { get; set; } = new List<Eventdonation>();
-    //[JsonIgnore]
+    [JsonIgnore]
     public virtual Event Events { get; set; }
-    //[JsonIgnore]
+    [JsonIgnore]
     public virtual User User { get; set; }
 }

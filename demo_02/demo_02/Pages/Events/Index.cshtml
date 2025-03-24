@@ -71,10 +71,17 @@
                             }
                         },
                         {
-                            hint: "Xem",
-                            icon: "fas fa-eye",
+                            hint: "Quản lý",
+                            icon: "fa-solid fa-circle-info",
                             onClick: function (e) {
                                 window.location.href = `/Events/Details?id=${e.row.data.EventsId}`;
+                            }
+                        },
+                                                {
+                            hint: "Xem trước",
+                            icon: "fas fa-eye",
+                            onClick: function (e) {
+                                window.location.href = `/Events/Preview?id=${e.row.data.EventsId}`;
                             }
                         },
                         {
