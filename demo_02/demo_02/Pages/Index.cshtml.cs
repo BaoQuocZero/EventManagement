@@ -38,10 +38,10 @@ namespace demo_02.Pages
             var stopwatch = Stopwatch.StartNew(); // Bắt đầu đo thời gian
             SessionUserId = HttpContext.Session.GetString("UserId") ?? "Không có UserId";
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
-            {
-                return RedirectToPage("/Account/Login");
-            }
+            //if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            //{
+            //    return RedirectToPage("/Account/Login");
+            //}
 
             // Thống kê tổng số sự kiện
             TotalEvents = await _context.Events.CountAsync();
