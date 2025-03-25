@@ -22,34 +22,62 @@ namespace demo_02.Servers
                 .ToListAsync();
         }
 
-        public IQueryable<Notification> GetNotifications()
-        {
-            return _context.Notifications.Include(n => n.Notificationtypes);
-        }
+        //public IQueryable<Notification> GetNotifications()
+        //{
+        //    return _context.Notifications.Include(n => n.Notificationtypes);
+        //}
 
-        public async Task<bool> DeleteNotificationAsync(int id)
-        {
-            var notification = await _context.Notifications.FindAsync(id);
-            if (notification == null) return false;
 
-            _context.Notifications.Remove(notification);
+
+        // Xóa thông báo thành công
+        public async Task<bool> DeleteNotificationAsync(int NotificationsId)
+        {
+            var existingNotification = await _context.Notifications.FindAsync(NotificationsId);
+            if (existingNotification == null)
+            {
+                return false; // Không tìm thấy thông báo
+            }
+
+            _context.Notifications.Remove(existingNotification); // Xóa vĩnh viễn
             await _context.SaveChangesAsync();
-            return true;
+            return true; // Xóa thành công
         }
 
-        public async Task<bool> CreateNotificationAsync(Notification notification)
+        public async Task<Notification> GetNotificationByIdAsync(int NotificationsId)
         {
-            if (notification == null) return false;
+            var notification = await _context.Notifications
+                .Where(n => n.NotificationsId == NotificationsId && (n.IsDelete == false || n.IsDelete == null))
+                .Include(n => n.Notificationtypes)
+                .FirstOrDefaultAsync();
 
-            // Kiểm tra loại thông báo có tồn tại không
-            var typeExists = await _context.Notificationtypes
-                .AnyAsync(nt => nt.NotificationtypesId == notification.NotificationtypesId);
-            if (!typeExists) return false;
-
-            _context.Notifications.Add(notification);
-            await _context.SaveChangesAsync();
-            return true;
+            return notification;
         }
+
+        // Lấy loại thông báo
+        public async Task<List<Notificationtype>> GetNotificationTypesAsync()
+        {
+            return await _context.Notificationtypes
+                .Where(n => n.IsDelete == false)
+                .ToListAsync();
+        }
+
+
+        //public async Task<bool> CreateNotificationAsync(Notification notification)
+        //{
+        //    if (notification == null) return false;
+
+        //    // Kiểm tra loại thông báo có tồn tại không
+        //    var typeExists = await _context.Notificationtypes
+        //        .AnyAsync(nt => nt.NotificationtypesId == notification.NotificationtypesId);
+        //    if (!typeExists) return false;
+
+        //    _context.Notifications.Add(notification);
+        //    await _context.SaveChangesAsync();
+        //    return true;
+        //}
+
+
+
 
         public async Task<bool> UpdateNotificationAsync(Notification notification)
         {
@@ -59,7 +87,9 @@ namespace demo_02.Servers
             existingNotification.Title = notification.Title;
             existingNotification.Message = notification.Message;
             existingNotification.NotificationtypesId = notification.NotificationtypesId;
+            existingNotification.Status = notification.Status;
             existingNotification.CreateAt = notification.CreateAt;
+            existingNotification.UpdateAt = notification.UpdateAt;
 
             _context.Notifications.Update(existingNotification);
             await _context.SaveChangesAsync();
@@ -115,6 +145,20 @@ namespace demo_02.Servers
             return await _context.Notificationtypes
                 .Where(nt => nt.NotificationtypesId == id && (nt.IsDelete == false || nt.IsDelete == null))
                 .FirstOrDefaultAsync();
+        }
+
+
+        public async Task<bool> DeleteNotificationTypeAsync(int NotificationtypesId)
+        {
+            var existingNotificationtype = await _context.Notificationtypes.FindAsync(NotificationtypesId);
+            if (existingNotificationtype == null)
+            {
+                return false; // Không tìm thấy loại thông báo
+            }
+
+            _context.Notificationtypes.Remove(existingNotificationtype); // Xóa vĩnh viễn
+            await _context.SaveChangesAsync();
+            return true; // Xóa thành công
         }
 
 
