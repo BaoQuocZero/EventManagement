@@ -19,7 +19,9 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnGetAsync()
     {
-        EventTypes = await _context.Eventtypes.ToListAsync(); // Lấy danh sách loại sự kiện
+        EventTypes = await _context.Eventtypes
+        .Where(e => e.IsDelete == false) // Lọc bỏ các bản ghi đã bị xóa mềm
+        .ToListAsync(); // Lấy danh sách loại sự kiện
         return Page();
     }
 
