@@ -22,7 +22,9 @@ namespace demo_02.Pages.Notifications
         }
 
         [BindProperty]
-        public int? DeleteId { get; set; } // Lưu ID sự kiện cần xóa
+        public int? DeleteId { get; set; } // Lưu ID thông báo cần xóa
+
+
 
         public async Task<IActionResult> OnPostAsync()
         {

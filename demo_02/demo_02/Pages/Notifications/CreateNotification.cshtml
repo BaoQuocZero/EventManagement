@@ -1,0 +1,83 @@
+﻿@page
+@model demo_02.Pages.Notifications.CreateNotificationModel
+@{
+    ViewData["Title"] = "Thêm mới thông báo";
+}
+
+<div class="dx-card p-4 shadow-lg">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+    <form method="post">
+        <div class="dx-form">
+            <div class="col-md-12">
+                <div class="dx-form-group">
+                    <label><i class="dx-icon-event"></i> Tên thông báo</label>
+                    @(Html.DevExtreme().TextBox()
+                        .ID("Title")
+                        .Value(Model.Notification?.Title)
+                        .Name("Notification.Title")
+                        .Placeholder("Nhập tên thông báo")
+                        .ShowClearButton(true)
+                        )
+                </div>
+
+                <div class="dx-form-group">
+                    <label><i class="dx-icon-selectbox"></i> Loại thông báo</label>
+                    @(Html.DevExtreme().SelectBox()
+                        .ID("Notificationtype")
+                        .Name("Notification.NotificationtypesId")
+                        .DataSource(Model.NotificationType)
+                        .ValueExpr("NotificationtypesId")
+                        .DisplayExpr("Name")
+                        .Placeholder("Chọn loại thông báo")
+                        )
+                </div>
+
+                <div class="dx-form-group">
+                    <label><i class="dx-icon-info"></i> Mô tả</label>
+                    @(Html.DevExtreme().TextArea()
+                        .ID("Message")
+                        .Value(Model.Notification?.Message)
+                        .Name("Notification.Message")
+                        .Placeholder("Nhập mô tả")
+                        .Height(100)
+                        )
+                </div>
+
+                <div class="dx-form-group">
+                    <label><i class="dx-icon-check"></i> Trạng thái</label>
+                    @(Html.DevExtreme().TextArea()
+                        .ID("Status")
+                        .Value(Model.Notification?.Status)
+                        .Name("Notification.Status")
+                        .Placeholder("Trạng thái")
+                        .Height(100)
+                        )
+                </div>
+
+                <div class="dx-form-group text-center mt-4">
+                    <!-- Nút Thêm Thông Báo -->
+                    @(Html.DevExtreme().Button()
+                        .Text("Thêm thông báo")
+                        .Type(ButtonType.Success)
+                        .UseSubmitBehavior(true)
+                        .Width(200)
+                        .StylingMode(ButtonStylingMode.Contained)
+                        .Icon("add")
+                        )
+
+                    <!-- Nút Quay lại -->
+                    @(Html.DevExtreme().Button()
+                        .Text("Quay lại")
+                        .Type(ButtonType.Normal)
+                        .StylingMode(ButtonStylingMode.Outlined)
+                        .Icon("arrowleft")
+                        .Width(150)
+                        .OnClick("function() { window.location.href = '/Notifications/IndexNotification'; }")
+                        .ElementAttr("class", "ml-2")
+                        )
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -47,6 +47,7 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
+
 // Tạo scope để chạy Seeder
 //using (var scope = app.Services.CreateScope())
 //{

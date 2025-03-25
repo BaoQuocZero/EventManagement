@@ -1,0 +1,94 @@
+﻿@page
+@using demo_02.Models
+@model demo_02.Pages.Notifications.EditNotificationModel
+@{
+    ViewData["Title"] = "Chỉnh sửa thông báo";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3><i class="fas fa-edit"></i> Chỉnh sửa thông báo</h3>
+                </div>
+
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="Notification.NotificationsId" />
+
+                        <!-- Tiêu đề thông báo -->
+                        <div class="mb-3">
+                            <label asp-for="Notification.Title" class="form-label fw-bold">
+                                <i class="fas fa-bell"></i> Tiêu đề thông báo
+                            </label>
+                            <input asp-for="Notification.Title" class="form-control" placeholder="Nhập tiêu đề thông báo..." />
+                        </div>
+
+                        <!-- Loại thông báo -->
+                        <div class="mb-3">
+                            <label asp-for="Notification.NotificationtypesId" class="form-label fw-bold">
+                                <i class="fas fa-list"></i> Loại thông báo
+                            </label>
+                            <select asp-for="Notification.NotificationtypesId" class="form-control">
+                                <option value="">Chọn loại thông báo</option>
+                                @foreach (var type in ViewData["NotificationTypes"] as List<Notificationtype>)
+                                {
+                                    <option value="@type.NotificationtypesId">@type.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Nội dung thông báo -->
+                        <div class="mb-3">
+                            <label asp-for="Notification.Message" class="form-label fw-bold">
+                                <i class="fas fa-info-circle"></i> Nội dung
+                            </label>
+                            <textarea asp-for="Notification.Message" class="form-control" rows="4"
+                                      placeholder="Nhập nội dung thông báo..."></textarea>
+                        </div>
+
+                        <!-- Trạng thái -->
+                        <div class="mb-3">
+                            <label asp-for="Notification.Status" class="form-label fw-bold">
+                                <i class="fas fa-toggle-on"></i> Trạng thái
+                            </label>
+                            <select asp-for="Notification.Status" class="form-control">
+                                <option value="Đã xem">Đã xem</option>
+                                <option value="Chưa xem">Chưa xem</option>
+                            </select>
+                        </div>
+
+                        <!-- Ngày tạo -->
+                        <div class="mb-3">
+                            <label asp-for="Notification.CreateAt" class="form-label fw-bold">
+                                <i class="fas fa-calendar-alt"></i> Ngày tạo
+                            </label>
+                            <input asp-for="Notification.CreateAt" type="datetime-local" class="form-control" />
+                        </div>
+
+                        <!-- Ngày cập nhật -->
+                        <div class="mb-3">
+                            <label asp-for="Notification.UpdateAt" class="form-label fw-bold">
+                                <i class="fas fa-calendar-check"></i> Ngày cập nhật
+                            </label>
+                            <input asp-for="Notification.UpdateAt" type="datetime-local" class="form-control" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="fas fa-save"></i> Cập nhật
+                            </button>
+                            <a asp-page="Index" class="btn btn-secondary px-4">
+                                <i class="fas fa-arrow-left"></i> Hủy
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome (Nếu bạn chưa có) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

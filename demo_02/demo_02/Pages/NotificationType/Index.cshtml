@@ -25,6 +25,10 @@
     </div>
 </div>
 
+<form method="post" id="deleteForm">
+    <input type="hidden" name="DeleteId" id="deleteId">
+</form>
+
 <script>
     $(function () {
         $("#notificationTypeGrid").dxDataGrid({
@@ -60,7 +64,12 @@
                             icon: "trash",
                             cssClass: "dx-button-danger",
                             onClick: function (e) {
-                                deleteNotificationType(e.row.data.NotificationtypesId);
+                                if (confirm("Bạn có chắc chắn muốn xóa loại thông báo này?")) {
+                                    console.log(">>>>>>>>>>>>>>>>>>>"+e.row.data.NotificationtypesId);
+                                    document.getElementById("deleteId").value = e.row.data.NotificationtypesId;
+                                    document.getElementById("deleteForm").submit();
+
+                                }
                             }
                         }
                     ]
@@ -68,20 +77,4 @@
             ]
         });
     });
-
-    function deleteNotificationType(id) {
-        if (confirm("Bạn có chắc chắn muốn xóa loại thông báo này?")) {
-            fetch(`/NotificationType/Index?handler=Delete&id=` + id, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" }
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      location.reload(); // Tải lại trang sau khi xóa thành công
-                  } else {
-                      alert("Xóa không thành công!");
-                  }
-              });
-        }
-    }
 </script>
