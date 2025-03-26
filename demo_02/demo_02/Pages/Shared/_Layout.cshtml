@@ -119,63 +119,32 @@
                     @using demo_02.Models
                 }
 
-<<<<<<< HEAD
-                <div class="dropdown notification-icon" style="right: 20px; top: 13px; color: white; position: absolute;">
-                    <i id="notificationDropdown" class="bi bi-bell fs-5 position-relative">
-                        <span id="notificationCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill"
-                              style="display: @(allNotifications.Count > 0 ? "inline" : "none");">
-                            @allNotifications.Count
-                        </span>
-                    </i>
-                    <div id="notificationMenu" class="dropdown-menu p-3" style="width: 320px; max-height: 400px; overflow-y: auto;">
-                        <h6 class="dropdown-header text-dark">Thông báo</h6>
-                        <div id="notificationList">
-                            @foreach (var notification in allNotifications.Take(5)) // Chỉ hiển thị 5 thông báo đầu tiên
-                            {
-                                <div class="notification-item">
-                                    <strong class="text-dark">@notification.Title</strong>
-                                    <span class="text-muted ms-2 small d-block">@notification.Message</span>
-                                </div>
-                            }
-                        </div>
-                        <div id="loading" style="display: none; text-align: center; padding: 10px;">
-                            <span>Đang tải...</span>
-                        </div>
-                    </div>
-                </div>
-=======
                 <!-- Thêm div chứa hai icon để đảm bảo căn phải -->
                 <div class="d-flex align-items-center ms-auto">
                     <!-- Icon Thông báo -->
-                    <div class="dropdown me-3">
-                        <a class="nav-link position-relative dropdown-toggle" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-bell fs-5"></i>
-                            @if (notificationCount > 0)
-                            {
-                                <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
-                                    @notificationCount
-                                </span>
-                            }
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                            @if (notificationCount > 0)
-                            {
-                                @foreach (var notification in notifications)
+                    <div class="dropdown notification-icon" style="right: 20px; top: 13px; color: white; position: absolute;">
+                        <i id="notificationDropdown" class="bi bi-bell fs-5 position-relative">
+                            <span id="notificationCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill"
+                                  style="display: @(allNotifications.Count > 0 ? "inline" : "none");">
+                                @allNotifications.Count
+                            </span>
+                        </i>
+                        <div id="notificationMenu" class="dropdown-menu p-3" style="width: 320px; max-height: 400px; overflow-y: auto;">
+                            <h6 class="dropdown-header text-dark">Thông báo</h6>
+                            <div id="notificationList">
+                                @foreach (var notification in allNotifications.Take(5)) // Chỉ hiển thị 5 thông báo đầu tiên
                                 {
-                                    <li>
-                                        <a class="dropdown-item" href="/Notification/Details/@notification.NotificationsId">
-                                            <strong>@notification.Title</strong> - @notification.Message
-                                        </a>
-                                    </li>
+                                    <div class="notification-item">
+                                        <strong class="text-dark">@notification.Title</strong>
+                                        <span class="text-muted ms-2 small d-block">@notification.Message</span>
+                                    </div>
                                 }
-                            }
-                            else
-                            {
-                                <li><span class="dropdown-item text-muted">Không có thông báo</span></li>
-                            }
-                        </ul>
+                            </div>
+                            <div id="loading" style="display: none; text-align: center; padding: 10px;">
+                                <span>Đang tải...</span>
+                            </div>
+                        </div>
                     </div>
->>>>>>> c78d44d4e4c7fb3af087d6370772ba9744104659
 
                     <!-- Icon User -->
                     <div class="dropdown">
