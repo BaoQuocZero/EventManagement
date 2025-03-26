@@ -57,7 +57,8 @@ namespace demo_02.Pages
 
             // Thống kê loại sự kiện
             EventTypesData = await _context.Eventtypes
-                .Select(et => new { et.EventtypesName, Count = et.Events.Count })
+                .Where(et => et.IsDelete == false) // Lọc trước khi Select
+                .Select(et => new { et.EventtypesName, Count = et.Events.Count() }) // Sử dụng Count()
                 .ToDictionaryAsync(e => e.EventtypesName, e => e.Count);
 
             // Thống kê trạng thái sự kiện
