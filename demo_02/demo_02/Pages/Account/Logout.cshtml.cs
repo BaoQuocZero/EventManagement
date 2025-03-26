@@ -6,9 +6,6 @@ public class LogoutModel : PageModel
 {
     public async Task<IActionResult> OnGet()
     {
-        // Xoá cookie authentication
-        await HttpContext.SignOutAsync();
-
         // Xoá tất cả cookie
         foreach (var cookie in Request.Cookies.Keys)
         {
