@@ -1,5 +1,4 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -106,7 +105,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div id="navbar" class="collapse navbar-collapse">
+            <div id="navbar" class="navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
                     <li class="nav-item">
@@ -123,37 +122,32 @@
 
                 @inject demo_02.Servers.NotificationService NotificationService
                 @{
-                    var notifications = (await NotificationService.GetAllNotificationsAsync()).Take(5).ToList();
-                    var notificationCount = notifications.Count;
+                    var allNotifications = (await NotificationService.GetAllNotificationsAsync()).ToList(); // Lấy tất cả thông báo
+                    @using demo_02.Models
                 }
 
-                <div class="dropdown notification-icon" style="position: absolute; right: 20px; top: 10px; color: white;">
-                    <a class="nav-link position-relative dropdown-toggle" href="javascript:void(0);" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell fs-5"></i>
-                        @if (notificationCount > 0)
-                        {
-                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
-                                @notificationCount
-                            </span>
-                        }
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        @if (notificationCount > 0)
-                        {
-                            @foreach (var notification in notifications.Take(5))
+                <div class="dropdown notification-icon" style="right: 20px; top: 13px; color: white; position: absolute;">
+                    <i id="notificationDropdown" class="bi bi-bell fs-5 position-relative">
+                        <span id="notificationCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill"
+                              style="display: @(allNotifications.Count > 0 ? "inline" : "none");">
+                            @allNotifications.Count
+                        </span>
+                    </i>
+                    <div id="notificationMenu" class="dropdown-menu p-3" style="width: 320px; max-height: 400px; overflow-y: auto;">
+                        <h6 class="dropdown-header text-dark">Thông báo</h6>
+                        <div id="notificationList">
+                            @foreach (var notification in allNotifications.Take(5)) // Chỉ hiển thị 5 thông báo đầu tiên
                             {
-                                <li>
-                                    <a class="dropdown-item" href="/Notification/Details/@notification.NotificationsId">
-                                        <strong>@notification.Title</strong> - @notification.Message
-                                    </a>
-                                </li>
+                                <div class="notification-item">
+                                    <strong class="text-dark">@notification.Title</strong>
+                                    <span class="text-muted ms-2 small d-block">@notification.Message</span>
+                                </div>
                             }
-                        }
-                        else
-                        {
-                            <li><span class="dropdown-item text-muted">Không có thông báo</span></li>
-                        }
-                    </ul>
+                        </div>
+                        <div id="loading" style="display: none; text-align: center; padding: 10px;">
+                            <span>Đang tải...</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -180,88 +174,110 @@
         });
     </script>
 
-@*     Phần script của thông báo *@
+    @*     Phần script của thông báo *@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var dropdownTrigger = document.getElementById("notificationDropdown");
-            var dropdownMenu = document.querySelector(".dropdown-menu");
+            var dropdownMenu = document.getElementById("notificationMenu");
 
             dropdownTrigger.addEventListener("click", function (event) {
-                event.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
-
-                // Toggle class 'show' để bật/tắt dropdown
+                event.stopPropagation();
                 dropdownMenu.classList.toggle("show");
             });
 
-            // Đóng dropdown khi click ra ngoài
             document.addEventListener("click", function (event) {
                 if (!dropdownTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
                     dropdownMenu.classList.remove("show");
                 }
             });
-
-            // Ngăn dropdown đóng khi click vào nội dung dropdown
-            dropdownMenu.addEventListener("click", function (event) {
-                event.stopPropagation();
-            });
         });
     </script>
 
+    <script>
+        let allNotifications = @Html.Raw(Json.Serialize(allNotifications ?? new List<Notification>()));
+        console.log(allNotifications); // Kiểm tra dữ liệu
+        // Chuyển danh sách thông báo vào JS
+        let visibleCount = 5; // Số lượng thông báo ban đầu
+        let isLoading = false;
+
+        document.getElementById('notificationMenu').addEventListener('scroll', function () {
+            const notificationMenu = this;
+            if (notificationMenu.scrollTop + notificationMenu.clientHeight >= notificationMenu.scrollHeight - 10) {
+                if (!isLoading && visibleCount < allNotifications.length) {
+                    isLoading = true;
+                    document.getElementById('loading').style.display = 'block';
+
+                    setTimeout(() => {
+                        let notificationList = document.getElementById('notificationList');
+                        let newNotifications = allNotifications.slice(visibleCount, visibleCount + 5); // Lấy thêm 5 thông báo
+
+                        newNotifications.forEach(notification => {
+                            let div = document.createElement('div');
+                            div.classList.add('notification-item');
+                            div.innerHTML = `<strong class="text-dark">${notification.Title}</strong>
+                             <span class="text-muted ms-2 small d-block">${notification.Message}</span>`; // Đảm bảo viết đúng `Title` và `Message`
+                            notificationList.appendChild(div);
+                        });
 
 
-
+                        visibleCount += 5; // Cập nhật số lượng hiển thị
+                        document.getElementById('loading').style.display = 'none';
+                        isLoading = false;
+                    }, 500); // Giả lập thời gian tải
+                }
+            }
+        });
+    </script>
     <style>
-        /* Định dạng dropdown */
-        .dropdown-menu {
+        .notification-icon {
+            cursor: pointer;
+        }
+
+            .notification-item:hover {
+                background: #f1f1f1;
+            }
+
+            #notificationMenu.show {
+                display: block;
+            }
+
+        #notificationCount {
+            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 50%;
+            min-width: 20px;
+            min-height: 20px;
+            text-align: center;
+            line-height: 14px;
+        }
+
+        #notificationMenu {
             display: none;
             position: absolute;
             right: 0;
             top: 40px;
+            width: 500px;
             background: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             border-radius: 8px;
-            min-width: 300px;
-            padding: 10px;
-            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1050;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
-            /* Hiển thị dropdown khi có class 'show' */
-            .dropdown-menu.show {
-                display: block;
-            }
+        .notification-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 60px; /* Đảm bảo chiều cao tối thiểu */
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            white-space: pre-line; /* Giữ đúng định dạng xuống dòng */
+            word-wrap: break-word;
+        }
 
-            /* Định dạng từng thông báo */
-            .dropdown-menu li {
-                list-style: none;
-                border-bottom: 1px solid #eee;
-                padding: 10px;
-                font-size: 14px;
-                transition: background 0.3s ease;
-            }
 
-                /* Hiệu ứng hover */
-                .dropdown-menu li:hover {
-                    background: #f5f5f5;
-                }
 
-                /* Định dạng chữ */
-                .dropdown-menu li a {
-                    text-decoration: none;
-                    color: #333;
-                    font-weight: 500;
-                    display: block;
-                }
-
-                    /* Làm nổi bật tiêu đề thông báo */
-                    .dropdown-menu li a strong {
-                        font-weight: bold;
-                        color: #222;
-                    }
-
-                /* Loại bỏ border cho thông báo cuối cùng */
-                .dropdown-menu li:last-child {
-                    border-bottom: none;
-                }
     </style>
 </body>
 
