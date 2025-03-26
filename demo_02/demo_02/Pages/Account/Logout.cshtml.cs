@@ -1,10 +1,20 @@
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class LogoutModel : PageModel
 {
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGet()
     {
+        // Xoá cookie authentication
+        await HttpContext.SignOutAsync();
+
+        // Xoá tất cả cookie
+        foreach (var cookie in Request.Cookies.Keys)
+        {
+            Response.Cookies.Delete(cookie);
+        }
+
         return RedirectToPage("/Account/Login");
     }
 }
