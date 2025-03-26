@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using demo_02.Models;
+﻿using demo_02.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-namespace demo_02.Pages.Users
+using Microsoft.EntityFrameworkCore;
+
+namespace demo_02.Pages.Account
 {
-    public class EditModel : PageModel
+    public class ProfileModel : PageModel
     {
+        private readonly EventManagementContext _context;
         private readonly EventService _eventService;
 
-        public EditModel(EventService eventService)
+        public ProfileModel(EventManagementContext context, EventService eventService)
         {
+            _context = context;
             _eventService = eventService;
         }
 
@@ -21,11 +21,24 @@ namespace demo_02.Pages.Users
         public User User { get; set; }  // Người dùng cần chỉnh sửa
 
         public List<SelectListItem> RolesList { get; set; } // Danh sách quyền
+        public string SessionUserId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync()
         {
-            // Tìm người dùng theo ID
-            User = await _eventService.GetUserByIdAsync(id);
+            SessionUserId = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(SessionUserId))
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            if (!int.TryParse(SessionUserId, out int userId))
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            User = await _eventService.GetUserByIdAsync(userId);
+
             if (User == null)
             {
                 return NotFound();
@@ -58,7 +71,7 @@ namespace demo_02.Pages.Users
                 return Page();
             }
 
-            return RedirectToPage("./Details", new { id = User.UserId });
+            return RedirectToPage(); // Load lại trang Profile
         }
     }
 }

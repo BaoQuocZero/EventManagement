@@ -203,7 +203,7 @@ public class EventService
         return true;
     }
     //Update Role & NameClass
-    public async Task<bool> UpdateUserRoleAndClassAsync(int userId, int roleId, string classId, string className)
+    public async Task<bool> UpdateUserRoleAndClassAsync(int userId, int roleId, string classId, string className, string fullName)
     {
         try
         {
@@ -221,6 +221,7 @@ public class EventService
             existingUser.RolesId = roleId;
             existingUser.Classid = classId;
             existingUser.Classname = className;
+            existingUser.FullName = fullName;
             existingUser.UpdateAt = DateTime.Now;
 
             await _context.SaveChangesAsync();

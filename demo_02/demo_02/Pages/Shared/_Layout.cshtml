@@ -146,12 +146,16 @@
                 icon: "user",
                 text: "Tài khoản",
                 items: [
-                    { id: 1, text: "Hồ sơ", icon: "user", onClick: () => alert("Đi đến Hồ sơ") },
+                    { id: 1, text: "Hồ sơ", icon: "user"},
                     { id: 2, text: "Đăng xuất", icon: "runner", onClick: () => alert("Đăng xuất") }
                 ],
                 displayExpr: "text",
                 keyExpr: "id",
                 onItemClick: function (e) {
+                    if (e.itemData.id === 1) {
+                        // Chuyển hướng khi đăng xuất
+                        window.location.href = "Account/Profile";
+                    }
                     if (e.itemData.id === 2) {
                         // Chuyển hướng khi đăng xuất
                         window.location.href = "Account/logout";
