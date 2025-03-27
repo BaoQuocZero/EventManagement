@@ -56,18 +56,7 @@ public class LoginModel : PageModel
         HttpContext.Session.SetString("ClassName", user.Classname ?? ""); // ✅ Lưu tên lớp
         HttpContext.Session.SetString("CreatedAt", user.CreateAt?.ToString("dd/MM/yyyy") ?? ""); // ✅ Lưu ngày tạo tài khoản
 
-        // Gán giá trị để hiển thị trên giao diện
-        LoggedInUserId = user.UserId.ToString();
-        LoggedInFullName = user.FullName;
-        LoggedInEmail = user.Email;
-        LoggedInRolesId = user.RolesId.ToString();
-        LoggedInPhone = user.PhoneNumber; // ✅ Hiển thị số điện thoại
-        LoggedInStudentId = user.StudentId; // ✅ Hiển thị mã sinh viên
-        LoggedInClassId = user.Classid; // ✅ Hiển thị mã lớp
-        LoggedInClassName = user.Classname; // ✅ Hiển thị tên lớp
-        LoggedInCreatedAt = user.CreateAt?.ToString("dd/MM/yyyy"); // ✅ Hiển thị ngày tạo tài khoản
-
-        return Page(); // Quay lại chính trang đăng nhập nhưng hiển thị thông tin user
+        return RedirectToPage("/Index");
     }
 }
 
@@ -76,3 +65,4 @@ public class LoginInputModel
     public string LoginInfo { get; set; }
     public string Password { get; set; }
 }
+
