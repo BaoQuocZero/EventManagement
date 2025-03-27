@@ -83,39 +83,10 @@
                     @using demo_02.Models
                 }
 
-                <!-- Thêm div chứa hai icon để đảm bảo căn phải -->
                 <div class="d-flex align-items-center ms-auto">
-                    <!-- Icon Thông báo -->
-                    @* <div class="dropdown notification-icon" style="right: 20px; top: 13px; color: white; position: absolute;"> *@
-                    @*     <i id="notificationDropdown" class="bi bi-bell fs-5 position-relative"> *@
-                    @*         <span id="notificationCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill" *@
-                    @*               style="display: @(allNotifications.Count > 0 ? "inline" : "none");"> *@
-                    @*             @allNotifications.Count *@
-                    @*         </span> *@
-                    @*     </i> *@
-                    @*     <div id="notificationMenu" class="dropdown-menu p-3" style="width: 320px; max-height: 400px; overflow-y: auto;"> *@
-                    @*         <h6 class="dropdown-header text-dark">Thông báo</h6> *@
-                    @*         <div id="notificationList"> *@
-                    @*             @foreach (var notification in allNotifications.Take(5)) // Chỉ hiển thị 5 thông báo đầu tiên *@
-                    @*             { *@
-                    @*                 <div class="notification-item"> *@
-                    @*                     <strong class="text-dark">@notification.Title</strong> *@
-                    @*                     <span class="text-muted ms-2 small d-block">@notification.Message</span> *@
-                    @*                 </div> *@
-                    @*             } *@
-                    @*         </div> *@
-                    @*         <div id="loading" style="display: none; text-align: center; padding: 10px;"> *@
-                    @*             <span>Đang tải...</span> *@
-                    @*         </div> *@
-                    @*     </div> *@
-                    @* </div> *@
-
-                    <!-- Icon User -->
-                    <!-- Thêm DevExtreme DropDownButton -->
                     <div id="userDropdown"></div>
-
-
                 </div>
+
             </div>
         </div>
     </nav>
@@ -168,57 +139,6 @@
         });
     </script>
 
-    <style>
-        .notification-icon {
-            cursor: pointer;
-        }
-
-            .notification-item:hover {
-                background: #f1f1f1;
-            }
-
-            #notificationMenu.show {
-                display: block;
-            }
-
-        #notificationCount {
-            font-size: 12px;
-            padding: 3px 6px;
-            border-radius: 50%;
-            min-width: 20px;
-            min-height: 20px;
-            text-align: center;
-            line-height: 14px;
-        }
-
-        #notificationMenu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 40px;
-            width: 500px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-            z-index: 1050;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .notification-item {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 60px; /* Đảm bảo chiều cao tối thiểu */
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            white-space: pre-line; /* Giữ đúng định dạng xuống dòng */
-            word-wrap: break-word;
-        }
-
-
-
-    </style>
 </body>
 
 </html>
