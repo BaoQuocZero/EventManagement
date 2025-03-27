@@ -113,55 +113,70 @@
             });
         });
 
-         $(function () {
+        $(function () {
+            // Dropdown người dùng
             $("#userDropdown").dxDropDownButton({
                 icon: "user",
-                text: "Tài khoản",
+                stylingMode: "text", // Chỉ hiển thị icon, không có viền
+                useSelectMode: false, // Loại bỏ mũi tên dropdown
+                dropDownOptions: {
+                    width: 150,
+                    height: "auto"
+                },
                 items: [
-                    { id: 1, text: "Hồ sơ", icon: "user"},
-                    { id: 2, text: "Đăng xuất", icon: "runner", onClick: () => alert("Đăng xuất") }
+                    { id: 1, text: "Hồ sơ", icon: "user" },
+                    { id: 2, text: "Đăng xuất", icon: "runner" }
                 ],
                 displayExpr: "text",
                 keyExpr: "id",
                 onItemClick: function (e) {
                     if (e.itemData.id === 1) {
-                        // Chuyển hướng khi đăng xuất
                         window.location.href = "Account/Profile";
                     }
                     if (e.itemData.id === 2) {
-                        // Chuyển hướng khi đăng xuất
                         window.location.href = "Account/logout";
                     }
                 },
                 elementAttr: {
-                    style: "background-color: white; border: 1px solid #ccc; color: black;"
+                    class: "custom-icon-white"
                 }
             });
-        });
-            $(function () {
+
+            // Lấy danh sách thông báo từ server-side
             let allNotifications = @Html.Raw(Json.Serialize(allNotifications ?? new List<Notification>()));
 
             $("#notificationDropdown").dxDropDownButton({
                 icon: "bell",
-                text: `Thông báo (${allNotifications.length})`,
-                stylingMode: "contained",
-                type: "default",
+                stylingMode: "text", // Chỉ hiển thị icon, không viền
+                useSelectMode: false, // Loại bỏ mũi tên dropdown
                 dropDownOptions: {
-                    width: 320,
+                    width: 300,
                     height: "auto"
                 },
-                items: allNotifications.map(n => ({
+                items: allNotifications.length > 0 ? allNotifications.map(n => ({
                     text: n.Title,
                     hint: n.Message
-                })),
+                })) : [{ text: "Không có thông báo", disabled: true }],
                 displayExpr: "text",
                 onItemClick: function (e) {
-                    alert(e.itemData.hint); // Hiển thị nội dung thông báo
+                    if (!e.itemData.disabled) {
+                        alert(e.itemData.hint); // Hiển thị nội dung thông báo
+                    }
+                },
+                elementAttr: {
+                    class: "custom-icon-white"
                 }
             });
         });
-    </script>
 
+    </script>
+    <style>
+        .custom-icon-white .dx-icon {
+            color: white !important; /* Đảm bảo icon có màu trắng */
+            font-size: 1.4rem; /* Tăng kích thước icon */
+        }
+
+    </style>
 </body>
 
 </html>
