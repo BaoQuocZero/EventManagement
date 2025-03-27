@@ -84,6 +84,7 @@
                 }
 
                 <div class="d-flex align-items-center ms-auto">
+                    <div id="notificationDropdown"></div>
                     <div id="userDropdown"></div>
                 </div>
 
@@ -134,6 +135,28 @@
                 },
                 elementAttr: {
                     style: "background-color: white; border: 1px solid #ccc; color: black;"
+                }
+            });
+        });
+            $(function () {
+            let allNotifications = @Html.Raw(Json.Serialize(allNotifications ?? new List<Notification>()));
+
+            $("#notificationDropdown").dxDropDownButton({
+                icon: "bell",
+                text: `Thông báo (${allNotifications.length})`,
+                stylingMode: "contained",
+                type: "default",
+                dropDownOptions: {
+                    width: 320,
+                    height: "auto"
+                },
+                items: allNotifications.map(n => ({
+                    text: n.Title,
+                    hint: n.Message
+                })),
+                displayExpr: "text",
+                onItemClick: function (e) {
+                    alert(e.itemData.hint); // Hiển thị nội dung thông báo
                 }
             });
         });
