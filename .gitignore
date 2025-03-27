@@ -27,7 +27,6 @@ project.lock.json
 project.assets.json
 
 # ASP.NET Core
-wwwroot/
 appsettings*.json
 
 # Thư viện JavaScript & CSS đã tải về
